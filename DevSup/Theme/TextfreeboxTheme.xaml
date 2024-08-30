@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="{x:Type TextBox}" x:Key="ModernTextfreebox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border CornerRadius="10"
+                        Background="#353340">
+                        <Grid>
+                            <Rectangle StrokeThickness="1" Fill="Transparent"/>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                      Margin="1"
+                                      Background="Transparent"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      Padding="5"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

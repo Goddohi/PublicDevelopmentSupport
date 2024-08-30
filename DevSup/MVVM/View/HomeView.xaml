@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="DevSup.MVVM.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DevSup.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <!-- 테스트 목적-->
+        <TextBlock Text="제작자 ChoiKyungTae" Foreground="Wheat"
+                   FontSize="28" HorizontalAlignment="Left"
+                   Margin="0,0,0,20"/>
+
+        <StackPanel Orientation="Horizontal">
+            <Border Width="400" Height="200">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="SkyBlue" Offset="0.0"/>
+                        <GradientStop Color="GreenYellow" Offset="1"/>
+                    </LinearGradientBrush>
+
+                </Border.Background>
+
+                <Border.Clip>
+                    <RectangleGeometry RadiusX="10"
+                                       RadiusY="10"
+                                       Rect="0,0,400,200"/>
+                </Border.Clip>
+
+                <Grid>
+                    <StackPanel>
+                        <TextBlock>안녕하세요</TextBlock>
+                        <TextBlock>여기는 사실 맨처음에 만든 연습용 Home이였어요</TextBlock>
+                        <TextBlock>이뻐서 언젠간 이스터에그로 쓸꺼야..! 하고 했는데 이쁘네요.</TextBlock>
+
+                        <TextBlock></TextBlock>
+                        <TextBlock>오류가 매일 숨쉬듯이 나오는데 나올 때마다 고치고 있습니다:)</TextBlock>
+                        <TextBlock>해당 프로그램은 회사에 도움이 되길 바라면서 만들어봤어요</TextBlock>
+                        <TextBlock></TextBlock>
+                        <TextBlock>일반 사용자 분들은 뭐지..? 싶을 수도 있는데</TextBlock>
+                        <TextBlock>그래도 회사에선 실사용 가능하다는 점</TextBlock>
+                        <TextBlock>저는 사용중:)</TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Width="200" Height="200"
+                    CornerRadius="10" Margin="45,0,0,0">
+                <Grid>
+                    <StackPanel>
+                        <TextBlock> Git </TextBlock>
+                        <TextBlock>
+                            
+                        <Hyperlink RequestNavigate="Hyperlink_RequestNavigate"  NavigateUri="https://github.com/Goddohi">
+                            <StackPanel>
+                                <TextBlock Text="https://github.com/Goddohi" Margin="0,0,5,0"/>
+                    <Image Source="/Images/GitMyLogo.png" Width="150" Height="140"/>
+                                
+                         </StackPanel>
+                         </Hyperlink>
+                            </TextBlock>
+                    </StackPanel>
+                </Grid>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="Orange" Offset="0.0"/>
+                        <GradientStop Color="GreenYellow" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+        </StackPanel>
+
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Margin" Value="15,0,0,0"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Foreground="Wheat" Text="열심히 그렸어요"/>
+
+            <StackPanel Orientation="Horizontal">
+                <Border Width="150"
+                        Height="150"
+                        Background="PaleGoldenrod"
+                        CornerRadius="10"
+                        Margin="0">
+                    <Grid>
+                        <Image Source="/Images/MainLogo.ico" Width="30" Height="30"/>
+                    </Grid>
+                </Border>
+                <Border Width="150"
+                        Height="150"
+                        Background="PaleGoldenrod"
+                        CornerRadius="10">
+                    <Grid>
+                        <Image Source="/Images/Logo.ico" Width="30" Height="30"/>
+                    </Grid>
+                </Border>
+                <Border Width="150"
+                        Height="150"
+                        Background="PaleGoldenrod"
+                        CornerRadius="10">
+                    <Grid>
+                        <Image Source="/Images/FullStar.png" Width="50" Height="50"/>
+                    </Grid>
+                </Border>
+                <Border Width="150"
+                        Height="150"
+                        Background="PaleGoldenrod"
+                        CornerRadius="10">
+                    <Grid>
+                        <Image Source="/Images/EmptyStar.png" Width="50" Height="50"/>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

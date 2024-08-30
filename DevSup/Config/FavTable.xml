@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfFavTableInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FavTableInfo>
+    <OWNER>Admin</OWNER>
+    <TABLE_NAME>이건 내비밀인데</TABLE_NAME>
+    <TABLE_COMMENTS>도히블로그 최고에요:)
+    너무 좋아요 어떻게해 ㅠㅠ</TABLE_COMMENTS>
+  </FavTableInfo>
+</ArrayOfFavTableInfo>

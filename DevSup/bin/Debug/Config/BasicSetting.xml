@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBasicSettingEntity xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!--어디에 쓰는지 분석할것 -->
+  <BasicSettingEntity>
+    <CODE>UserName</CODE>
+    <PROPERTY>사용자이름</PROPERTY>
+    <VALUE></VALUE>
+    <REMARK>소스코드의 Author</REMARK>
+  </BasicSettingEntity>
+  <BasicSettingEntity>
+    <CODE>MetaConnectionString</CODE>
+    <PROPERTY>Meta# Connection String</PROPERTY>
+    <VALUE>Data Source=;User Id=;Password=;Integrated Security=no</VALUE>
+    <REMARK>Meta#정보 연동을 위해 필요</REMARK>
+  </BasicSettingEntity>
+  <!-- 설치 된 파일을 불러옴-->
+  <BasicSettingEntity>
+    <CODE>GoldenPath</CODE>
+    <PROPERTY>Golden 경로</PROPERTY>
+    <VALUE>C:</VALUE>
+    <REMARK>Golden 사용</REMARK>
+  </BasicSettingEntity>
+  <BasicSettingEntity>
+    <CODE>PLEditPath</CODE>
+    <PROPERTY>PLEdit 경로</PROPERTY>
+    <VALUE>C:</VALUE>
+    <REMARK>PLEdit사용</REMARK>
+  </BasicSettingEntity>
+
+  <BasicSettingEntity>
+    <CODE>ExcludeOwner</CODE>
+    <PROPERTY>제외할 Table Owner</PROPERTY>
+    <VALUE>SYS,ORDDATA,ORDSYS,OWBSYS,SYSTEM,WMSYS</VALUE>
+    <REMARK>해당 Owner의 테이블 조회 안함</REMARK>
+  </BasicSettingEntity>
+</ArrayOfBasicSettingEntity>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfTabSettingEntity xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TabSettingEntity>
+    <TABNAME>테스트불러오기되나요?</TABNAME>
+    <UCNAME>HomeView</UCNAME>
+    <VALUE>true</VALUE>
+    <DETAIL></DETAIL>
+  </TabSettingEntity>
+ </ArrayOfTabSettingEntity>

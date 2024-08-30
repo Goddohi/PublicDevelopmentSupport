@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DevSup.Theme">
+
+    <Color x:Key="MainBackgroundColor">#272537</Color>
+    <Color x:Key="ComboBoxBackgroundColor">#FFB3E5FC</Color>
+
+
+    <Color x:Key="GridBackgroundColor">Transparent</Color>
+    <Color x:Key="GridForegroundColor">#FFFFFF</Color>
+    <Color x:Key="GridBorderColor">#88FFFFFF</Color>
+    <Color x:Key="SelectedRowBackgroundColor">#A0A0A0</Color>
+
+
+
+    <!--오더-->
+    <Color x:Key="DefaultOwner">Wheat</Color>
+    <Color x:Key="HBILOwner">LightGreen</Color>
+
+    <Color x:Key="HBOHOwner">Gold</Color>
+
+    <Color x:Key="HSUPOwner">#FF70C8E4</Color>
+
+    <Color x:Key="HORDOwner">#FFFFA5C2</Color>
+
+</ResourceDictionary>

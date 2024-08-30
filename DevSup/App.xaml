@@ -1,0 +1,42 @@
+﻿<Application x:Class="DevSup.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DevSup"
+             xmlns:viewModel="clr-namespace:DevSup.MVVM.ViewModel"
+             xmlns:view="clr-namespace:DevSup.MVVM.View"
+             
+             xmlns:viewModelSetting="clr-namespace:DevSup.MVVM.ViewModel.Setting"
+             xmlns:viewSetting="clr-namespace:DevSup.MVVM.View.Setting"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/ColersDark.xaml"/>
+                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/TextboxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/TextfreeboxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/MinimizeButtonStyles.xaml"/>
+                <ResourceDictionary Source="Theme/MaximizeButtonStyles.xaml"/>
+                <!--<ResourceDictionary Source="Theme/MainTabStyle.xaml"/> -->
+                <ResourceDictionary Source="Theme/WindowsCloseButtonStyles.xaml"/>
+                <ResourceDictionary Source="Theme/DataGridDarkStyles.xaml"/>
+                <ResourceDictionary Source="Theme/DefalutButtonStyles1.xaml"/>
+
+                <ResourceDictionary Source="Theme/DataGridStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:HomeVIewModel}">
+                <view:HomeView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModel:TableSearchViewModel}">
+                <view:TableSearchView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelSetting:SettingBaseViewModel}">
+                <viewSetting:SettingBaseView/>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

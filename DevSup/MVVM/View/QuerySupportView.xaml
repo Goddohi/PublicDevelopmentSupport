@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="DevSup.MVVM.View.QuerySupportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DevSup.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="30" Height="35" x:Name="Tab0Search" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="60" Width="Auto" />
+
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                
+                <StackPanel  Orientation="Horizontal">
+                    <RadioButton Content="EQS 매개변수 -> Golden 변수코드" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoEQS"      IsChecked="True"  GroupName="xxxx" Click="RdoEQS_Click"/>
+                    <RadioButton Content="쿼리 가독성"       HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoQuerySee" IsChecked="False" GroupName="xxxx" Click="RdoQuerySee_Click" IsEnabled="True"/>
+                    <!--IsEnabled="False"-->
+                    <RadioButton Content="문자열 변환(A →'A')"         HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoINText"   IsChecked="False" GroupName="xxxx" Click="RdoINText_Click"/>
+                    <CheckBox    Content="붙여넣기모드"                    HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbauto"      IsChecked="True"/>
+                    <CheckBox    Content="중복제거"  Visibility="Hidden"   HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbremove"    IsChecked="True"  Click="Cbremove_Clik" />
+                    <CheckBox    Content="따옴표변환'->'' "  Visibility="Hidden"  HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbchge"    IsChecked="False"  Click="Cbremove_Clik" />
+
+                </StackPanel>
+                <DockPanel HorizontalAlignment="Right" Grid.Column="1">
+                    <Button Style="{StaticResource DefaultButtonStyle1}" ToolTip="해당 코드작성기를 새창으로 추가합니다." Content="새창"  Click="BtnNewWindow_Click" Margin="2,2,2,0" Width="40" />
+
+                </DockPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="70*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBox  x:Name="TxtSrc" Foreground="Wheat" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas"  VerticalScrollBarVisibility="Auto" Grid.Column ="0" FontSize="14" TextChanged="TxtSrc_TextChanged" Margin="0,0,5,0" GotFocus="TxtSrc_GotFocus" PreviewMouseWheel="TxtSrc_PreviewMouseWheel" />
+
+            <GridSplitter Grid.Column="0" Margin="0,5,0,0"  Width ="3" Background="Transparent" />
+            <TextBox x:Name="TxtCode" Foreground="Wheat" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto" Grid.Column="1" FontSize="14" PreviewMouseWheel="TxtCode_PreviewMouseWheel"  TextChanged="TxtCode_TextChanged"/>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

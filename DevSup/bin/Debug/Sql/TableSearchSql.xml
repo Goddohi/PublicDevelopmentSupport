@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfTableSearchSqlDTO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TableSearchSqlDTO>
+    <SQLNAME>GetTableInfo</SQLNAME>
+    <QUERY>
+      <![CDATA[
+        SELECT A.OWNER                                                              OWNER
+             , A.TABLE_NAME                                                         TABLE_NAME
+             , CASE WHEN B.COMMENTS IS NULL THEN '등록필요'
+                                ELSE '/* ' || TRIM(B.COMMENTS) || ' */' END TABLE_COMMENTS
+             , 0                                                                    CREATED_DAYS
+             , 0                                                                    MODIFY_DAYS
+        FROM ALL_TABLES A
+           , ALL_TAB_COMMENTS B
+        WHERE A.TABLE_NAME = B.TABLE_NAME
+        AND A.OWNER = B.OWNER
+        AND B.TABLE_TYPE = 'TABLE'
+    ORDER BY DECODE(A.OWNER, 'HSUP', 2
+                   , 'XSUP', 13
+                   , 'HMED', 2
+                   , 'XMED', 12
+                   , 'HCOM', 4
+                   , 'XCOM', 14
+                   , 'HBIL', 1
+                   , 'XBIL', 11
+                           , 100)
+    , A.TABLE_NAME
+      ]]>
+    </QUERY>
+    <comment>시스템에 있는 테이블을 조회하는 쿼어리~</comment>
+  </TableSearchSqlDTO>
+  <TableSearchSqlDTO>
+    <SQLNAME>GetTableColumns</SQLNAME>
+    <QUERY>
+      <![CDATA[
+      SELECT 
+    OWNER,
+    COL_NAME,
+    NULLABLE,
+    DATATYPE,
+    DATA_LENGTH,
+    CASE 
+        WHEN COMMENTS IS NULL THEN '등록필요'
+        ELSE COMMENTS 
+    END AS COMMENTS,
+    COMMON_CODE,
+    CASE 
+        WHEN COMMON_CODE IS NOT NULL AND OWNER IN ('HMIS', 'HGAB') THEN 'SELECT * FROM HMIS.CMETCCD WHERE COMKDCD = ' || '''' || COMMON_CODE || '''' || ';'
+        WHEN COMMON_CODE IS NOT NULL AND OWNER NOT IN ('HMIS', 'HGAB') THEN 'SELECT * FROM CCCODEST WHERE CCD_TYP = ' || '''' || COMMON_CODE || '''' || ';'
+        ELSE NULL
+    END AS COMMENTS2,
+    "DEFAULT",
+    COLUMN_ID
+FROM (
+    SELECT 
+        a.owner,
+        a.column_id,
+        a.column_name AS COL_NAME,
+        DECODE(a.nullable, 'N', 'N', ' ') AS NULLABLE,
+        DECODE(a.data_type, 'VARCHAR2', a.data_type || '(' || a.char_col_decl_length || ')',
+                        'NUMBER', a.data_type || DECODE(a.data_precision, NULL, '', '(' || a.data_precision || ',' || a.data_scale || ')'),
+                        a.data_type) AS DATATYPE,
+        a.DATA_LENGTH AS DATA_LENGTH,
+        TRIM(b.COMMENTS) AS COMMENTS,
+        XBIL.PKG_BIL_PAMPAGE.FT_GET_COL_COMMENTS_COMN_CODE(
+            IN_ONWER => a.OWNER,
+            IN_COLUMN_COMMENTS => b.COMMENTS
+        ) AS COMMON_CODE,
+        a.data_default AS "DEFAULT"
+    FROM 
+        all_tab_columns a
+    LEFT JOIN 
+        all_col_comments b ON a.table_name = b.table_name 
+                            AND a.column_name = b.column_name 
+                            AND a.owner = b.owner
+    WHERE 
+        b.table_name = UPPER(:TableName)
+        AND a.owner = :Owner
+        AND b.owner = a.owner
+        AND a.table_name = b.table_name
+        AND a.column_name = b.column_name
+        AND a.owner = b.owner
+) 
+ORDER BY column_id
+      ]]>
+    </QUERY>
+    <comment>쿼리 설명</comment>
+  </TableSearchSqlDTO>
+  
+  <TableSearchSqlDTO>
+    <SQLNAME>GetTableIndexs</SQLNAME>
+    <QUERY>
+      <![CDATA[
+       SELECT B.INDEX_NAME      AS INDEX_NAME
+                     , A.UNIQUENESS      AS UNIQUENESS
+                     , B.COLUMN_POSITION AS COLUMN_POSITION
+                     , B.COLUMN_NAME     AS COL_NAME
+                     , TRIM(C.COMMENTS)  AS COMMENTS
+                  FROM  ALL_INDEXES       A
+                      , ALL_IND_COLUMNS   B
+                      , ALL_COL_COMMENTS  C
+                 WHERE A.TABLE_NAME  = upper(:TableName)
+                   AND A.INDEX_NAME  = B.INDEX_NAME
+                   AND B.INDEX_OWNER = :Owner
+                   AND B.INDEX_OWNER = C.OWNER
+                   AND B.TABLE_NAME  = C.TABLE_NAME
+                   AND B.COLUMN_NAME = C.COLUMN_NAME
+              ORDER BY DECODE(A.UNIQUENESS ,'UNIQUE' ,1 , 99)
+                     , A.INDEX_NAME
+                     , B.COLUMN_POSITION
+      ]]>
+    </QUERY>
+    <comment>쿼리 설명</comment>
+  </TableSearchSqlDTO>
+
+
+  <TableSearchSqlDTO>
+    <SQLNAME>GetTableAddInfos</SQLNAME>
+    <QUERY>
+      <![CDATA[
+              select 'TABLESPACE_NAME'  col_name
+                       ,a.tablespace_name col_value
+                  from all_tables a
+                 where a.table_name = upper(:TableName)
+                union all
+                select 'STATUS'  col_name
+                       ,a.status col_value
+                  from all_tables a
+                 where a.table_name = upper(:TableName)
+                union all
+                select 'NUM_ROWS'  col_name
+                       ,to_char(a.num_rows) col_value
+                  from all_tables a
+                 where a.table_name = upper(:TableName)
+                union all
+                select 'TABLE_LOCK'  col_name
+                       ,a.table_lock col_value
+                  from all_tables a
+                 where a.table_name = upper(:TableName)
+                union all
+                select 'LAST_ANALYZED'  col_name
+                       ,to_char(a.last_analyzed,'yyyy-mm-dd hh24:mi') col_value
+                  from all_tables a
+                 where a.table_name = upper(:TableName)
+                union all
+                select 'PARTITIONED'  col_name
+                       ,a.partitioned col_value
+                  from all_tables a
+                 where a.table_name = upper(:TableName)
+                union all
+                select 'COMPRESSION'  col_name
+                       ,a.compression col_value
+                  from all_tables a
+                 where a.table_name = upper(:TableName)
+                 union all
+                select 'CREATED' col_name
+                       ,to_char(created,'yyyy-mm-dd hh24:mi:ss')  col_value
+                  from all_objects
+                 where object_name = upper(:TableName)
+                   and object_type = 'TABLE'
+                 union all
+                select 'LAST_DDL_TIME' col_name
+                       ,to_char(last_ddl_time,'yyyy-mm-dd hh24:mi:ss')  col_value
+                  from all_objects
+                 where object_name = upper('MOEEXAMT')
+                   and object_type = 'TABLE'
+      ]]>
+    </QUERY>
+    <comment>쿼리 설명</comment>
+  </TableSearchSqlDTO>
+  
+  <TableSearchSqlDTO>
+    <SQLNAME>GetTableRefInfos</SQLNAME>
+    <QUERY>
+      <![CDATA[
+        select distinct a.owner OWNER
+                   , a.name    OBJ_NAME
+                   , a.type    OBJ_TYPE
+                   , b.status  STATUS 
+                from all_dependencies a
+                    ,all_objects b
+                where b.object_name = a.name
+                  and a.referenced_name = upper(:TableName)
+                  and a.owner = b.owner
+                  and a.type = b.object_type
+                /* 
+                union all
+                select a.owner        OWNER
+                     , a.trigger_name OBJ_NAME
+                     , 'TRIGGER'      OBJ_TYPE
+                     , a.status       STATUS
+                 from all_triggers a
+                     ,all_tables   b
+                 where b.table_name = upper(:TableName)
+                   and a.table_name = b.table_name
+                   and a.owner      = b.owner
+                 */
+                 order by  owner, obj_name 
+      ]]>
+    </QUERY>
+    <comment>쿼리 설명</comment>
+  </TableSearchSqlDTO>
+  
+  <TableSearchSqlDTO>
+    <SQLNAME>GetTableCommonCode</SQLNAME>
+    <QUERY>
+      <![CDATA[
+         SELECT NULL               HSP_TP_CD
+              , CCD_TYP            COMN_GRP_CD          /*공통그룹코드*/
+              , C_CD               COMN_CD              /*공통코드*/
+              , CSUBCD_NM          COMN_CD_NM           /*공통코드명*/
+              , RMK                COMN_CD_EXPL         /*공통코드설명*/
+              , NVL(SORT_SEQ, 999) SCRN_MRK_SEQ         /*화면표시순번*/
+              , USE_YN             USE_YN               /*사용여부*/
+              , NULL               DTRL1_NM             /*1번째업무규칙명*/
+              , CSUBCD2_NM         DTRL2_NM             /*2번째업무규칙명*/
+              , CSUBCD3_NM         DTRL3_NM             /*3번째업무규칙명*/
+              , NULL               DTRL4_NM             /*4번째업무규칙명*/
+              , NULL               DTRL5_NM             /*5번째업무규칙명*/
+              , NULL               DTRL6_NM             /*6번째업무규칙명*/
+              , NULL               NEXTG_FMR_COMN_CD    /**/
+           FROM HCOM.CCCODEST
+          WHERE :TABLE_NM = 'HCOM.CCCODELT'
+            AND CCD_TYP    = :COMN_GRP_CD
+            
+          UNION ALL
+         SELECT NULL               HSP_TP_CD
+              , CD_TYP             COMN_GRP_CD          /*공통그룹코드*/
+              , SCLS2              COMN_CD              /*공통코드*/
+              , CD_NM              COMN_CD_NM           /*공통코드명*/
+              , ETC2               COMN_CD_EXPL         /*공통코드설명*/
+              , NVL(SORT, 999)     SCRN_MRK_SEQ         /*화면표시순번*/
+              , USE_YN             USE_YN               /*사용여부*/
+              , NULL               DTRL1_NM             /*1번째업무규칙명*/
+              , CD_NM2             DTRL2_NM             /*2번째업무규칙명*/
+              , CD_NM3             DTRL3_NM             /*3번째업무규칙명*/
+              , CD_NM4             DTRL4_NM             /*4번째업무규칙명*/
+              , CD_NM5             DTRL5_NM             /*5번째업무규칙명*/
+              , CD_NM6             DTRL6_NM             /*6번째업무규칙명*/
+              , NULL                /**/
+           FROM HEMR.MRCODEST
+          WHERE :TABLE_NM = 'HEMR.MRCODELT'
+            AND CD_TYP     = :COMN_GRP_CD  
+            
+          UNION ALL
+         SELECT '' HSP_TP_CD
+              , COMN_GRP_CD          /*공통그룹코드*/
+              , COMN_CD              /*공통코드*/
+              , COMN_CD_NM           /*공통코드명*/
+              , COMN_CD_EXPL         /*공통코드설명*/
+              , NVL(SCRN_MRK_SEQ, 999) SCRN_MRK_SEQ        /*화면표시순번*/
+              , USE_YN               /*사용여부*/
+              , DTRL1_NM             /*1번째업무규칙명*/
+              , DTRL2_NM             /*2번째업무규칙명*/
+              , DTRL3_NM             /*3번째업무규칙명*/
+              , DTRL4_NM             /*4번째업무규칙명*/
+              , DTRL5_NM             /*5번째업무규칙명*/
+              , DTRL6_NM             /*6번째업무규칙명*/
+              , NULL                /**/
+           FROM HCFM.CCCCCSTE
+          WHERE :TABLE_NM = 'HCFM.CCCCCLTC'
+		          AND COMN_GRP_CD = :COMN_GRP_CD
+              
+          UNION ALL
+         SELECT '' HSP_TP_CD
+              , COMKDCD   /*공통그룹코드*/
+              , CDBS      /*공통코드*/
+              , CDNM      /*공통코드명*/
+              , CDESTNM   /*공통코드설명*/
+              , CDORD       SCRN_MRK_SEQ   /*화면표시순번*/
+              , CASE UNUSEFL WHEN 'N' THEN 'Y'
+                             WHEN 'Y' THEN 'N' END /*사용여부*/
+              , CDDES1             /*1번째업무규칙명*/
+              , CDDES2             /*2번째업무규칙명*/
+              , CDDES3             /*3번째업무규칙명*/
+              , CDDES4             /*4번째업무규칙명*/
+              , CDDES5             /*5번째업무규칙명*/
+              , CDDES6             /*6번째업무규칙명*/                             
+              , CDRMK
+          FROM HMIS.CMETCCD
+         WHERE :TABLE_NM = 'HMIS.CMETCDESC' 
+            AND COMKDCD = :COMN_GRP_CD
+            
+          UNION ALL 
+         SELECT '' HSP_TP_CD 
+              , CODEGUBN /*공통그룹코드*/
+              , CODE     /*공통코드*/
+              , CODENAME /*공통코드명*/
+              , NULL 
+              , SORTSEQ        SCRN_MRK_SEQ  /*화면표시순번*/
+              , CASE WHEN SYSDATE >= APPLDATE AND SYSDATE <= ENDDATE THEN 'Y' ELSE 'N' END
+              , OPTION1             /*1번째업무규칙명*/
+              , OPTION2             /*2번째업무규칙명*/
+              , TO_CHAR(NOPTION1)             /*3번째업무규칙명*/
+              , TO_CHAR(NOPTION2)             /*4번째업무규칙명*/
+              , NULL             /*5번째업무규칙명*/
+              , NULL             /*6번째업무규칙명*/                             
+              , TEXT
+           FROM HWMS.WMSCOMTT
+          WHERE :TABLE_NM = 'HWMS.WMSCOMTT' 
+            AND CODEGUBN = :COMN_GRP_CD
+          ORDER BY 6
+      ]]>
+    </QUERY>
+    <comment>쿼리 설명</comment>
+  </TableSearchSqlDTO>
+</ArrayOfTableSearchSqlDTO>

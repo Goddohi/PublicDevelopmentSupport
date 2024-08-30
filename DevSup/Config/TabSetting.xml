@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfTabSettingEntity xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TabSettingEntity>
+    <TABNAME>코드 작성</TABNAME>
+    <UCNAME>QuerySupportView</UCNAME>
+    <VALUE>true</VALUE>
+    <DETAIL></DETAIL>
+  </TabSettingEntity>
+  <TabSettingEntity>
+    <TABNAME>테이블조회</TABNAME>
+    <UCNAME>TableSearchView</UCNAME>
+    <VALUE>true</VALUE>
+    <DETAIL></DETAIL>
+  </TabSettingEntity>
+  <TabSettingEntity>
+    <TABNAME>MY 쿼리</TABNAME>
+    <UCNAME>MyQureyView</UCNAME>
+    <VALUE>true</VALUE>
+    <DETAIL></DETAIL>
+  </TabSettingEntity>
+  <TabSettingEntity>
+    <TABNAME>Select 실행</TABNAME>
+    <UCNAME>QuerySelectRunTab</UCNAME>
+    <VALUE>true</VALUE>
+    <DETAIL></DETAIL>
+  </TabSettingEntity>
+ </ArrayOfTabSettingEntity>

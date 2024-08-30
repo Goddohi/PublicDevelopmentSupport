@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ConfigDBData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DB1Settings>
+    <DBUserEntity>
+      <DB>DB1</DB>
+      <USER>사용자이름2</USER>
+      <CONNECT_STRING>이거사용</CONNECT_STRING>
+      <DATASOURCE></DATASOURCE>
+      <USERID></USERID>
+      <USERPW></USERPW>
+      <INTERGRATEDSEC></INTERGRATEDSEC>
+    </DBUserEntity>
+  </DB1Settings>
+
+  <DB2Settings>
+    <DBUserEntity>
+      <DB>DB2</DB>
+      <USER>사용자이름</USER>
+      <CONNECT_STRING>연결주소넣어주세요</CONNECT_STRING>
+      <DATASOURCE></DATASOURCE>
+      <USERID></USERID>
+      <USERPW></USERPW>
+      <INTERGRATEDSEC></INTERGRATEDSEC>
+    </DBUserEntity>
+  </DB2Settings>
+</ConfigDBData>

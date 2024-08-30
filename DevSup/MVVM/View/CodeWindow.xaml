@@ -1,0 +1,71 @@
+﻿<Window x:Class="DevSup.MVVM.View.CodeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DevSup.MVVM.View"
+        xmlns:w="clr-namespace:DevSup.WindowResizer"
+        mc:Ignorable="d" 
+        Background="Transparent" WindowStyle="None" AllowsTransparency="True"
+        Height="768" Width="1400" Loaded="Window_Loaded">
+    <Border Background="#272537"
+            CornerRadius="20">
+        <!-- 필수 영역 설정 -->
+        <Grid>
+            <Rectangle Fill="Transparent" Height="5" VerticalAlignment="Top" w:WindowResizer.Direction="Top"/>
+            <Rectangle Fill="Transparent" Height="10" VerticalAlignment="Bottom" w:WindowResizer.Direction="Bottom"/>
+            <Rectangle Fill="Transparent" Width="10" HorizontalAlignment="Left" w:WindowResizer.Direction="Left"/>
+            <Rectangle Fill="Transparent" Width="10" HorizontalAlignment="Right" w:WindowResizer.Direction="Right"/>
+
+            <Rectangle Fill="Transparent" Height="5" Width="8" VerticalAlignment="Top" HorizontalAlignment="Left" w:WindowResizer.Direction="TopLeft"/>
+            <Rectangle Fill="Transparent" Height="10" Width="10" VerticalAlignment="Top" HorizontalAlignment="Right" w:WindowResizer.Direction="TopRight"/>
+            <Rectangle Fill="Transparent" Height="10" Width="10" VerticalAlignment="Bottom" HorizontalAlignment="Left" w:WindowResizer.Direction="BottomLeft"/>
+            <Rectangle Fill="Transparent" Height="10" Width="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" w:WindowResizer.Direction="BottomRight"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Column="0"  
+                        CornerRadius="20" Background="#272537" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="275" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="30" />
+                        </Grid.ColumnDefinitions>
+                        <!-- 드래그하는 곳에 더블 클릭시 최대화면 로직 -->
+                        <TextBlock Text="Code" Margin="0,5,0,0" x:Name="titlecode"
+                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="White"
+                                    Grid.Column="0" Grid.ColumnSpan="6" Height="35" VerticalAlignment="Center" HorizontalAlignment="Stretch"  MouseDown="TextBlock_MouseDown"/>
+
+                        <!-- 최소화 버튼 -->
+                        <Button Style="{StaticResource MinimizeButtonStyle}"
+                             Grid.Column="3" Click="MinimizeButton_Click"/>
+                        <!-- 최대화 버튼-->
+                        <Button Style="{StaticResource MaximizeButtonStyle}"
+                                Grid.Column="4" Click="MaximizeButton_Click"/>
+                        <!-- 프로그램 종료 -->
+                        <Button Style="{StaticResource WindowsCloseButtonStyle}"
+                                Grid.Column="5"
+                                Click="CloseButton_Click"
+                                Panel.ZIndex="1"/>
+                       </Grid>
+                </Border>
+
+                <Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="SkyBlue" Grid.Row="1"/>
+                <Grid Grid.Row="2">
+                    <TextBox x:Name="TxtCode"  Foreground="Wheat" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" GotFocus="TxtCode_GotFocus" FontFamily="Consolas" FontSize="14" VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="5"/>
+                </Grid>
+            </Grid>
+         
+        </Grid>
+        
+    </Border>
+</Window>

@@ -1,0 +1,582 @@
+﻿<core:UCBase x:Class="DevSup.MVVM.View.TableSearchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:core="clr-namespace:DevSup.Core"
+             xmlns:local="clr-namespace:DevSup.MVVM.View"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="800" d:DesignWidth="1220">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="TableInfoViewSource" Source="{Binding ocTableInfo}" />
+        <CollectionViewSource x:Key="TableColInfoViewSource" Source="{Binding ocTableColumnInfo}"/>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" x:Name="Tab0Search" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0">
+            <Grid Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="503*" />
+                    <ColumnDefinition Width="341*" />
+                    <ColumnDefinition Width="300*" />
+                    <ColumnDefinition Width="76*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBox   x:Name="TxtKeyword" TextChanged="TxtKeyword_TableInfo" 
+                               PreviewKeyDown="TextBoxPreviewKeyDown_RemoveBlank" KeyDown="TxtKeyword_KeyDown" 
+                               Margin="3" Style="{StaticResource ModernTextbox}" />
+
+                    <ComboBox x:Name="CboAndOr" Grid.Column="1" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Center" Width="50" SelectedIndex="0" 
+                              SelectedValuePath="Content">
+                        <ComboBoxItem Content="AND" IsSelected="True"/>
+                        <ComboBoxItem Content="OR"/>
+                    </ComboBox>
+                    <CheckBox x:Name="chkRealTime" Foreground="White" FontWeight="Bold" Content="실시간검색" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" IsChecked="True" />
+                    <CheckBox x:Name="ChkOwnerFilter" Foreground="White" FontWeight="Bold" Content="Owner필터" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" IsChecked="False" Click="ChkOwnerFilter_Click">
+                        <CheckBox.Style>
+                            <Style TargetType="CheckBox">
+                                <Setter Property="IsEnabled" Value="True" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=SelectedIndex, ElementName=TabMain}" Value="1">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </CheckBox.Style>
+                    </CheckBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <TextBox  x:Name="TxtKeywordCol"  TextChanged="TxtKeywordCol_TableColInfo" 
+                               PreviewKeyDown="TextBoxPreviewKeyDown_RemoveBlank" KeyDown="TxtKeywordCol_KeyDown"
+                              Margin="3" Style="{StaticResource ModernTextbox}" />
+                    <ComboBox x:Name="CboAndOrCol" Grid.Column="1" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Center" Width="50" SelectedIndex="0" 
+                              SelectedValuePath="Content">
+                        <ComboBoxItem Content="AND" IsSelected="True"/>
+                        <ComboBoxItem Content="OR"/>
+                    </ComboBox>
+                    <TextBlock Height="16" HorizontalAlignment="Left"  Foreground="White" FontWeight="Bold" FontSize="12" Text=" , 로 입력하세요" VerticalAlignment="Center" Margin="5,6,5,5" />
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="2">
+                    <TextBox x:Name="TxtKeywordObj"  TextChanged="TxtKeywordObj_TableRefObj" 
+                              PreviewKeyDown="TextBoxPreviewKeyDown_RemoveBlank" KeyDown="TxtKeywordObj_KeyDown"
+                             Margin="3" Style="{StaticResource ModernTextbox}" />
+                    <ComboBox x:Name="CboAndOrObj" Grid.Column="1" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Center" Width="50" SelectedIndex="0" 
+                              SelectedValuePath="Content">
+                        <ComboBoxItem Content="AND" IsSelected="True"/>
+                        <ComboBoxItem Content="OR"/>
+                    </ComboBox>
+                </StackPanel>
+                <Grid Grid.Column="3">
+                    <Button Style="{StaticResource DefaultButtonStyle1}" ToolTip="입력된 값을 한번에 검색합니다." Content="전체검색"  Click="BtALLSearch_Click" Margin="0,2,2,0" Width="64" />
+                    <Button Style="{StaticResource DefaultButtonStyle1}" Margin="0,30,2,0" ToolTip="입력된 값을 초기화 합니다." Content="입력초기화"  Click="BtALLCleanText_Click" Width="66" />
+
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!---->
+            <Grid Grid.Column="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <TabControl x:Name="TabMain" Grid.Row="0"  Margin="0,0,0,0" Background="Transparent"  
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
+                                 BorderThickness="0" Padding="0" >
+                        <TabControl.Resources>
+                            <Style TargetType="{x:Type TabItem}">
+                                <Setter Property="AllowDrop" Value="True"/>
+                                <!--
+                                <EventSetter Event="PreviewMouseMove" Handler="TabItem_PreviewMouseMove"/>
+                                <EventSetter Event="Drop" Handler="TabItem_Drop"/>
+                                -->
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Border Name="border" BorderBrush="#B7B7B7" BorderThickness="0" Margin="1,0,1,0" >
+                            <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="6,0" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4A4A6C" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="2,0,0,0" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="Violet" />
+                                <Setter TargetName="border" Property="Height" Value="23"/>
+                                <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="White"/>
+                                <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Bold" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#272537" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="0,0,0,0" />
+                                <Setter TargetName="border" Property="Height" Value="22"/>
+                                <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="#888888" />
+                                <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Normal" />
+                            </Trigger>
+                            <!-- 선택되지않은 창에 마우스가 올라갈경우 발생-->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Border.IsMouseOver" Value="True"/>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="border" Property="Background" Value="#3B393F" />
+                                <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Normal" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            </Style>
+            </TabControl.Resources>
+            <TabItem Header="전체">
+                <DataGrid Margin="0,-1,5,11" 
+                                      x:Name="DgdObjList"
+                                      ItemsSource="{Binding Source={StaticResource TableInfoViewSource}}" 
+                                      AutoGenerateColumns="False" 
+                                      HorizontalAlignment="Stretch" 
+                                      VerticalAlignment="Stretch" 
+                                      AllowDrop="True" 
+                                      CanUserAddRows="False"
+                                      
+                                      SelectionChanged="DgdObjList_SelectionChanged"
+                                      ScrollViewer.CanContentScroll="True"    
+                                 
+                                      EnableColumnVirtualization="True" 
+                                      EnableRowVirtualization="True"
+                                      VirtualizingPanel.IsVirtualizing="True"
+                                      VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                                      VirtualizingPanel.VirtualizationMode="Standard"
+                                      VirtualizingPanel.ScrollUnit="Pixel"
+                                     MaxHeight="1500"
+                                     HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5"  >
+                    <DataGrid.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Click="Fav_Add_Click">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="즐겨찾기 추가" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Resources>
+                        <Style x:Key="Owner" TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="Wheat"/>
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="FontSize"   Value="12"   />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Style.Triggers>
+                                <!-- 데이터를 해당기능도 사용자가 설정할 수 있게 변경예정-->
+                                <DataTrigger Binding="{Binding OWNER}" Value="HBIL" >
+                                    <Setter Property="Foreground" Value="LightGreen" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding OWNER}" Value="HBOH" >
+                                    <Setter Property="Foreground" Value="Gold" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding OWNER}" Value="HSUP" >
+                                    <Setter Property="Foreground" Value="#FF70C8E4" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding OWNER}" Value="HORD" >
+                                    <Setter Property="Foreground" Value="#FFFFA5C2" />
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+                        <Style  x:Key="TabComments" TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize"   Value="12"   />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding TABLE_COMMENTS}" Value="등록필요" >
+                                    <Setter Property="Background" Value="DeepPink" />
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="FontSize"   Value="13"   />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style x:Key="TabName" TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="FontSize"   Value="12"   />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding OWNER}"          Header="OWNER"          Width="50" ElementStyle="{StaticResource Owner}" />
+                        <DataGridTextColumn Binding="{Binding TABLE_NAME}"     Header="TABLE"          Width="80" ElementStyle="{StaticResource TabName}" />
+                        <DataGridTextColumn Binding="{Binding TABLE_COMMENTS}" Header="TABLE COMMENTS" Width="*"  ElementStyle="{StaticResource TabComments}" />
+                        <DataGridTemplateColumn  Header="조회" Width="40">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource DefaultButtonStyle1}"  Click="BtnSelectQuery_Click" HorizontalAlignment="Left"  Margin="0" Height="auto" Width="auto"
+                                                        Background="Transparent" BorderBrush="Transparent" BorderThickness="0" ToolTip="데이터를 조회합니다." >
+
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Background="LightGreen" Width="5" Height="auto" BorderThickness="1" BorderBrush="LightSeaGreen" VerticalAlignment="Stretch" Margin="0,0,0,0" />
+                                            <TextBlock Text="조회" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" Margin="2, 0, 5, 0" />
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+
+                        <DataGridTextColumn Binding="{Binding CREATED_DAYS}" Header="CREATED_DAYS" Visibility="Collapsed" Width="30" />
+                        <DataGridTextColumn Binding="{Binding MODIFY_DAYS}" Header="MODIFY_DAYS" Visibility="Collapsed" Width="30" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="즐겨찾기">
+                <DataGrid Margin="0,-1,5,11"
+                                  x:Name="DgdFavObjList" 
+                                  AutoGenerateColumns="False" 
+                                  HorizontalAlignment="Stretch" 
+                                  VerticalAlignment="Stretch" 
+
+                                  AllowDrop="True" 
+                                  CanUserAddRows="False"
+                                  SelectionChanged="DgdFavObjList_SelectionChanged"
+                                  ScrollViewer.CanContentScroll="True"    
+                                 
+                                  EnableColumnVirtualization="True" 
+                                  EnableRowVirtualization="True"
+                                  VirtualizingPanel.IsVirtualizing="True"
+                                  VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                                  VirtualizingPanel.VirtualizationMode="Standard"
+                                  VirtualizingPanel.ScrollUnit="Pixel"
+                                  MaxHeight="1500"
+                                  HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5"  >
+                    <DataGrid.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Click="Fav_Del_Click">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="즐겨찾기 삭제" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+
+                    <DataGrid.Resources>
+
+                        <Style x:Key="Owner" TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="Wheat"/>
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="FontSize"   Value="12"   />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding OWNER}" Value="HBIL" >
+                                    <Setter Property="Foreground" Value="LightGreen" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding OWNER}" Value="HBOH" >
+                                    <Setter Property="Foreground" Value="Gold" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding OWNER}" Value="HSUP" >
+                                    <Setter Property="Foreground" Value="#FF70C8E4" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding OWNER}" Value="HORD" >
+                                    <Setter Property="Foreground" Value="#FFFFA5C2" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style  x:Key="TabComments" TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize"   Value="12"   />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding TABLE_COMMENTS}" Value="등록필요" >
+                                    <Setter Property="Background" Value="DeepPink" />
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="FontSize"   Value="13"   />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding OWNER}" Header="OWNER" Width="50" />
+                        <DataGridTextColumn Binding="{Binding TABLE_NAME}" Header="TABLE" Width="80" FontWeight="Bold" />
+                        <DataGridTextColumn Binding="{Binding TABLE_COMMENTS}" Header="TABLE COMMENTS" Width="*" FontSize="12" />
+                        <DataGridTemplateColumn  Header="조회" Width="40">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource DefaultButtonStyle1}"  Click="BtnSelectQuery_Click" HorizontalAlignment="Left"  Margin="0" Height="auto" Width="auto"
+                                                        Background="Transparent" BorderBrush="Transparent" BorderThickness="0" ToolTip="데이터를 조회합니다." >
+
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Background="LightGreen" Width="5" Height="auto" BorderThickness="1" BorderBrush="LightSeaGreen" VerticalAlignment="Stretch" Margin="0,0,0,0" />
+                                            <TextBlock Text="조회" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" Margin="2, 0, 5, 0" />
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTextColumn Binding="{Binding CREATED_DAYS}" Header="CREATED_DAYS" Visibility="Collapsed" Width="30" />
+                        <DataGridTextColumn Binding="{Binding MODIFY_DAYS}" Header="MODIFY_DAYS" Visibility="Collapsed" Width="30" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            </TabControl>
+            <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Wheat" />
+            <DataGrid  Grid.Row="1"  AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                  ItemsSource="{Binding Indexes}" Margin="3"
+                  x:Name="dgdIndexInfo" 
+                  LoadingRow="Dgd_Info_Load" 
+                  AllowDrop="True" CanUserAddRows="False">
+                <DataGrid.RowStyle>
+                    <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <!-- 데이터의 특정 조건에 따라 스타일을 변경합니다 -->
+                            <DataTrigger Binding="{Binding Uniqueness}" Value="UNIQUE">
+                                <Setter Property="Foreground" Value="OrangeRed" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding INDEX_NAME}" Header="INDEX NAME" Width="120" FontSize="12" />
+                    <DataGridTextColumn Binding="{Binding UNIQUENESS}" Header="UNIQUENESS" Width="120" FontSize="12" />
+                    <DataGridTextColumn Binding="{Binding COLUMN_POSITION}" Header="COLUMN_POSITION" Width="30" FontSize="12" />
+                    <DataGridTextColumn Binding="{Binding COL_NAME}" Header="COL_NAME" Width="*" FontSize="12" />
+                    <DataGridTextColumn Binding="{Binding COMMENTS}" Header="COMMENTS" Width="*" FontSize="12" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Wheat" />
+            <DataGrid  AutoGenerateColumns="False" HorizontalAlignment="Stretch" x:Name="dgdTableAddInfo" VerticalAlignment="Stretch" 
+                           AllowDrop="True" CanUserAddRows="False" Margin="0,0,5,0"  Grid.Row="2" 
+                           LoadingRow="Dgd_Info_Load" 
+                           HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5" FontSize="12" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding COL_NAME}" Header="STATUS" Width="120" FontSize="12" />
+                    <DataGridTextColumn Binding="{Binding COL_VALUE}" Header="VALUE" Width="*"  FontSize="12" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <!---->
+ <GridSplitter Grid.Column="0" Margin="0,25,0,0"  Width ="3" Background="Wheat" />
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="3*"/>
+                   </Grid.RowDefinitions>
+                
+            <DataGrid  AutoGenerateColumns="False" HorizontalAlignment="Stretch" x:Name="DgdColInfo" VerticalAlignment="Stretch" 
+                      AllowDrop="True" CanUserAddRows="False" Margin="0,25,5,0" 
+                         ItemsSource="{Binding Source={StaticResource TableColInfoViewSource}}"
+                      SelectionChanged="DgdColInfo_SelectionChanged"
+                      HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5" 
+                          HeadersVisibility="Column" RowHeight="22"  Grid.Row="0" >
+                 <DataGrid.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Click="Qeury_Select_Click" x:Name="miSelect" >
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Query.Select" />
+                                        <TextBox Width="30" x:Name="TbSelectAlias" Text="A" GotFocus="TbSelectAlias_GotFocus" TextChanged="TbSelectAlias_TextChanged" Margin="2,0,0,0" Height="20" />
+                                        <Label Content="Alias" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+
+                            <MenuItem Click="Qeury_Insert_Click">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Query.Insert" />
+        </StackPanel>
+        </MenuItem.Header>
+        </MenuItem>
+
+        <MenuItem Click="Qeury_Update_Click">
+            <MenuItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Query.Update" />
+                </StackPanel>
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem Click="Qeury_Merge_Click">
+            <MenuItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Query.Merge" />
+                </StackPanel>
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem Click="Qeury_Delete_Click">
+            <MenuItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Query.Delete" />
+                </StackPanel>
+            </MenuItem.Header>
+        </MenuItem>
+        <Separator />
+        <MenuItem Click="DTO_Property_Click">
+            <MenuItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="DTO.Property" />
+                </StackPanel>
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem Click="DTO_InProperty_Click">
+            <MenuItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="DTO.InProperty" />
+                </StackPanel>
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem Click="DataSet_SetColumn_Click">
+            <MenuItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="DataSet.SetColumn" />
+                </StackPanel>
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem Click="DataSet_TableColumnInfo_Click">
+            <MenuItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="DataSet.ColInfo" />
+                </StackPanel>
+            </MenuItem.Header>
+        </MenuItem>
+        <Separator />
+
+        <MenuItem Click="Grid_HeadBody_Click">
+            <MenuItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Grid.Head:Body" />
+                </StackPanel>
+            </MenuItem.Header>
+        </MenuItem>
+
+        <Separator />
+
+        <MenuItem Header="c#" Click="Grid_CS_Click">
+        </MenuItem>
+
+        <MenuItem Header="c#_XML_Property" Click="Grid_C_Property_Click">
+        </MenuItem>
+        </ContextMenu>
+                </DataGrid.ContextMenu>
+        <DataGrid.Resources>
+                        <Style x:Key="ColComments" TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize"   Value="12"   />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding COMMENTS}" Value="등록필요" >
+                                    <Setter Property="Background" Value="DeepPink" />
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="FontSize"   Value="13"   />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding COLUMN_ID}"   Header="COLUMN_ID"   Width="30"   IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Right"  />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding COL_NAME}"    Header="COLUMN"      Width="100" FontSize="12" />
+                        <DataGridTextColumn Binding="{Binding DATATYPE}"    Header="DATA TYPE"   Width="105" FontSize="12" />
+                        <DataGridTextColumn Binding="{Binding NULLABLE}"    Header="NULL"        Width="40"  FontSize="12" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"  />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding DEFAULT}"     Header="DEFAULT"     Width="55"  FontSize="12" />
+                        <DataGridTextColumn Binding="{Binding DATA_LENGTH}" Header="DATA_LENGTH" Width="40"  FontSize="12" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Right"  />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding COMMENTS}"    Header="COMMENTS"    Width="250" ElementStyle="{StaticResource ColComments}" />
+                        <DataGridTextColumn Binding="{Binding COMMON_CODE}" Header="COMMON_CODE" Width="45"  FontSize="12" />
+                        <DataGridTextColumn Binding="{Binding COMMENTS2}"   Header="COMMENTS2"   Width="250" FontSize="12" />
+                    </DataGrid.Columns>
+            </DataGrid>
+
+
+            <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Wheat" />
+                            <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" x:Name="dgdCommonCodeInfo" VerticalAlignment="Stretch" 
+                    AllowDrop="True" CanUserAddRows="False" Margin="0,5,5,0" Grid.Row="1"
+                     HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding COMN_GRP_CD}"  FontSize="12" Header="COMN_GRP_CD" Width="90"/>
+                        <DataGridTextColumn Binding="{Binding COMN_CD}"      FontSize="12" Header="COMN_CD" Width="80" />
+                        <DataGridTextColumn Binding="{Binding COMN_CD_NM}"   FontSize="12" Header="COMN_CD_NM" Width="200"  />
+                        <DataGridTextColumn Binding="{Binding COMN_CD_EXPL}" FontSize="12" Header="COMN_CD_EXPL" Width="200" />
+                        <DataGridTextColumn Binding="{Binding SCRN_MRK_SEQ}" FontSize="12" Header="SORT" Width="50" />
+                        <DataGridTextColumn Binding="{Binding USE_YN}"       FontSize="12" Header="USE_YN" Width="50" />
+
+                        <DataGridTextColumn Binding="{Binding DTRL1_NM}" FontSize="12" Header="DTRL1_NM" Width="120" />
+                        <DataGridTextColumn Binding="{Binding DTRL2_NM}" FontSize="12" Header="DTRL2_NM" Width="120" />
+                        <DataGridTextColumn Binding="{Binding DTRL3_NM}" FontSize="12" Header="DTRL3_NM" Width="120" />
+                        <DataGridTextColumn Binding="{Binding DTRL4_NM}" FontSize="12" Header="DTRL4_NM" Width="120" />
+                        <DataGridTextColumn Binding="{Binding DTRL5_NM}" FontSize="12" Header="DTRL5_NM" Width="120" />
+                        <DataGridTextColumn Binding="{Binding DTRL6_NM}" FontSize="12" Header="DTRL6_NM" Width="120" />
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <!---->
+        <GridSplitter Grid.Column="1" Margin="0,25,0,0"  Width ="3" Background="Wheat" />
+        <Grid Grid.Column="2">
+            <Button Style="{StaticResource DefaultButtonStyle1}" ToolTip="DB재설정후 작동이 안될 경우에 눌러주세요." Content="DB재실행"  Click="BtRESET_Click" Margin="0,0,2,0" Width="64" />
+            <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" x:Name="DgdRefObjList" VerticalAlignment="Stretch" 
+                    
+                      AllowDrop="True" CanUserAddRows="False" Margin="0,25,0,0"  Grid.Column="2" Grid.RowSpan="3"
+                      HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding OWNER}" Header="OWNER" Width="50" FontSize="12" />
+                    <DataGridTextColumn Binding="{Binding OBJ_NAME}" Header="OBJ NAME" Width="*" FontSize="12" />
+                    <DataGridTextColumn Binding="{Binding OBJ_TYPE}" Header="OBJ TYPE" Width="80" FontSize="12" />
+                    <DataGridTextColumn Binding="{Binding STATUS}" Header="STATUS" Width="50" FontSize="12" />
+                    <DataGridTemplateColumn Width="44">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource DefaultButtonStyle1}"  Click="BtnOpenPLEdit_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Height="17" Width="40"
+                                            BorderThickness="0" Tag="PLEdit"
+                                            ToolTip="PLEdit을 엽니다 (코드복사 작동X)" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Background="LightGreen" Width="5" Height="auto" BorderThickness="1" BorderBrush="LightSeaGreen" VerticalAlignment="Stretch" Margin="0,0,0,0" />
+                                        <TextBlock Text="PLEdit" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" Margin="2, 0, 5, 0" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+    </Grid>
+    </Grid>
+</core:UCBase>
