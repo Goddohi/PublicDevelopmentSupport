@@ -28,6 +28,8 @@
                         <RadioButton Content="쿼리 가독성"       HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoQuerySee" IsChecked="False" GroupName="xxxx" Click="RdoQuerySee_Click" IsEnabled="True"/>
                         <!--IsEnabled="False"-->
                         <RadioButton Content="XML->JSON" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoXml"      IsChecked="False"  GroupName="xxxx" Click="RdoXml_Click"/>
+                        <RadioButton Content="XML->C#" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoCShap"      IsChecked="False"  GroupName="xxxx" Click="RdoCShap_Click"/>
+
                         <RadioButton Content="문자열 변환(A →'A')"         HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoINText"   IsChecked="False" GroupName="xxxx" Click="RdoINText_Click"/>
 
 

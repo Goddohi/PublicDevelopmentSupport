@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -293,7 +294,7 @@ namespace DevSup.MVVM.Model
 
                 return JsonConvert.SerializeObject(wrappedJsonObj, Newtonsoft.Json.Formatting.Indented);
             }
-            catch { return xml; }
+            catch { return "입력하신 Xml이 잘못된 양식입니다."; ; }
         }
 
         //XML노드를 JToken으로 반환해주는 메소드
@@ -432,10 +433,93 @@ namespace DevSup.MVVM.Model
                     return stringWriter.GetStringBuilder().ToString();
                 }
             }
-            catch { return json; }
+            catch { return "입력하신 Json이 잘못된 양식입니다."; }
         }
+
+        //
+        ///
+        ///  XML -> C#
+        ///
+        ///
+        public string XmlChageCshap(string xmlString)
+        {
+            XElement rootElement = XElement.Parse(xmlString);
+            string className = rootElement.Name.LocalName;
+            string classCode = GenerateClassCode(rootElement, className);
+            return classCode;
+        }
+
+        public string XmlChageCshap()
+        {
+            string xmlString = @"
+        <Person>
+            <Name>John Doe</Name>
+            <Age>30</Age>
+            <Address>
+                <Street>Main Street 123</Street>
+                <City>Somewhere</City>
+            </Address>
+        </Person>";
+
+            XElement rootElement = XElement.Parse(xmlString);
+            string className = rootElement.Name.LocalName;
+            string classCode = GenerateClassCode(rootElement, className);
+
+            Console.WriteLine(classCode);
+            return classCode;
+        }
+
+        static string GenerateClassCode(XElement rootElement, string className)
+        {
+            try
+            {
+                var properties = GetProperties(rootElement);
+                var sb = new StringBuilder();
+
+                sb.AppendLine("using System;");
+                sb.AppendLine();
+                sb.AppendLine($"public class {className}");
+                sb.AppendLine("{");
+
+                foreach (var property in properties)
+                {
+                    sb.AppendLine($"    public {property.Type} {property.Name} {{ get; set; }}");
+                }
+
+                sb.AppendLine("}");
+
+                return sb.ToString();
+            }
+            catch { return "입력하신 Xml이 잘못된 양식입니다."; }
+        }
+
+        static List<Property> GetProperties(XElement element)
+        {
+            var properties = new List<Property>();
+            var children = element.Elements();
+
+            foreach (var child in children)
+            {
+                var propertyType = child.HasElements ? "string" : "string"; // Default type; refine based on XML content
+                properties.Add(new Property
+                {
+                    Name = child.Name.LocalName,
+                    Type = propertyType
+                });
+            }
+
+            return properties;
+        }
+
+
     }
+
+
+    class Property
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
+    }
+
+
 }
-
-
-

@@ -62,6 +62,8 @@ namespace DevSup.MVVM.View
                 this.GenerateInText();
             else if (RdoXml.IsChecked == true)
                 this.TxtCode.Text = CbXmlJ.IsChecked == false ? QSLogic.xmlChageJson(TxtSrc.Text) : QSLogic.jsonChageXml(TxtSrc.Text);
+            else if (RdoCShap.IsChecked == true)
+                this.TxtCode.Text = QSLogic.XmlChageCshap(TxtSrc.Text);
         }
 
 
@@ -305,6 +307,22 @@ namespace DevSup.MVVM.View
         }
 
 
+
+
+        private void Cbremove_Clik(object sender, RoutedEventArgs e)
+        {
+            GenerateInText();
+
+        }
+
+        private void TxtCode_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+
+
+
         private void RdoEQS_Click(object sender, RoutedEventArgs e)
         {
 
@@ -332,7 +350,14 @@ namespace DevSup.MVVM.View
             CbXmlJ.Visibility = Visibility.Collapsed;
 
         }
+        private void RdoCShap_Click(object sender, RoutedEventArgs e)
+        {
+            this.TxtSrc.Text = "";
 
+            Cbremove.Visibility = Visibility.Collapsed;
+            Cbchge.Visibility = Visibility.Collapsed;
+            CbXmlJ.Visibility = Visibility.Collapsed;
+        }
 
         private void RdoINText_Click(object sender, RoutedEventArgs e)
         {
@@ -345,15 +370,5 @@ namespace DevSup.MVVM.View
             Cbchge.Visibility = Visibility.Visible;
         }
 
-        private void Cbremove_Clik(object sender, RoutedEventArgs e)
-        {
-            GenerateInText();
-
-        }
-
-        private void TxtCode_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }
