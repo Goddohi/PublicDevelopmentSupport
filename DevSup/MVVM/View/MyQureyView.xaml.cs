@@ -51,10 +51,10 @@ namespace DevSup.MVVM.View
             ocFavQuery = new ObservableCollection<FavQueryDTO>();
             ocFolder = new ObservableCollection<FavQueryDTO>();
             InitializeComponent();
-     
+
             // 콤보박스 설정
             cboFolder.ItemsSource = ocFolder;
-            
+
             // 추가 데이터 로딩
             LoadFavQueryInfo();
 
@@ -89,7 +89,7 @@ namespace DevSup.MVVM.View
         /// </summary>
         private void LoadFavQueryInfo()
         {
-            
+
             TxtKeyword.Text = "";
             helper.Visibility = Visibility.Collapsed;
             dgdFavQuery.Visibility = Visibility.Visible;
@@ -99,7 +99,7 @@ namespace DevSup.MVVM.View
             try
             {
                 // 데이터 로드
-                
+
                 var GetFavQuery = xmlLoad.GetFavQuery();
                 ocFavQuery.Clear();
                 foreach (var item in GetFavQuery)
@@ -134,15 +134,15 @@ namespace DevSup.MVVM.View
                     cboFolder.SelectedIndex = 0;
                 }
 
-             SELECTED_FOLDER = cboFolder.SelectedValue.ToString(); //코드 개편도중에 이코드에 대한 내용이 없어져서 폴더 선택기능 필터가 작동하지 않음.
+                SELECTED_FOLDER = cboFolder.SelectedValue.ToString(); //코드 개편도중에 이코드에 대한 내용이 없어져서 폴더 선택기능 필터가 작동하지 않음.
 
-              
+
 
             }
             catch (Exception ex)
             {
                 MessageWindow.Instance.ShowMessage($"오류 발생: {ex.Message}");
-               //MessageBox.Show($"오류 발생: {ex.Message}");
+                //MessageBox.Show($"오류 발생: {ex.Message}");
             }
         }
 
@@ -194,7 +194,7 @@ namespace DevSup.MVVM.View
             if (isChecked)
             {
                 // 체크된 상태일 때 별 이미지로 변경
-                StarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/FullStar.png")); 
+                StarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/FullStar.png"));
             }
             else
             {
@@ -220,14 +220,14 @@ namespace DevSup.MVVM.View
             // 필터링된 결과를 담을 새로운 리스트 생성
             var filteredList = new ObservableCollection<FavQueryDTO>(
                 OcFavQuery.Where(item =>
-                {   
+                {
                     // 해당 메소드에서 null값을 비교하는 부분이 사실 없기때문에 
                     // 추후 생성하는 부분에서 대부분 값을 지정해줘야한다.
                     bool matchesSearchText = string.IsNullOrEmpty(searchText) ||
                             item.QUERY_NAME.ToLower().Contains(searchText) ||
                             item.QUERY_COMMENTS.ToLower().Contains(searchText);
-                            item.QUERY_COMMENTS.ToLower().Contains(searchText);
-                   
+                    item.QUERY_COMMENTS.ToLower().Contains(searchText);
+
                     bool matchesFolder = selectedFolder.Equals("ALL") || item.QUERY_FOLDER.Equals(selectedFolder);
 
                     bool matchesFav = !fav || item.IsChecked;
@@ -331,19 +331,20 @@ namespace DevSup.MVVM.View
                 var new_it = new FavQueryDTO();
                 var temp = cboFolder.SelectedItem as FavQueryDTO;
                 new_it.QUERY_FOLDER = temp.QUERY_FOLDER.Equals("ALL") ? "폴더명" : temp.QUERY_FOLDER;
-                new_it.QUERY_NAME = "쿼리명";
+                new_it.QUERY_NAME = TxtKeyword.Text == "" ? "쿼리명" : TxtKeyword.Text;
                 new_it.QUERY_TEXT = "";
                 new_it.QUERY_COMMENTS = "";
                 new_it.FAVVALUE = "false";
 
                 this.OcFavQuery.Add(new_it);
-              
+
             }
-            else {
-           
+            else
+            {
+
                 var new_idx = this.OcFavQuery.IndexOf(item) + 1;
                 var new_item = item.Clone() as FavQueryDTO;
-                new_item.QUERY_NAME = "쿼리명";
+                new_item.QUERY_NAME = TxtKeyword.Text == "" ? "쿼리명" : TxtKeyword.Text;
                 new_item.QUERY_TEXT = "";
                 new_item.QUERY_COMMENTS = "";
                 new_item.FAVVALUE = "false";
@@ -351,46 +352,47 @@ namespace DevSup.MVVM.View
                 this.dgdFavQuery.SelectedIndex = new_idx;
             }
             UpdateDataGrid(OcFavQuery);
+            ApplyFilter(isChecked);
         }
-     /*
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            var selectedItem = dgdFavQuery.SelectedItem as FavQueryDTO;
+        /*
+           private void BtnAdd_Click(object sender, RoutedEventArgs e)
+           {
+               var selectedItem = dgdFavQuery.SelectedItem as FavQueryDTO;
 
-            if (selectedItem == null)
-            {
-                // 선택된 항목이 없는 경우
-                var newItem = new FavQueryDTO
-                {
-                    QUERY_FOLDER = (cboFolder.SelectedItem as FavQueryDTO)?.QUERY_FOLDER ?? "폴더명",
-                    QUERY_NAME = "쿼리명",
-                    QUERY_TEXT = ""
-                };
+               if (selectedItem == null)
+               {
+                   // 선택된 항목이 없는 경우
+                   var newItem = new FavQueryDTO
+                   {
+                       QUERY_FOLDER = (cboFolder.SelectedItem as FavQueryDTO)?.QUERY_FOLDER ?? "폴더명",
+                       QUERY_NAME = "쿼리명",
+                       QUERY_TEXT = ""
+                   };
 
-                this.OcFavQuery.Add(newItem);
-            }
-            else
-            {
-                // 선택된 항목이 있는 경우
-                int index = this.OcFavQuery.IndexOf(selectedItem);
-                if (index >= 0 && index < OcFavQuery.Count)
-                {
-                    var newItem = selectedItem.Clone() as FavQueryDTO;
-                    newItem.QUERY_NAME = "쿼리명";
-                    newItem.QUERY_TEXT = "";
+                   this.OcFavQuery.Add(newItem);
+               }
+               else
+               {
+                   // 선택된 항목이 있는 경우
+                   int index = this.OcFavQuery.IndexOf(selectedItem);
+                   if (index >= 0 && index < OcFavQuery.Count)
+                   {
+                       var newItem = selectedItem.Clone() as FavQueryDTO;
+                       newItem.QUERY_NAME = "쿼리명";
+                       newItem.QUERY_TEXT = "";
 
-                    this.OcFavQuery.Insert(index + 1, newItem);
-                    this.dgdFavQuery.SelectedIndex = index + 1;
-                }
-                else
-                {
-                    MessageBox.Show("선택된 항목의 인덱스가 유효하지 않습니다.");
-                }
-            }
-        }
-        */
+                       this.OcFavQuery.Insert(index + 1, newItem);
+                       this.dgdFavQuery.SelectedIndex = index + 1;
+                   }
+                   else
+                   {
+                       MessageBox.Show("선택된 항목의 인덱스가 유효하지 않습니다.");
+                   }
+               }
+           }
+           */
 
-            // 삭제버튼
+        // 삭제버튼
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             var item = dgdFavQuery.SelectedItem as FavQueryDTO;
@@ -398,6 +400,7 @@ namespace DevSup.MVVM.View
 
             this.OcFavQuery.Remove(item);
             UpdateDataGrid(OcFavQuery);
+            ApplyFilter(isChecked);
         }
 
         //저장버튼
@@ -444,18 +447,18 @@ namespace DevSup.MVVM.View
 
             string dbsource_txt = item.QUERY_TEXT.Trim();
             string golden_path = xmlLoad.GetGolden();
-           
-               
 
-                if (!File.Exists(golden_path))
-                {
 
-                    return;
-                }
+
+            if (!File.Exists(golden_path))
+            {
+
+                return;
+            }
 
 
             string src_file_path = this.SaveTempTextFile(item.QUERY_NAME.Trim().ToLower() + ".sql", dbsource_txt);
- 
+
             DEL_DBSOURCE_TXT = src_file_path;
 
             using (Process p = new Process())
@@ -469,7 +472,7 @@ namespace DevSup.MVVM.View
             }
 
             return;
-            
+
         }
 
         //골든로직
@@ -585,7 +588,7 @@ namespace DevSup.MVVM.View
         private void BtnReload_Click(object sender, RoutedEventArgs e)
         {
             this.LoadFavQueryInfo();
-          
+
         }
 
         private void Helper_Click(object sender, RoutedEventArgs e)
@@ -595,7 +598,7 @@ namespace DevSup.MVVM.View
 
 
 
-        
+
     }
 }
 

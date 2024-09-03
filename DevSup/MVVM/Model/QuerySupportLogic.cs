@@ -239,7 +239,7 @@ namespace DevSup.MVVM.Model
         public string xmlChageJson(string xmlString)
         {
             string jsonString = ConvertXmlToJson(xmlString);
-            
+
             return jsonString.Replace("{}", "\"\"");
         }
 
@@ -448,7 +448,6 @@ namespace DevSup.MVVM.Model
             string classCode = GenerateClassCode(rootElement, className);
             return classCode;
         }
-
         public string XmlChageCshap()
         {
             string xmlString = @"
@@ -469,38 +468,35 @@ namespace DevSup.MVVM.Model
             return classCode;
         }
 
-        static string GenerateClassCode(XElement rootElement, string className)
+        private string GenerateClassCode(XElement rootElement, string className)
         {
-            try
+            var properties = GetProperties(rootElement);
+            var sb = new StringBuilder();
+
+            sb.AppendLine("using System;");
+            sb.AppendLine("using System.Collections.Generic;");
+            sb.AppendLine();
+            sb.AppendLine($"public class {className}");
+            sb.AppendLine("{");
+
+            foreach (var property in properties)
             {
-                var properties = GetProperties(rootElement);
-                var sb = new StringBuilder();
-
-                sb.AppendLine("using System;");
-                sb.AppendLine();
-                sb.AppendLine($"public class {className}");
-                sb.AppendLine("{");
-
-                foreach (var property in properties)
-                {
-                    sb.AppendLine($"    public {property.Type} {property.Name} {{ get; set; }}");
-                }
-
-                sb.AppendLine("}");
-
-                return sb.ToString();
+                sb.AppendLine($"    public {property.Type} {property.Name} {{ get; set; }}");
             }
-            catch { return "입력하신 Xml이 잘못된 양식입니다."; }
+
+            sb.AppendLine("}");
+
+            return sb.ToString();
         }
 
-        static List<Property> GetProperties(XElement element)
+        private List<Property> GetProperties(XElement element)
         {
             var properties = new List<Property>();
             var children = element.Elements();
 
             foreach (var child in children)
             {
-                var propertyType = child.HasElements ? "string" : "string"; // Default type; refine based on XML content
+                var propertyType = InferType(child);
                 properties.Add(new Property
                 {
                     Name = child.Name.LocalName,
@@ -509,6 +505,36 @@ namespace DevSup.MVVM.Model
             }
 
             return properties;
+        }
+
+        private string InferType(XElement element)
+        {
+            var childElements = element.Elements().ToList();
+            if (childElements.Count > 0)
+            {
+                if (element.Elements().All(e => e.Name.LocalName == element.Elements().First().Name.LocalName))
+                {
+                    return $"List<{InferType(element.Elements().First())}>";
+                }
+            }
+
+            var content = element.Value.Trim();
+            if (int.TryParse(content, out _))
+            {
+                return "int";
+            }
+            else if (DateTime.TryParse(content, out _))
+            {
+                return "DateTime";
+            }
+            else if (bool.TryParse(content, out _))
+            {
+                return "bool";
+            }
+            else
+            {
+                return "string";
+            }
         }
 
 
