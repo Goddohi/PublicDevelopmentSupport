@@ -239,8 +239,8 @@ namespace DevSup.MVVM.Model
         public string xmlChageJson(string xmlString)
         {
             string jsonString = ConvertXmlToJson(xmlString);
-
-            return jsonString;
+            
+            return jsonString.Replace("{}", "\"\"");
         }
 
         public string xmlChageJson()
