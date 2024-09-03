@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition MinHeight="30" Height="35" x:Name="Tab0Search" />
+            <RowDefinition MinHeight="30" Height="40" x:Name="Tab0Search" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -20,16 +20,25 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                
-                <StackPanel  Orientation="Horizontal">
-                    <RadioButton Content="EQS 매개변수 -> Golden 변수코드" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoEQS"      IsChecked="True"  GroupName="xxxx" Click="RdoEQS_Click"/>
-                    <RadioButton Content="쿼리 가독성"       HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoQuerySee" IsChecked="False" GroupName="xxxx" Click="RdoQuerySee_Click" IsEnabled="True"/>
-                    <!--IsEnabled="False"-->
-                    <RadioButton Content="문자열 변환(A →'A')"         HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoINText"   IsChecked="False" GroupName="xxxx" Click="RdoINText_Click"/>
-                    <CheckBox    Content="붙여넣기모드"                    HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbauto"      IsChecked="True"/>
-                    <CheckBox    Content="중복제거"  Visibility="Hidden"   HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbremove"    IsChecked="True"  Click="Cbremove_Clik" />
-                    <CheckBox    Content="따옴표변환'->'' "  Visibility="Hidden"  HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbchge"    IsChecked="False"  Click="Cbremove_Clik" />
 
+                <StackPanel Orientation="Vertical">
+                    <StackPanel  Orientation="Horizontal">
+                        <RadioButton Content="EQS 매개변수 -> Golden 변수코드" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoEQS"      IsChecked="True"  GroupName="xxxx" Click="RdoEQS_Click"/>
+
+                        <RadioButton Content="쿼리 가독성"       HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoQuerySee" IsChecked="False" GroupName="xxxx" Click="RdoQuerySee_Click" IsEnabled="True"/>
+                        <!--IsEnabled="False"-->
+                        <RadioButton Content="XML->JSON" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoXml"      IsChecked="False"  GroupName="xxxx" Click="RdoXml_Click"/>
+                        <RadioButton Content="문자열 변환(A →'A')"         HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoINText"   IsChecked="False" GroupName="xxxx" Click="RdoINText_Click"/>
+
+
+                    </StackPanel>
+                    <StackPanel  Orientation="Horizontal">
+                        <CheckBox    Content="붙여넣기모드"                    HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbauto"      IsChecked="True"/>
+                        <CheckBox    Content="반대(JSON -> XML)"           Visibility="Collapsed"         HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="CbXmlJ"      IsChecked="False"/>
+                        <CheckBox    Content="중복제거"   Visibility="Collapsed"  HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbremove"    IsChecked="True"  Click="Cbremove_Clik" />
+                        <CheckBox    Content="따옴표변환'->'' "  Visibility="Collapsed"  HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbchge"    IsChecked="False"  Click="Cbremove_Clik" />
+
+                    </StackPanel>
                 </StackPanel>
                 <DockPanel HorizontalAlignment="Right" Grid.Column="1">
                     <Button Style="{StaticResource DefaultButtonStyle1}" ToolTip="해당 코드작성기를 새창으로 추가합니다." Content="새창"  Click="BtnNewWindow_Click" Margin="2,2,2,0" Width="40" />

@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DevSup.MVVM.Model
 {
     public class QuerySupportLogic
     {
+        //이건 여러창에서 사용할 수 있으므로 절대로 절절대로 싱글톤X..xmlload도...흐음..
 
 
 
@@ -32,7 +37,7 @@ namespace DevSup.MVVM.Model
             };
             txt = ConvertComments(txt);
             txt = ConvertToUpperWords(txt, wordsToReplace);
-            txt = txt.Replace(",", " , ").Replace(")","  )").Replace("(", " ( ").Replace(";"," ; ").Replace(Environment.NewLine, " ");
+            txt = txt.Replace(",", " , ").Replace(")", "  )").Replace("(", " ( ").Replace(";", " ; ").Replace(Environment.NewLine, " ");
 
             txt = Regex.Replace(txt, @"\s+", " ");
 
@@ -93,17 +98,17 @@ namespace DevSup.MVVM.Model
         private string FormatSqlQuery(string query)
         {
             // 주요 SQL 키워드 정의 (자신은 간격을 내려서 입력하고 그이후 간격을 한칸올림) 
-            string[] keywords = { "SELECT", "FROM", "WHERE", "JOIN", "ON", "AND", "OR", "HAVING" ,"INSERT", "INTO", "VALUES", "UPDATE","SET"};
+            string[] keywords = { "SELECT", "FROM", "WHERE", "JOIN", "ON", "AND", "OR", "HAVING", "INSERT", "INTO", "VALUES", "UPDATE", "SET" };
             //다음에 꼭 딸려올 것이 잇는 것(그후 자신은 간격을 내려서 입력하고 그이후 간격을 한칸올림 )
-            string[] keywordspace = { "GROUP" /*GROUP BY*/, "ORDER" /*ORDEY BY*/,"UNION"/* ALL*/ ,"DELETE" /*FROM*/};
+            string[] keywordspace = { "GROUP" /*GROUP BY*/, "ORDER" /*ORDEY BY*/, "UNION"/* ALL*/ , "DELETE" /*FROM*/};
             // 해당 키워드는 간격을 더한번더 늘려야함 
-            string[] pluskeywords = { "CASE" ,"(" };
+            string[] pluskeywords = { "CASE", "(" };
             // 해당키워드는 간격레벨을 내림
             string[] minuskeywords = { "END", ")" };
             //앞뒤로 공백
             string[] semikeywords = { "AS", "IN", "=" };
             //공백없음
-            string[] etckeywords = { "'", "=",";"};
+            string[] etckeywords = { "'", "=", ";" };
             //기본은 앞에만 공백
             StringBuilder sb = new StringBuilder();
             var arrLine = Regex.Replace(query, @"\s+", " ").Trim().Split(' ');
@@ -137,10 +142,11 @@ namespace DevSup.MVVM.Model
                 else if (keywordspace.Contains<string>(str))
                 {
                     //DELTE FROM 같은경우는 이어서 주로 적어서
-                    if (str.Equals("DELETE")) {
+                    if (str.Equals("DELETE"))
+                    {
                         newLine = true;
                         str = "  " + str;
-                         }
+                    }
                     if (i < arrLine.Length)
                     {
                         str = LenSizeIUp(str + " " + arrLine[++i], totalLength);
@@ -217,8 +223,219 @@ namespace DevSup.MVVM.Model
         private string AddIndentation(int Level)
         {
             Level = Level <= 0 ? 0 : Level;
-            string indented = "".PadLeft((Level==0?0:5)+5*Level);
+            string indented = "".PadLeft((Level == 0 ? 0 : 5) + 5 * Level);
             return indented;
+        }
+
+
+
+
+        //
+        // XML -> JSON
+        //
+
+
+        public string xmlChageJson(string xmlString)
+        {
+            string jsonString = ConvertXmlToJson(xmlString);
+
+            return jsonString;
+        }
+
+        public string xmlChageJson()
+        {
+            //테스트
+            string xmlString = @"<company>
+                                <name>Tech Innovators</name>
+                                <employees>
+                                    <employee id='1'>
+                                        <name>John Doe</name>
+                                        <position>Developer</position>
+                                        <skills>
+                                            <skill>Programming</skill>
+                                            <skill>Database Management</skill>
+                                        </skills>
+                                    </employee>
+                                    <employee id='2'>
+                                        <name>Jane Smith</name>
+                                        <position>Manager</position>
+                                        <skills>
+                                            <skill>Project Management</skill>
+                                        </skills>
+                                    </employee>
+                                </employees>
+                            </company>";
+
+            // XML을 JSON으로 변환
+            string jsonString = ConvertXmlToJson(xmlString);
+
+            // 결과 출력
+            Console.WriteLine("JSON:");
+            Console.WriteLine(jsonString);
+            return jsonString;
+        }
+        static string ConvertXmlToJson(string xml)
+        {
+            try
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(xml);
+
+                //XML노드를 JSON 토큰으로 바꾸기
+                JToken jsonObj = ConvertXmlNodeToJson(xmlDoc.DocumentElement);
+
+                // JSON 객체를 rootElement로 감싼다
+                var rootElement = xmlDoc.DocumentElement.Name.ToLower();
+                var wrappedJsonObj = new JObject
+                {
+                    [rootElement] = jsonObj
+                };
+
+                return JsonConvert.SerializeObject(wrappedJsonObj, Newtonsoft.Json.Formatting.Indented);
+            }
+            catch { return xml; }
+        }
+
+        //XML노드를 JToken으로 반환해주는 메소드
+        static JToken ConvertXmlNodeToJson(XmlNode node)
+        {
+            if (node.NodeType == XmlNodeType.Element)
+            {
+                var dict = new JObject();
+
+                // 속성추가
+                foreach (XmlAttribute attr in node.Attributes)
+                {
+                    dict.Add(attr.Name, JToken.FromObject(attr.Value));
+                }
+
+                // 자식 노드 추가
+                foreach (XmlNode childNode in node.ChildNodes)
+                {
+                    if (childNode.NodeType == XmlNodeType.Element)
+                    {
+                        var childJson = ConvertXmlNodeToJson(childNode);
+
+                        //같은 이름의 요소가 여러개 있을경우에  리스트로 처리를한다
+                        if (dict[childNode.Name] is JArray list)
+                        {
+                            list.Add(childJson);
+                        }
+                        // 기존에 있던 단일 값을 중복이 되었다면 리스트로 변환한다.
+                        else if (dict.ContainsKey(childNode.Name))
+                        {
+
+                            dict[childNode.Name] = new JArray { dict[childNode.Name], childJson };
+                        }
+                        else
+                        {
+                            dict.Add(childNode.Name, childJson);
+                        }
+                    }
+                    else if (childNode.NodeType == XmlNodeType.Text)
+                    {
+                        return JToken.FromObject(childNode.InnerText);
+                    }
+                }
+
+                // 단일 값(항목)이 있을경우 배열로 감싸지 않도록 체크
+                foreach (var kvp in dict)
+                {
+                    if (kvp.Value is JArray array && array.Count == 1)
+                    {
+                        dict[kvp.Key] = array[0];
+                    }
+                }
+
+                return dict;
+            }
+
+            return JValue.CreateNull(); //JSON에서 null 값표현하는 방식
+        }
+
+        //
+        // JSON -> XML
+        // 
+        //
+
+
+        public string jsonChageXml(string jsonString)
+        {
+            string xml = ConvertJsonToXml(jsonString);
+
+            return xml;
+        }
+
+        public string jsonChageXml()
+        {
+            //테스트
+            string json = @"
+        {
+            'person': {
+                'id': 1,
+                'type': 'employee',
+                'name': 'John Doe',
+                'age': 30
+            }
+        }";
+
+            // JSON 문자열을 XML로 변환
+            string xml = ConvertJsonToXml(json);
+            Console.WriteLine(xml);
+            return xml;
+        }
+        static string ConvertJsonToXml(string json)
+        {
+            try
+            {
+                var jObject = JObject.Parse(json);
+
+                // 루트 요소의 이름을 JSON의 첫 번째 키의 복수형으로 설정
+                //ies es 고려 X 
+                string rootElementName = jObject.Properties().First().Name + "s";
+
+                // JSON 객체를 XML로 변환
+                XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode(jObject.ToString(), "Root");
+
+                // XML 문서의 루트 요소 이름을 변경
+                XmlElement root = xmlDoc.DocumentElement;
+                if (root != null)
+                {
+                    // XML의 기존 루트 요소 이름을 제거하고 새 루트 요소 이름으로 변경
+                    XmlElement newRoot = xmlDoc.CreateElement(rootElementName);
+
+                    // 기존 루트 요소의 자식 요소를 새 루트 요소로 이동
+                    while (root.HasChildNodes)
+                    {
+                        XmlNode child = root.FirstChild;
+                        newRoot.AppendChild(child);
+                    }
+
+                    // XML 문서에 새 루트 요소를 설정
+                    xmlDoc.RemoveChild(root);
+                    xmlDoc.AppendChild(newRoot);
+                }
+
+                // XML 문서를 포맷된 문자열로 변환
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    IndentChars = "  ", // 두 개의 공백으로 들여쓰기
+                    NewLineOnAttributes = false // 속성마다 새 줄을 추가하지 않음
+                };
+
+                using (var stringWriter = new StringWriter())
+                using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                {
+                    xmlDoc.WriteTo(xmlWriter);
+                    xmlWriter.Flush();
+                    return stringWriter.GetStringBuilder().ToString();
+                }
+            }
+            catch { return json; }
         }
     }
 }
+
+
+

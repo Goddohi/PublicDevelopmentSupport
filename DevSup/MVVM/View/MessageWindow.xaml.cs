@@ -32,7 +32,14 @@ namespace DevSup.MVVM.View
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
-        
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {// ESC,엔터 키를 눌렀을 때 창을 닫음
+            if (e.Key == Key.Escape || e.Key == Key.Enter)
+            {
+
+                this.Close();
+            }
+        }
 
         // Singleton 인스턴스에 접근하는 속성
         public static MessageWindow Instance
@@ -54,8 +61,16 @@ namespace DevSup.MVVM.View
         }
         public void ShowMessage(string message)
         {
-            messageBox.Text = message;
-            ShowDialog();
+            if (!IsVisible)
+            {
+                messageBox.Text = message;
+                ShowDialog();
+            }
+            else
+            {
+                // 만약 이미 있는데 새로운창이 뜰경우 (혹시나 예외처리)
+                messageBox.Text += message;
+            }
         }
     }
 }

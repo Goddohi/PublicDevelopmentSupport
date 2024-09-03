@@ -49,7 +49,7 @@
                     CornerRadius="10" Margin="45,0,0,0">
                 <Grid>
                     <StackPanel>
-                        <TextBlock> Git </TextBlock>
+                        <TextBlock> Git</TextBlock>
                         <TextBlock>
                             
                         <Hyperlink RequestNavigate="Hyperlink_RequestNavigate"  NavigateUri="https://github.com/Goddohi">
@@ -112,7 +112,11 @@
                     <Grid>
                         <Image Source="/Images/EmptyStar.png" Width="50" Height="50"/>
                     </Grid>
+
                 </Border>
+                <Button  Style="{StaticResource DefaultButtonStyle1}" Click="TEST_Click" Width="72" RenderTransformOrigin="0.5,0.5" Height="88">
+                    신기능 테스트
+                </Button>
             </StackPanel>
         </StackPanel>
     </StackPanel>

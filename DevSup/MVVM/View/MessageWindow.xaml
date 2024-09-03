@@ -11,7 +11,8 @@
               AllowsTransparency="True"
               Title="시스템메세지"
               Height="200"
-              Width="400">
+              Width="400"
+              KeyDown="Window_KeyDown">
 
     <Grid>
         <!-- Border에 테두리와 둥근 모서리를 설정합니다. -->
@@ -27,7 +28,7 @@
                            Background="Transparent"
                            Foreground="Wheat"
                            Text="서비스 메세지"
-                           FontSize="15" Margin="0,-20,0,0" /> 
+                           FontSize="15" Margin="0,-20,0,0" />
                 <!-- TextBlock 설정 -->
                 <TextBlock x:Name="messageBox"
                            VerticalAlignment="Center"

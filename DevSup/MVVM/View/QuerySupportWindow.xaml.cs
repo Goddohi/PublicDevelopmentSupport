@@ -25,10 +25,11 @@ namespace DevSup.MVVM.View
     /// </summary>
     public partial class QuerySupportWindow : WinBase
     {
-        
+
 
         private int _clickCount = 0;
         private const int DoubleClickThreshold = 500; // 더블 클릭을 감지하기 위한 시간 (밀리초)
+        QuerySupportLogic QSLogic = new QuerySupportLogic();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -96,7 +97,7 @@ namespace DevSup.MVVM.View
 
 
 
-        QuerySupportLogic QSLogic = new QuerySupportLogic();
+
 
         private void BtnConvert_Click(object sender, RoutedEventArgs e)
         {
@@ -118,6 +119,8 @@ namespace DevSup.MVVM.View
                 this.TxtCode.Text = QSLogic.GenerateQuerySee(TxtSrc.Text);
             else if (RdoINText.IsChecked == true)
                 this.GenerateInText();
+            else if (RdoXml.IsChecked == true)
+                this.TxtCode.Text = CbXmlJ.IsChecked == false ? QSLogic.xmlChageJson(TxtSrc.Text) : QSLogic.jsonChageXml(TxtSrc.Text);
         }
 
 
@@ -184,7 +187,7 @@ namespace DevSup.MVVM.View
 
             this.TxtCode.Text = this.TxtCode.Text + sb1.ToString();
         }
-    
+
 
         // 3번쨰 기능
         private void GenerateInText()
@@ -228,7 +231,7 @@ namespace DevSup.MVVM.View
         private const string TAB = "    ";
         private string BR = Environment.NewLine;
         private string SUMMARY = string.Format("{0}{0}/// <summary>{1}{0}{0}/// #TITLE#{1}{0}{0}/// </summary>", TAB, Environment.NewLine);
-   
+
         private string MakeSourceCodeProperty(ArrayList propList)
         {
             string txt = "";
@@ -279,7 +282,7 @@ namespace DevSup.MVVM.View
 
             return newtxt;
         }
-       
+
 
 
         private string GetBlank(string txt)
@@ -342,36 +345,48 @@ namespace DevSup.MVVM.View
         }
 
 
+
         private void RdoEQS_Click(object sender, RoutedEventArgs e)
         {
 
             this.TxtSrc.Text = "";//
 
-            Cbremove.Visibility = Visibility.Hidden;
+            Cbremove.Visibility = Visibility.Collapsed;
 
-            Cbchge.Visibility = Visibility.Hidden;
+            CbXmlJ.Visibility = Visibility.Collapsed;
+            Cbchge.Visibility = Visibility.Collapsed;
         }
+        private void RdoXml_Click(object sender, RoutedEventArgs e)
+        {
+            this.TxtSrc.Text = "";//
 
+            Cbremove.Visibility = Visibility.Collapsed;
+            Cbchge.Visibility = Visibility.Collapsed;
+
+            CbXmlJ.Visibility = Visibility.Visible;
+        }
         private void RdoQuerySee_Click(object sender, RoutedEventArgs e)
         {
             this.TxtSrc.Text = "";
 
-            Cbremove.Visibility = Visibility.Hidden;
-
-            Cbchge.Visibility = Visibility.Hidden;
+            Cbremove.Visibility = Visibility.Collapsed;
+            Cbchge.Visibility = Visibility.Collapsed;
+            CbXmlJ.Visibility = Visibility.Collapsed;
 
         }
+
 
         private void RdoINText_Click(object sender, RoutedEventArgs e)
         {
             // 이버튼을 눌럿을 경우 공백처리
             this.TxtSrc.Text = "";
 
-
             Cbremove.Visibility = Visibility.Visible;
 
+            CbXmlJ.Visibility = Visibility.Collapsed;
             Cbchge.Visibility = Visibility.Visible;
         }
+
 
         private void Cbremove_Clik(object sender, RoutedEventArgs e)
         {
@@ -395,7 +410,7 @@ namespace DevSup.MVVM.View
         ////
         private void GenerateQuerySee()
         {
-            string txt = this.TxtSrc.Text.Trim();  
+            string txt = this.TxtSrc.Text.Trim();
             var wordsToReplace = new List<string>
             {
                 "and",
@@ -407,9 +422,9 @@ namespace DevSup.MVVM.View
             txt = ConvertComments(txt);
             txt = ConvertToUpperWords(txt, wordsToReplace);
             txt = txt.Replace(",", " , ").Replace(Environment.NewLine, " ");
-            
+
             txt = Regex.Replace(txt, @"\s+", " ");
-            
+
             this.TxtCode.Text = FormatSqlQuery(txt);
         }
 
@@ -443,7 +458,7 @@ namespace DevSup.MVVM.View
                 code = code.Substring(0, commentIndex) + replacementStart + commentContent + commentEnd + code.Substring(lastIndex);
             }
             return code;
-            
+
         }
 
         public string ConvertToUpperWords(string input, List<string> wordsToReplace)
@@ -470,7 +485,7 @@ namespace DevSup.MVVM.View
             string[] keywords = { "SELECT", "FROM", "WHERE", "JOIN", "ON", "AND", "OR", "HAVING" };
             string[] keywordspace = { "GROUP" /*GROUP BY*/, "ORDER" /*ORDEY BY*/};
 
-            string[] semikeywords = { "AS" , "IN","=" };
+            string[] semikeywords = { "AS", "IN", "=" };
             string[] etckeywords = { "'", "=" };
             StringBuilder sb = new StringBuilder();
             var arrLine = Regex.Replace(query, @"\s+", " ").Trim().Split(' ');
@@ -485,7 +500,7 @@ namespace DevSup.MVVM.View
             }*/
             Boolean newLine = true;
             int totalLength = 9;
-            for(int i = 0; i < arrLine.Length; i++)
+            for (int i = 0; i < arrLine.Length; i++)
             {
                 var str = arrLine[i];
 
@@ -493,37 +508,39 @@ namespace DevSup.MVVM.View
                 {
 
                     str = LenSizeIUp(str, totalLength);
-                    
-                    indentLevel = indentLevel - 1 <= 0 ? 0 : indentLevel - 1;
-                    sb.Append(newLine ? "" : Environment.NewLine);
-                    sb.Append(AddIndentation(indentLevel++)+ str + " ");
-                    newLine = false;
-                }else if (keywordspace.Contains<string>(str))
-                {
-                    
-                    str = LenSizeIUp(str + " " + arrLine[++i], totalLength);
-                    
+
                     indentLevel = indentLevel - 1 <= 0 ? 0 : indentLevel - 1;
                     sb.Append(newLine ? "" : Environment.NewLine);
                     sb.Append(AddIndentation(indentLevel++) + str + " ");
                     newLine = false;
                 }
-                else if (str.Equals(",")){
+                else if (keywordspace.Contains<string>(str))
+                {
+
+                    str = LenSizeIUp(str + " " + arrLine[++i], totalLength);
+
+                    indentLevel = indentLevel - 1 <= 0 ? 0 : indentLevel - 1;
                     sb.Append(newLine ? "" : Environment.NewLine);
-                    sb.Append( AddIndentation(indentLevel)+str);
+                    sb.Append(AddIndentation(indentLevel++) + str + " ");
+                    newLine = false;
+                }
+                else if (str.Equals(","))
+                {
+                    sb.Append(newLine ? "" : Environment.NewLine);
+                    sb.Append(AddIndentation(indentLevel) + str);
                     newLine = false;
                 }
                 else if (str.Equals("/*"))
                 {
-                    sb.Append(newLine ? "" :"    ");
-                    while (!arrLine[i].Contains("*/")) { sb.Append(arrLine[i++]+" "); }
-                    sb.Append(arrLine[i]+Environment.NewLine);
+                    sb.Append(newLine ? "" : "    ");
+                    while (!arrLine[i].Contains("*/")) { sb.Append(arrLine[i++] + " "); }
+                    sb.Append(arrLine[i] + Environment.NewLine);
                     newLine = true;
 
                 }
                 else if (semikeywords.Contains<string>(str))
                 {
-                    sb.Append(" " + str+" ");
+                    sb.Append(" " + str + " ");
                     newLine = false;
                 }
                 else if (etckeywords.Contains<string>(str))
@@ -531,11 +548,12 @@ namespace DevSup.MVVM.View
                     sb.Append(str);
                     newLine = false;
                 }
-                else {
+                else
+                {
                     sb.Append(" " + str);
                     newLine = false;
                 }
-                
+
             }
 
 
@@ -550,7 +568,7 @@ namespace DevSup.MVVM.View
             if (inputLength < totalLength)
             {
                 // 왼쪽과 오른쪽에 공백을 추가하여 총 길이를 맞춤
-                str = str.PadLeft(totalLength-1)
+                str = str.PadLeft(totalLength - 1)
                                      .PadRight(totalLength);
 
             }
@@ -567,9 +585,11 @@ namespace DevSup.MVVM.View
                 case 1: indented = "".PadLeft(10); break;
                 case 2: indented = "".PadLeft(15); break;
                 case 3: indented = "".PadLeft(20); break;
-                default:indented = "".PadLeft(5+5*Level); break;
+                default: indented = "".PadLeft(5 + 5 * Level); break;
             }
             return indented;
         }
+
+
     }
 }

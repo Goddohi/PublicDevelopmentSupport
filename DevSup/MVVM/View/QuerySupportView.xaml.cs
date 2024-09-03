@@ -21,7 +21,7 @@ namespace DevSup.MVVM.View
     /// </summary>
     public partial class QuerySupportView : UserControl
     {
-        
+
         public QuerySupportView()
         {
             InitializeComponent();
@@ -41,7 +41,7 @@ namespace DevSup.MVVM.View
             window.Owner = this.Parent as Window;
             window.Title = "코드작성도우미";
             window.Show();
- }
+        }
         QuerySupportLogic QSLogic = new QuerySupportLogic();
 
         private void TxtSrc_TextChanged(object sender, TextChangedEventArgs e)
@@ -49,7 +49,7 @@ namespace DevSup.MVVM.View
             //붙여넣기 모드
             if (Cbauto.IsChecked == true)
             {
-                string txt = this.TxtSrc.Text.Trim().Replace("  ", " "); 
+                string txt = this.TxtSrc.Text.Trim().Replace("  ", " ");
                 this.TxtSrc.Text = txt;
             }
 
@@ -60,6 +60,8 @@ namespace DevSup.MVVM.View
             //this.GenerateProperty();
             else if (RdoINText.IsChecked == true)
                 this.GenerateInText();
+            else if (RdoXml.IsChecked == true)
+                this.TxtCode.Text = CbXmlJ.IsChecked == false ? QSLogic.xmlChageJson(TxtSrc.Text) : QSLogic.jsonChageXml(TxtSrc.Text);
         }
 
 
@@ -71,8 +73,8 @@ namespace DevSup.MVVM.View
             {
                 if (line.Trim().Length < 2) continue;
 
-             
-                var arrLine = Regex.Replace(line, @"\s+", " ").Trim().Split(' ');  
+
+                var arrLine = Regex.Replace(line, @"\s+", " ").Trim().Split(' ');
                 string val = "";
                 string param_name = "";
                 string type = "VARCHAR2(10)";
@@ -103,7 +105,7 @@ namespace DevSup.MVVM.View
             {
                 if (line.Trim().Length < 2) continue;
 
-                var arrLine = Regex.Replace(line, @"\s+", " ").Trim().Split(' '); 
+                var arrLine = Regex.Replace(line, @"\s+", " ").Trim().Split(' ');
 
                 string val = "";
                 string param_name = "";
@@ -168,7 +170,8 @@ namespace DevSup.MVVM.View
                 if (t.Equals("")) continue;
 
                 list.Add(t);
-                if(Cbchge.IsChecked == false) { 
+                if (Cbchge.IsChecked == false)
+                {
                     if (text == "") text = $"'{t}'";
                     else text += $",'{t}'";
                 }
@@ -207,7 +210,7 @@ namespace DevSup.MVVM.View
                 txt += string.Format(@"{1}{1}{1}set {{ if (this.{2} != value) {{ this.{2} = value; OnPropertyChanged(""{3}"", value); }} }}{0}", BR, TAB, colname.ToLower(), colname.ToUpper());
                 txt += string.Format(@"{1}{1}}} {0}{0}", BR, TAB);
             }
-  
+
             return txt;
 
         }
@@ -307,17 +310,26 @@ namespace DevSup.MVVM.View
 
             this.TxtSrc.Text = "";//
 
-            Cbremove.Visibility = Visibility.Hidden;
-
-            Cbchge.Visibility = Visibility.Hidden;
+            Cbremove.Visibility = Visibility.Collapsed;
+            CbXmlJ.Visibility = Visibility.Collapsed;
+            Cbchge.Visibility = Visibility.Collapsed;
         }
+        private void RdoXml_Click(object sender, RoutedEventArgs e)
+        {
+            this.TxtSrc.Text = "";//
 
+            Cbremove.Visibility = Visibility.Collapsed;
+            Cbchge.Visibility = Visibility.Collapsed;
+
+            CbXmlJ.Visibility = Visibility.Visible;
+        }
         private void RdoQuerySee_Click(object sender, RoutedEventArgs e)
         {
             this.TxtSrc.Text = "";
 
-            Cbremove.Visibility = Visibility.Hidden;
-            Cbchge.Visibility = Visibility.Hidden;
+            Cbremove.Visibility = Visibility.Collapsed;
+            Cbchge.Visibility = Visibility.Collapsed;
+            CbXmlJ.Visibility = Visibility.Collapsed;
 
         }
 
@@ -329,6 +341,7 @@ namespace DevSup.MVVM.View
 
             Cbremove.Visibility = Visibility.Visible;
 
+            CbXmlJ.Visibility = Visibility.Collapsed;
             Cbchge.Visibility = Visibility.Visible;
         }
 
@@ -337,7 +350,7 @@ namespace DevSup.MVVM.View
             GenerateInText();
 
         }
-        
+
         private void TxtCode_TextChanged(object sender, TextChangedEventArgs e)
         {
 

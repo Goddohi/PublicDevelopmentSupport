@@ -3,3 +3,11 @@
 ################################################################################
 
 /.vs/DevSup/v15
+
+#DevSup\bin 디렉토리 무시
+/.vs/DevSup/bin/
+/DevSup/bin/
+# obj
+/.vs/DevSup/obj/
+/DevSup/obj/
+

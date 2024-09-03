@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevSup.MVVM.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -36,6 +37,12 @@ namespace DevSup.MVVM.View
 
             // 이벤트가 처리되었음을 표시합니다.
             e.Handled = true;
+        }
+
+        private void TEST_Click(object sender, RoutedEventArgs e)
+        {
+            QuerySupportLogic qs = new QuerySupportLogic();
+            qs.jsonChageXml();
         }
     }
 }
