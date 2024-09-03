@@ -26,7 +26,9 @@ namespace DevSup.MVVM.View
         {
             SemiLogo();
             InitializeComponent();
-
+            //맨위에 항상 있게 해줌   xaml 에서 Topmost = "True" 
+            this.Topmost = true;
+            // 창이 화면의 중앙에 위치하도록 설정
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 

@@ -9,7 +9,8 @@
     <Color x:Key="GridBackgroundColor">Transparent</Color>
     <Color x:Key="GridForegroundColor">#FFFFFF</Color>
     <Color x:Key="GridBorderColor">#88FFFFFF</Color>
-    <Color x:Key="SelectedRowBackgroundColor">#A0A0A0</Color>
+    <!-- 열이 선택되었을 때 -->
+    <Color x:Key="SelectedRowBackgroundColor">#4F4F4F</Color>
 
 
 
