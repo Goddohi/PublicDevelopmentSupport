@@ -1,4 +1,4 @@
-﻿<core:UCBase x:Class="DevSup.MVVM.View.MyQureyView"
+﻿<core:UCBase x:Class="DevSup.MVVM.View.MyQueryView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -31,7 +31,7 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Height="16" HorizontalAlignment="Right" Foreground="Wheat" Text="검색어" VerticalAlignment="Center" Margin="0,4,5,5" Grid.Column="0" />
+                <TextBlock Height="16" HorizontalAlignment="Right" Foreground="{StaticResource textmainColor}" Text="검색어" VerticalAlignment="Center" Margin="0,4,5,5" Grid.Column="0" />
                 <ComboBox x:Name="cboFolder" HorizontalAlignment="Left" Width="100" SelectionChanged="CboFolder_SelectionChanged" Margin="0,2,0,1"  Grid.Column="1"
                           DisplayMemberPath="QUERY_FOLDER" SelectedValuePath="QUERY_FOLDER" Loaded="CboFolder_Loaded" IsSynchronizedWithCurrentItem="True" />
 
@@ -44,7 +44,7 @@
 
 
                 <StackPanel VerticalAlignment="Center" Grid.Column="4" Margin="20,0,0,0">
-                    <TextBlock Foreground="Wheat" Text="자주 사용하는 Query를 등록하고 편리하게 이용할 수 있습니다." VerticalAlignment="Center" Margin="2,0,-2,0" />
+                    <TextBlock Foreground="{StaticResource textmainColor}" Text="자주 사용하는 Query를 등록하고 편리하게 이용할 수 있습니다." VerticalAlignment="Center" Margin="2,0,-2,0" />
                 </StackPanel>
 
 
@@ -69,19 +69,29 @@
                         <Button x:Name="BtnAdd" Content="추가" Style="{StaticResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" Height="21" Width="22" Click="BtnAdd_Click" />
                         <Button x:Name="BtnDelete" Content="삭제" Style="{StaticResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="22" Click="BtnDelete_Click" />
                         <Button x:Name="BtnSave" Content="저장" Style="{StaticResource DefaultButtonStyle1}" ToolTip="전체리스트를 저장합니다." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="20" Click="BtnSave_Click" />
-                        <Button x:Name="BtnReload" Content="Re" Style="{StaticResource DefaultButtonStyle1}" ToolTip="새로고침" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="22" Click="BtnReload_Click" />
+                        <Button x:Name="BtnFilterReload"  Style="{StaticResource DefaultButtonStyle1}" ToolTip="필터를 새로고침합니다" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="22" Click="BtnFilterReload_Click" >
+                            <Image  x:Name="FilterReload" Source="/Images/FilterReset.png" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" MouseLeftButtonDown="StarImage_MouseLeftButtonDown" Height="30" Width="25"/>
+
+                        </Button>
+
+
                     </DockPanel>
-                    <!-- 심각한 오류발견으로 잠정중단
+
                     <DockPanel Grid.Row="0" HorizontalAlignment="Right">
+                        <Button x:Name="BtnAllReload" Style="{StaticResource DefaultButtonStyle1}" ToolTip="저장하기 전으로 모든내역을 되돌립니다." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="22" Click="BtnAllReload_Click" >
+                            <Image  x:Name="AllReload" Source="/Images/AllReset.png" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" MouseLeftButtonDown="StarImage_MouseLeftButtonDown" Height="30" Width="25"/>
+                        </Button>
+                        <!-- 심각한 오류발견으로 잠정중단
                         <Button x:Name="BtnUp" Content="∧" Style="{StaticResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="20" Margin="2,0,0,0" Click="BtnUp_Click"/>
                         <Button x:Name="BtnDown" Content="∨" Style="{StaticResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="20" Margin="2,0,0,0" Click="BtnDown_Click"/>
+                   -->
                     </DockPanel>
-           -->
+
                     <Button x:Name="helper"  Margin="0,2,0,0" Click="Helper_Click"
                             Style="{StaticResource DefaultButtonStyle1}" Grid.Row="1" Width="260" Height="250" Visibility="Collapsed"  >
-                        <TextBlock TextWrapping="Wrap"  TextAlignment="Center"   Foreground="Wheat" FontSize="14">
+                        <TextBlock TextWrapping="Wrap"  TextAlignment="Center"   Foreground="{StaticResource textmainColor}" FontSize="14">
                             데이터가 조회되지 않습니다<LineBreak/> 다시 시도해 주세요.
-                            <LineBreak/> 해당 버튼은 새로고침 버튼입니다.
+                            <LineBreak/> 해당 버튼은 필터새로고침 버튼입니다.
                         </TextBlock>
 
 
@@ -177,7 +187,7 @@
 
                     </DockPanel>
 
-                    <TextBox x:Name="txtQueryText"  Foreground="Wheat" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto" 
+                    <TextBox x:Name="txtQueryText"  Foreground="{StaticResource textmainColor}" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto" 
                              Text="{Binding ElementName=dgdFavQuery, Path=SelectedItem.QUERY_TEXT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="13" 
          PreviewKeyDown="txtQueryText_PreviewKeyDown"  Grid.Row="1" Grid.ColumnSpan="2"/>
 

@@ -14,7 +14,7 @@
   </TabSettingEntity>
   <TabSettingEntity>
     <TABNAME>MY 쿼리</TABNAME>
-    <UCNAME>MyQureyView</UCNAME>
+    <UCNAME>MyQueryView</UCNAME>
     <VALUE>true</VALUE>
     <DETAIL></DETAIL>
   </TabSettingEntity>

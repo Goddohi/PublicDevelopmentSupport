@@ -58,10 +58,10 @@ namespace DevSup.MVVM.View
             ocTableRefInfo = new ObservableCollection<TableSearchRefInfo>();
             ocTableCommonCode = new ObservableCollection<TableSearchCommonCode>();
 
-        LoadData();
+            LoadData();
         }
 
-  
+
 
         private void TxtKeyword_TableInfo(object sender, TextChangedEventArgs e)
         {
@@ -76,8 +76,8 @@ namespace DevSup.MVVM.View
                 {
                     ApplyFilter("DgdFavObjList", textBox.Text);
                 }
-                   
-                
+
+
             }
         }
         private void TxtKeywordCol_TableColInfo(object sender, TextChangedEventArgs e)
@@ -101,15 +101,16 @@ namespace DevSup.MVVM.View
         {
             if (type.Equals("DgdObjList"))
             {
-                ApplyFilterTableInfo(filterText,false);
+                ApplyFilterTableInfo(filterText, false);
             }
             else if (type.Equals("DgdFavObjList"))
             {
 
-                ApplyFilterTableInfo(filterText,true);
+                ApplyFilterTableInfo(filterText, true);
             }
-            
-            else if (type.Equals("DgdColInfo")) {
+
+            else if (type.Equals("DgdColInfo"))
+            {
 
                 ApplyFilterTableCol(filterText);
             }
@@ -126,9 +127,11 @@ namespace DevSup.MVVM.View
 
         }
         //필터 프로세스인데 따로 뺄까... 말까 (뻇당)
-        private void ApplyFilterTableInfo(string filterText, Boolean favtype){
+        private void ApplyFilterTableInfo(string filterText, Boolean favtype)
+        {
             try
             {
+                //즐겨찾기 구분
                 var view = CollectionViewSource.GetDefaultView((favtype ? DgdFavObjList.ItemsSource : DgdObjList.ItemsSource));
 
                 if (view != null)
@@ -152,18 +155,58 @@ namespace DevSup.MVVM.View
                                 }
                                 if (isOrCondition)
                                 {
-                                // OR 조건: 하나라도 일치하면 true
-                                return matches.Any(match => match);
+                                    // OR 조건: 하나라도 일치하면 true
+                                    return matches.Any(match => match);
                                 }
                                 else
                                 {
-                                // AND 조건: 모두 일치해야 true
-                                return matches.All(match => match);
+                                    // AND 조건: 모두 일치해야 true
+                                    return matches.All(match => match);
                                 }
                             }
                             return false;
                         };
 
+
+                    }
+                    else if (chkCommentFilter.IsChecked == true) //따로뺸이유 그냥 안쓸때는 오래걸려서
+                    {
+                        view.Filter = item =>
+                        {
+                            if (item is TableSearchInfo tableInfo)
+                            {
+                                var ownerText = tableInfo.OWNER;
+                                var tableText = tableInfo.TABLE_NAME;
+                                var commentText = tableInfo.TABLE_COMMENTS;
+
+                                // ownerText 및 tableText에 대한 검색어 매칭 여부
+                                var ownerMatches = keywords.Select(keyword =>
+                                    ownerText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0);
+                                var tableMatches = keywords.Select(keyword =>
+                                    tableText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0);
+                                var commentMatches = keywords.Select(keyword =>
+                                    commentText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0);
+
+                                if (keywords.Length == 0)
+                                {
+                                    return true;
+                                }
+                                if (isOrCondition)
+                                {
+                                    // OR 조건: 코멘트도OR
+                                    return ownerMatches.Any(match => match) || tableMatches.Any(match => match) || commentMatches.Any(match => match);
+                                }
+                                else
+                                {
+                                    // AND 조건: 코멘트도 AND
+                                    return keywords.All(keyword =>
+                                    ownerText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                            tableText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                            commentText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0);
+                                }
+                            }
+                            return false;
+                        };
 
                     }
                     else
@@ -174,27 +217,29 @@ namespace DevSup.MVVM.View
                             {
                                 var ownerText = tableInfo.OWNER;
                                 var tableText = tableInfo.TABLE_NAME;
+                                var commentText = tableInfo.TABLE_COMMENTS;
 
-                            // ownerText 및 tableText에 대한 검색어 매칭 여부
-                            var ownerMatches = keywords.Select(keyword =>
+                                // ownerText 및 tableText에 대한 검색어 매칭 여부
+                                var ownerMatches = keywords.Select(keyword =>
                                     ownerText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0);
                                 var tableMatches = keywords.Select(keyword =>
                                     tableText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0);
+
                                 if (keywords.Length == 0)
                                 {
                                     return true;
                                 }
                                 if (isOrCondition)
                                 {
-                                // OR 조건: ownerText 또는 tableText에서 하나라도 일치하면 true
-                                return ownerMatches.Any(match => match) || tableMatches.Any(match => match);
+                                    // OR 조건: ownerText 또는 tableText에서 하나라도 일치하면 true
+                                    return ownerMatches.Any(match => match) || tableMatches.Any(match => match);
                                 }
                                 else
                                 {
-                                // AND 조건: 모든 검색어가 ownerText와 tableText 모두에 일치해야 true
-                                return keywords.All(keyword =>
-                                        ownerText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                        tableText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0);
+                                    // AND 조건: 모든 검색어가 ownerText와 tableText 모두에 일치해야 true
+                                    return keywords.All(keyword =>
+                                            ownerText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                            tableText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0);
                                 }
                             }
                             return false;
@@ -203,23 +248,25 @@ namespace DevSup.MVVM.View
                     view.Refresh();
                 }
             }
-            catch { //MessageBox.Show("사유: 즐겨찾기 테이블이 없습니다 \n에러코드: TSV_CS_AFTI"); 
+            catch
+            { //MessageBox.Show("사유: 즐겨찾기 테이블이 없습니다 \n에러코드: TSV_CS_AFTI"); 
             }
 
         }
 
         private void ApplyFilterTableCol(string filterText)
         {
-            try { 
-            var view = CollectionViewSource.GetDefaultView(DgdColInfo.ItemsSource);
-
-            if (view != null)
+            try
             {
-                var keywords = filterText.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var selectedItem = (ComboBoxItem)CboAndOrCol.SelectedItem; //여기 메소드마다 다름 
-                var isOrCondition = selectedItem.Content.Equals("OR");
-                Console.WriteLine(isOrCondition ? "ㅅㄱ" : "ㅅㅍ");
-                view.Filter = item =>
+                var view = CollectionViewSource.GetDefaultView(DgdColInfo.ItemsSource);
+
+                if (view != null)
+                {
+                    var keywords = filterText.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    var selectedItem = (ComboBoxItem)CboAndOrCol.SelectedItem; //여기 메소드마다 다름 
+                    var isOrCondition = selectedItem.Content.Equals("OR");
+                    Console.WriteLine(isOrCondition ? "ㅅㄱ" : "ㅅㅍ");
+                    view.Filter = item =>
                     {
                         if (item is TableColumnInfo tableColInfo)
                         {
@@ -252,24 +299,26 @@ namespace DevSup.MVVM.View
                 }
                 view.Refresh();
             }
-            catch {
+            catch
+            {
                 //MessageBox.Show("사유: colum 테이블이 없습니다 \n에러코드: TSV_CS_AFTC");
             }
-            }
+        }
 
-    
+
         private void ApplyFilterTableRef(string filterText)
         {
-            try { 
-            var view = CollectionViewSource.GetDefaultView(DgdRefObjList.ItemsSource); //메소드마다 다름
-
-            if (view != null)
+            try
             {
-                var keywords = filterText.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var selectedItem = (ComboBoxItem)CboAndOrObj.SelectedItem; //여기 메소드마다 다름 
-                var isOrCondition = selectedItem.Content.Equals("OR");
-                Console.WriteLine(isOrCondition ? "ㅅㄱ" : "ㅅㅍ");
-                view.Filter = item =>
+                var view = CollectionViewSource.GetDefaultView(DgdRefObjList.ItemsSource); //메소드마다 다름
+
+                if (view != null)
+                {
+                    var keywords = filterText.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    var selectedItem = (ComboBoxItem)CboAndOrObj.SelectedItem; //여기 메소드마다 다름 
+                    var isOrCondition = selectedItem.Content.Equals("OR");
+                    Console.WriteLine(isOrCondition ? "ㅅㄱ" : "ㅅㅍ");
+                    view.Filter = item =>
                     {
                         if (item is TableSearchRefInfo tableRefInfo)
                         {
@@ -307,9 +356,10 @@ namespace DevSup.MVVM.View
                 }
                 view.Refresh();
             }
-            catch { //MessageBox.Show("사유: Ref 테이블이 없습니다 \n에러코드: TSV_CS_AFTR");
+            catch
+            { //MessageBox.Show("사유: Ref 테이블이 없습니다 \n에러코드: TSV_CS_AFTR");
             }
-         }
+        }
 
 
         /*
@@ -334,7 +384,7 @@ namespace DevSup.MVVM.View
         }
         */
 
-        
+
 
 
 
@@ -355,14 +405,14 @@ namespace DevSup.MVVM.View
                 }
 
             }
-            }
+        }
 
         private void TxtKeywordCol_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 var textBox = FindVisualChild<TextBox>(TxtKeywordCol);
-                ApplyFilter("DgdColInfo", textBox.Text); 
+                ApplyFilter("DgdColInfo", textBox.Text);
             }
         }
 
@@ -435,8 +485,9 @@ namespace DevSup.MVVM.View
                 //MessageBox.Show("데이터를 로드하는 동안 오류가 발생했습니다: " + ex.Message);
             }
 
-            try {
-                
+            try
+            {
+
                 var favtableData = xmlLoad.GetFabTable();
 
                 ocFavTableInfo.Clear();
@@ -446,8 +497,10 @@ namespace DevSup.MVVM.View
                 }
 
                 DgdFavObjList.ItemsSource = favtableData;
-           }
-            catch{ Console.WriteLine("즐겨찾기실패");
+            }
+            catch
+            {
+                Console.WriteLine("즐겨찾기실패");
             }
         }
         private void DgdColInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -526,7 +579,8 @@ namespace DevSup.MVVM.View
                 catch { }
 
 
-                try {
+                try
+                {
                     var tableAddInfo = _tableDataService.GetTableAddInfos(selectedItem.TABLE_NAME);
 
                     ocTableAddInfo.Clear();
@@ -536,7 +590,7 @@ namespace DevSup.MVVM.View
                     }
                     dgdTableAddInfo.ItemsSource = ocTableAddInfo;
                 }
-                catch{ }
+                catch { }
             }
         }
 
@@ -611,7 +665,7 @@ namespace DevSup.MVVM.View
         {
             var item = DgdObjList.SelectedItem as TableSearchInfo;
             var new_item = (TableSearchInfo)item.Clone();
-            
+
 
             if (this.ocFavTableInfo.Count(d => d.TABLE_NAME == item.TABLE_NAME) > 0)
             {
@@ -623,7 +677,7 @@ namespace DevSup.MVVM.View
             this.ocFavTableInfo.Insert(0, new_item);
             xmlLoad.SaveFavTableList(ocFavTableInfo);
             DgdFavObjList.ItemsSource = ocFavTableInfo;
-   
+
 
         }
         private void Fav_Del_Click(object sender, RoutedEventArgs e)
@@ -759,8 +813,8 @@ namespace DevSup.MVVM.View
         {
 
         }
- 
-        
+
+
         private void Qeury_Select_Click(object sender, RoutedEventArgs e)
         {
             MenuItem mi = (MenuItem)sender;
@@ -1077,7 +1131,7 @@ namespace DevSup.MVVM.View
         {
             this.MakeDTOProperty("");
         }
-            private void DTO_InProperty_Click(object sender, RoutedEventArgs e)
+        private void DTO_InProperty_Click(object sender, RoutedEventArgs e)
         {
             this.MakeDTOProperty("in_");
         }
@@ -1230,7 +1284,7 @@ namespace DevSup.MVVM.View
             rmap += Environment.NewLine + "</resultMaps>";
 
 
-            this.OpenCodeWIndow(table_info.TABLE_NAME+"C#_XML",txt + Environment.NewLine + Environment.NewLine + rmap);
+            this.OpenCodeWIndow(table_info.TABLE_NAME + "C#_XML", txt + Environment.NewLine + Environment.NewLine + rmap);
 
         }
 
@@ -1260,10 +1314,10 @@ namespace DevSup.MVVM.View
                 txt += string.Format(@"{0}public {1} {2} {3}", Environment.NewLine, type, item.COL_NAME, "{ get; set; }");
             }
 
-  
 
 
-            this.OpenCodeWIndow(table_info.TABLE_NAME+"C#",txt + Environment.NewLine + Environment.NewLine);
+
+            this.OpenCodeWIndow(table_info.TABLE_NAME + "C#", txt + Environment.NewLine + Environment.NewLine);
 
         }
 
@@ -1320,7 +1374,7 @@ namespace DevSup.MVVM.View
             return;
 
         }
-      
+
 
         private void TbSelectAlias_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -1398,18 +1452,19 @@ namespace DevSup.MVVM.View
             {
                 ApplyFilterTableInfo(FindVisualChild<TextBox>(TxtKeyword).Text, false);
             }
-            else  {
+            else
+            {
                 ApplyFilterTableInfo(FindVisualChild<TextBox>(TxtKeyword).Text, true);
             }
-                ApplyFilterTableCol(FindVisualChild<TextBox>(TxtKeywordCol).Text);
-                ApplyFilterTableRef(FindVisualChild<TextBox>(TxtKeywordObj).Text);
-    
+            ApplyFilterTableCol(FindVisualChild<TextBox>(TxtKeywordCol).Text);
+            ApplyFilterTableRef(FindVisualChild<TextBox>(TxtKeywordObj).Text);
+
 
         }
         private void BtALLCleanText_Click(object sender, RoutedEventArgs e)
         {
             //오차피 실시간 검색이면 변경되면 감지되서 자동검색
-            FindVisualChild<TextBox>(TxtKeywordObj).Text ="";
+            FindVisualChild<TextBox>(TxtKeywordObj).Text = "";
             FindVisualChild<TextBox>(TxtKeywordCol).Text = "";
             FindVisualChild<TextBox>(TxtKeyword).Text = "";
         }

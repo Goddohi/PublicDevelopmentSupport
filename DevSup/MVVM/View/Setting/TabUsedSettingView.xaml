@@ -14,11 +14,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <DockPanel>
-            <TextBlock Height="16" HorizontalAlignment="Left" Text="Tab 사용설정" VerticalAlignment="Center" Margin="0,4,5,5" Foreground="White" Grid.Column="0" FontWeight="Bold" FontSize="13"  />
+            <TextBlock Height="16" HorizontalAlignment="Left" Text="Tab 사용설정" VerticalAlignment="Center" Margin="0,4,5,5" Foreground="{StaticResource textTitleColor}" Grid.Column="0" FontWeight="Bold" FontSize="13"  />
 
             <DockPanel HorizontalAlignment="Right">
                 <Button Style="{StaticResource DefaultButtonStyle1}" ToolTip="저장" Content="저장"  Click="BtnSave_Click" />
-           
+
             </DockPanel>
         </DockPanel>
 
@@ -30,7 +30,7 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TABNAME}" Header="Tab이름" Width="120" FontSize="11" IsReadOnly="True" />
-               <!-- <DataGridTextColumn Binding="{Binding VALUE, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="사용여부" Width="*" FontWeight="Bold" FontSize="11"/> -->
+                <!-- <DataGridTextColumn Binding="{Binding VALUE, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="사용여부" Width="*" FontWeight="Bold" FontSize="11"/> -->
                 <DataGridTemplateColumn Header="사용여부" Width="80">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

@@ -4,7 +4,7 @@
     <Style x:Key="WindowsCloseButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="#60FF0000"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource windowCloseButtonFore}"/>
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>

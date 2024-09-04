@@ -133,8 +133,8 @@
     <Compile Include="MVVM\View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\MyQureyView.xaml.cs">
-      <DependentUpon>MyQureyView.xaml</DependentUpon>
+    <Compile Include="MVVM\View\MyQueryView.xaml.cs">
+      <DependentUpon>MyQueryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\QuerySupportView.xaml.cs">
       <DependentUpon>QuerySupportView.xaml</DependentUpon>
@@ -195,7 +195,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\MyQureyView.xaml">
+    <Page Include="MVVM\View\MyQueryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

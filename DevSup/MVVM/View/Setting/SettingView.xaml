@@ -12,11 +12,11 @@
         MinHeight="300"
         MinWidth="350"
         Title="Setting"
-        Background="Transparent"
+        Background="{StaticResource windowbackground}"
         WindowStyle="None"
         AllowsTransparency="True"
         Loaded="Setting_Loaded">
- 
+
     <Window.DataContext>
         <viewModelSetting:SettingViewModel/>
     </Window.DataContext>
@@ -25,125 +25,125 @@
                                   SaveClicked="TabUsedSetting_SaveClicked"/>
 
 
-        <Border Background="#272537"
+        <Border Background="{StaticResource MainBackgroundBrush}"
             CornerRadius="20">
-        <!-- 필수 영역 설정 -->
-      
-        <Grid>
-            
-            <Rectangle Fill="Transparent" Height="5" VerticalAlignment="Top" w:WindowResizer.Direction="Top"/>
-            <Rectangle Fill="Transparent" Height="10" VerticalAlignment="Bottom" w:WindowResizer.Direction="Bottom"/>
-            <Rectangle Fill="Transparent" Width="10" HorizontalAlignment="Left" w:WindowResizer.Direction="Left"/>
-            <Rectangle Fill="Transparent" Width="10" HorizontalAlignment="Right" w:WindowResizer.Direction="Right"/>
-
-            <Rectangle Fill="Transparent" Height="5" Width="8" VerticalAlignment="Top" HorizontalAlignment="Left" w:WindowResizer.Direction="TopLeft"/>
-            <Rectangle Fill="Transparent" Height="10" Width="10" VerticalAlignment="Top" HorizontalAlignment="Right" w:WindowResizer.Direction="TopRight"/>
-            <Rectangle Fill="Transparent" Height="10" Width="10" VerticalAlignment="Bottom" HorizontalAlignment="Left" w:WindowResizer.Direction="BottomLeft"/>
-            <Rectangle Fill="Transparent" Height="10" Width="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" w:WindowResizer.Direction="BottomRight"/>
+            <!-- 필수 영역 설정 -->
 
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="2"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
 
-                <!-- 잡아서 이동하는 영역  + 색상 테스트를 위해 잠시 보이게 변경-->
-                <Border Grid.Column="0"  
-                        CornerRadius="20" Background="#272537" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
+                <Rectangle Fill="Transparent" Height="5" VerticalAlignment="Top" w:WindowResizer.Direction="Top"/>
+                <Rectangle Fill="Transparent" Height="10" VerticalAlignment="Bottom" w:WindowResizer.Direction="Bottom"/>
+                <Rectangle Fill="Transparent" Width="10" HorizontalAlignment="Left" w:WindowResizer.Direction="Left"/>
+                <Rectangle Fill="Transparent" Width="10" HorizontalAlignment="Right" w:WindowResizer.Direction="Right"/>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <!-- 드래그 영역 가로로 쫙 채우기 지우고 사실상 MARGIN으로 해도될듯  -->
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition Width="30" />
-                        </Grid.ColumnDefinitions>
-                        <!-- 드래그하는 곳에 더블 클릭시 최대화면 로직 -->
-                        <TextBlock Text="환경 설정" Margin="0,5,0,0"
-                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="White"
+                <Rectangle Fill="Transparent" Height="5" Width="8" VerticalAlignment="Top" HorizontalAlignment="Left" w:WindowResizer.Direction="TopLeft"/>
+                <Rectangle Fill="Transparent" Height="10" Width="10" VerticalAlignment="Top" HorizontalAlignment="Right" w:WindowResizer.Direction="TopRight"/>
+                <Rectangle Fill="Transparent" Height="10" Width="10" VerticalAlignment="Bottom" HorizontalAlignment="Left" w:WindowResizer.Direction="BottomLeft"/>
+                <Rectangle Fill="Transparent" Height="10" Width="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" w:WindowResizer.Direction="BottomRight"/>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 잡아서 이동하는 영역  + 색상 테스트를 위해 잠시 보이게 변경-->
+                    <Border Grid.Column="0"  
+                        CornerRadius="20" Background="{StaticResource MainBackgroundBrush}" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <!-- 드래그 영역 가로로 쫙 채우기 지우고 사실상 MARGIN으로 해도될듯  -->
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="30" />
+                            </Grid.ColumnDefinitions>
+                            <!-- 드래그하는 곳에 더블 클릭시 최대화면 로직 -->
+                            <TextBlock Text="환경 설정" Margin="0,5,0,0"
+                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="{StaticResource textTitleColor}"
                                     Grid.Column="0" Grid.ColumnSpan="4" Height="35" VerticalAlignment="Center" HorizontalAlignment="Stretch"  MouseDown="TextBlock_MouseDown"/>
-                        <!-- 최소화 버튼 -->
-                        <Button Style="{StaticResource MinimizeButtonStyle}"
+                            <!-- 최소화 버튼 -->
+                            <Button Style="{StaticResource MinimizeButtonStyle}"
                              Grid.Column="1" Click="MinimizeButton_Click"/>
 
-                        <!-- 최대화 버튼-->
-                        <Button Style="{StaticResource MaximizeButtonStyle}"
+                            <!-- 최대화 버튼-->
+                            <Button Style="{StaticResource MaximizeButtonStyle}"
                 Grid.Column="2"
                 Click="MaximizeButton_Click"/>
-                        <!-- 프로그램 종료 -->
-                        <Button Style="{StaticResource WindowsCloseButtonStyle}"
+                            <!-- 프로그램 종료 -->
+                            <Button Style="{StaticResource WindowsCloseButtonStyle}"
                                 Grid.Column="3"
                                 Click="CloseButton_Click"/>
 
-                    </Grid>
-                </Border>
+                        </Grid>
+                    </Border>
 
-                <!--<Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="SkyBlue" Grid.Row="1"/>-->
-                <!-- 필수영역 종료-->
+                    <!--<Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="SkyBlue" Grid.Row="1"/>-->
+                    <!-- 필수영역 종료-->
 
-                <Grid Grid.Row="2" Grid.Column="1" >
-                    <Grid Grid.Row="0"  Margin="4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50*"/>
-                            <ColumnDefinition Width="200*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" Margin="0,0,5,0">
-                            <StackPanel>
-                            <RadioButton Content="기본설정"
+                    <Grid Grid.Row="2" Grid.Column="1" >
+                        <Grid Grid.Row="0"  Margin="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="200*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="0,0,5,0">
+                                <StackPanel>
+                                    <RadioButton Content="기본설정"
                                      Height="50"
-                                     Foreground="White"
+                                     Foreground="{StaticResource textTitleColor}"
                                      FontSize="14"
                                      Style="{StaticResource MenuButtonTheme}"
                                      IsChecked="True"
                                      Click="Tab0_Click"/>
-                            <RadioButton Content="DB1 설정"
+                                    <RadioButton Content="DB1 설정"
                                      Height="50"
-                                     Foreground="White"
+                                      Foreground="{StaticResource textTitleColor}"
                                      FontSize="14"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Click="Tab1_Click"/>
-                            <RadioButton Content="DB2 설정"
+                                    <RadioButton Content="DB2 설정"
                                      Height="50"
-                                     Foreground="White"
+                                      Foreground="{StaticResource textTitleColor}"
                                      FontSize="14"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Click="Tab2_Click"/>
-                            <RadioButton Content="Tab 사용설정"
+                                    <RadioButton Content="Tab 사용설정"
                                      Height="50"
-                                     Foreground="White"
+                                      Foreground="{StaticResource textTitleColor}"
                                      FontSize="14"
                                      Style="{StaticResource MenuButtonTheme}"
                                      Click="Tab3_Click"/>
-                            </StackPanel>
-                        </Grid>
+                                </StackPanel>
+                            </Grid>
 
-                       
-  
+
+
                             <Grid Grid.Column="1" Margin="0,0,5,0">
-                            <!--기본설정 유저컨트롤로 바꿀것-->
-                      
+                                <!--기본설정 유저컨트롤로 바꿀것-->
+
                                 <TabControl x:Name="SettingControl"  Margin="0,0,0,0" Background="Transparent"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
                                  BorderThickness="0" Padding="0"  SelectedItem="{Binding CurrentView, Mode=TwoWay}">
-                                <TabControl.Resources>
-                                    <!-- 탭 헤더를 숨기기 위한 스타일 정의 -->
-                                    <Style TargetType="TabPanel">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </Style>
-                                </TabControl.Resources>
-                            </TabControl>
-                         
-                            
-                        </Grid>
+                                    <TabControl.Resources>
+                                        <!-- 탭 헤더를 숨기기 위한 스타일 정의 -->
+                                        <Style TargetType="TabPanel">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </Style>
+                                    </TabControl.Resources>
+                                </TabControl>
 
+
+                            </Grid>
+
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
 
             </Grid>
-   
-    </Border>
+
+        </Border>
     </Grid>
 </core:WinBase>

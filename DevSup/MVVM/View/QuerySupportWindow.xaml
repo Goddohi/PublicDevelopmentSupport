@@ -7,9 +7,9 @@
         xmlns:w="clr-namespace:DevSup.WindowResizer"
         xmlns:core="clr-namespace:DevSup.Core"
         mc:Ignorable="d" 
-        Background="Transparent" WindowStyle="None" AllowsTransparency="True"
+        Background="{StaticResource windowbackground}" WindowStyle="None" AllowsTransparency="True"
         Height="768" Width="1400" Loaded="Window_Loaded">
-    <Border Background="#272537"
+    <Border Background="{StaticResource MainBackgroundBrush}"
             CornerRadius="20">
         <!-- 필수 영역 설정 -->
         <Grid>
@@ -43,7 +43,7 @@
                         </Grid.ColumnDefinitions>
                         <!-- 드래그하는 곳에 더블 클릭시 최대화면 로직 -->
                         <TextBlock Margin="0,5,0,0" x:Name="titlecode"
-                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="White"
+                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="{StaticResource textmainColor}"
                                     Grid.Column="0" Grid.ColumnSpan="6" Height="40" VerticalAlignment="Center" HorizontalAlignment="Stretch"  MouseDown="TextBlock_MouseDown"/>
 
                         <!-- 최소화 버튼 -->
@@ -60,7 +60,7 @@
                     </Grid>
                 </Border>
 
-                <Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="SkyBlue" Grid.Row="1"/>
+                <Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="{StaticResource WindowLine}" Grid.Row="1"/>
 
             </Grid>
             <Grid>
@@ -78,22 +78,22 @@
 
                         <StackPanel Orientation="Vertical">
                             <StackPanel  Orientation="Horizontal">
-                                <RadioButton Content="EQS 매개변수 -> Golden 변수코드" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoEQS"      IsChecked="True"  GroupName="xxxx" Click="RdoEQS_Click"/>
+                                <RadioButton Content="EQS 매개변수 -> Golden 변수코드" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="{StaticResource textTitleColor}" x:Name="RdoEQS"      IsChecked="True"  GroupName="xxxx" Click="RdoEQS_Click"/>
 
-                                <RadioButton Content="쿼리 가독성"       HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoQuerySee" IsChecked="False" GroupName="xxxx" Click="RdoQuerySee_Click" IsEnabled="True"/>
+                                <RadioButton Content="쿼리 가독성"       HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="{StaticResource textTitleColor}" x:Name="RdoQuerySee" IsChecked="False" GroupName="xxxx" Click="RdoQuerySee_Click" IsEnabled="True"/>
                                 <!--IsEnabled="False"-->
-                                <RadioButton Content="XML->JSON" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoXml"      IsChecked="False"  GroupName="xxxx" Click="RdoXml_Click"/>
-                                <RadioButton Content="XML->C#" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoCShap"      IsChecked="False"  GroupName="xxxx" Click="RdoCShap_Click"/>
+                                <RadioButton Content="XML->JSON" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="{StaticResource textTitleColor}" x:Name="RdoXml"      IsChecked="False"  GroupName="xxxx" Click="RdoXml_Click"/>
+                                <RadioButton Content="XML->C#" HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="{StaticResource textTitleColor}" x:Name="RdoCShap"      IsChecked="False"  GroupName="xxxx" Click="RdoCShap_Click"/>
 
-                                <RadioButton Content="문자열 변환(A →'A')"         HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="RdoINText"   IsChecked="False" GroupName="xxxx" Click="RdoINText_Click"/>
+                                <RadioButton Content="문자열 변환(A →'A')"         HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="{StaticResource textTitleColor}" x:Name="RdoINText"   IsChecked="False" GroupName="xxxx" Click="RdoINText_Click"/>
 
 
                             </StackPanel>
                             <StackPanel  Orientation="Horizontal">
-                                <CheckBox    Content="붙여넣기모드"                    HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbauto"      IsChecked="True"/>
-                                <CheckBox    Content="반대(JSON -> XML)"           Visibility="Collapsed"         HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="CbXmlJ"      IsChecked="False"/>
-                                <CheckBox    Content="중복제거"   Visibility="Collapsed"  HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbremove"    IsChecked="True"  Click="Cbremove_Clik" />
-                                <CheckBox    Content="따옴표변환'->'' "  Visibility="Collapsed"  HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="White" x:Name="Cbchge"    IsChecked="False"  Click="Cbremove_Clik" />
+                                <CheckBox    Content="붙여넣기모드"                    HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="{StaticResource textTitleColor}" x:Name="Cbauto"      IsChecked="True"/>
+                                <CheckBox    Content="반대(JSON -> XML)"           Visibility="Collapsed"         HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="{StaticResource textTitleColor}" x:Name="CbXmlJ"      IsChecked="False"/>
+                                <CheckBox    Content="중복제거"   Visibility="Collapsed"  HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="{StaticResource textTitleColor}" x:Name="Cbremove"    IsChecked="True"  Click="Cbremove_Clik" />
+                                <CheckBox    Content="따옴표변환'->'' "  Visibility="Collapsed"  HorizontalAlignment="Right" Margin="5,5,10,0" VerticalAlignment="Top"  Foreground="{StaticResource textTitleColor}" x:Name="Cbchge"    IsChecked="False"  Click="Cbremove_Clik" />
 
                             </StackPanel>
                         </StackPanel>
@@ -108,10 +108,10 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBox  x:Name="TxtSrc" Foreground="Wheat" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas"  VerticalScrollBarVisibility="Auto" Grid.Column ="0" FontSize="14" TextChanged="TxtSrc_TextChanged" Margin="0,0,5,0" GotFocus="TxtSrc_GotFocus" PreviewMouseWheel="TxtSrc_PreviewMouseWheel" />
+                    <TextBox  x:Name="TxtSrc" Foreground="{StaticResource textmainColor}" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas"  VerticalScrollBarVisibility="Auto" Grid.Column ="0" FontSize="14" TextChanged="TxtSrc_TextChanged" Margin="0,0,5,0" GotFocus="TxtSrc_GotFocus" PreviewMouseWheel="TxtSrc_PreviewMouseWheel" />
 
                     <GridSplitter Grid.Column="0" Margin="0,5,0,0"  Width ="3" Background="Transparent" />
-                    <TextBox x:Name="TxtCode" Foreground="Wheat" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto" Grid.Column="1" FontSize="14" PreviewMouseWheel="TxtCode_PreviewMouseWheel"  TextChanged="TxtCode_TextChanged"/>
+                    <TextBox x:Name="TxtCode" Foreground="{StaticResource textmainColor}" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto" Grid.Column="1" FontSize="14" PreviewMouseWheel="TxtCode_PreviewMouseWheel"  TextChanged="TxtCode_TextChanged"/>
 
                 </Grid>
 

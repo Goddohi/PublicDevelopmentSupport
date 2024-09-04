@@ -23,7 +23,7 @@ using System.Collections;
 namespace DevSup.MVVM.View
 {
 
-    public partial class MyQureyView : UCBase
+    public partial class MyQueryView : UCBase
     {
         private ObservableCollection<FavQueryDTO> ocFavQuery;
         private ObservableCollection<FavQueryDTO> ocFolder;
@@ -46,7 +46,7 @@ namespace DevSup.MVVM.View
         /// <summary>
         /// 생성자
         /// </summary>        
-        public MyQureyView()
+        public MyQueryView()
         {
             ocFavQuery = new ObservableCollection<FavQueryDTO>();
             ocFolder = new ObservableCollection<FavQueryDTO>();
@@ -146,6 +146,18 @@ namespace DevSup.MVVM.View
             }
         }
 
+        /// <summary>
+        /// 필터 리셋 
+        /// </summary>
+        private void FilterReset()
+        {
+            isChecked = false;
+            StarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/EmptyStar.png"));
+            cboFolder.SelectedIndex = 0;
+            TxtKeyword.Text = "";
+            ApplyFilter(isChecked);
+
+        }
 
 
 
@@ -585,15 +597,19 @@ namespace DevSup.MVVM.View
             }
         }
 
-        private void BtnReload_Click(object sender, RoutedEventArgs e)
+        private void BtnAllReload_Click(object sender, RoutedEventArgs e)
         {
             this.LoadFavQueryInfo();
 
         }
+        private void BtnFilterReload_Click(object sender, RoutedEventArgs e)
+        {
+            this.FilterReset();
 
+        }
         private void Helper_Click(object sender, RoutedEventArgs e)
         {
-            this.LoadFavQueryInfo();
+            this.FilterReset();
         }
 
 

@@ -13,10 +13,10 @@
             <RowDefinition Height="20" />
             <RowDefinition Height="*" />
 
-                <RowDefinition Height="2*" />
-            </Grid.RowDefinitions>
-        <TextBlock Foreground="Wheat"> Select 문 만 가능하고 입력창에서 Ctrl+ Endter누를 경우 실행이 됩니다. </TextBlock>
-            <TextBox Grid.Row="1" x:Name="TxtSelect" Foreground="Wheat" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" 
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <TextBlock Foreground="{StaticResource textmainColor}"> Select 문 만 가능하고 입력창에서 Ctrl+ Endter누를 경우 실행이 됩니다.</TextBlock>
+        <TextBox Grid.Row="1" x:Name="TxtSelect" Foreground="{StaticResource textmainColor}" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" 
                      FontFamily="Consolas"  VerticalScrollBarVisibility="Auto" Grid.Column ="0" FontSize="14" TextChanged="TxtSelect_TextChanged"
                      Margin="0,0,5,0" GotFocus="TxtSelect_GotFocus"  PreviewKeyDown="TxtSelect_KeyDown" />
 

@@ -23,7 +23,7 @@
         <Border Grid.Row="0">
             <Grid Margin="0,0,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="503*" />
+                    <ColumnDefinition Width="520*" />
                     <ColumnDefinition Width="341*" />
                     <ColumnDefinition Width="300*" />
                     <ColumnDefinition Width="76*" />
@@ -39,8 +39,8 @@
                         <ComboBoxItem Content="AND" IsSelected="True"/>
                         <ComboBoxItem Content="OR"/>
                     </ComboBox>
-                    <CheckBox x:Name="chkRealTime" Foreground="White" FontWeight="Bold" Content="실시간검색" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" IsChecked="True" />
-                    <CheckBox x:Name="ChkOwnerFilter" Foreground="White" FontWeight="Bold" Content="Owner필터" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" IsChecked="False" Click="ChkOwnerFilter_Click">
+                    <CheckBox x:Name="chkRealTime" Foreground="{StaticResource textTitleColor}" FontWeight="Bold" Content="실시간검색" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3,0,0,0" IsChecked="True" />
+                    <CheckBox x:Name="ChkOwnerFilter" Foreground="{StaticResource textTitleColor}" FontWeight="Bold" Content="Owner필터" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3,0,0,0" IsChecked="False" Click="ChkOwnerFilter_Click">
                         <CheckBox.Style>
                             <Style TargetType="CheckBox">
                                 <Setter Property="IsEnabled" Value="True" />
@@ -52,6 +52,8 @@
                             </Style>
                         </CheckBox.Style>
                     </CheckBox>
+                    <CheckBox x:Name="chkCommentFilter" Foreground="{StaticResource textTitleColor}" FontWeight="Bold" Content="Comment검색" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" IsChecked="False" />
+
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
@@ -63,7 +65,7 @@
                         <ComboBoxItem Content="AND" IsSelected="True"/>
                         <ComboBoxItem Content="OR"/>
                     </ComboBox>
-                    <TextBlock Height="16" HorizontalAlignment="Left"  Foreground="White" FontWeight="Bold" FontSize="12" Text=" , 로 입력하세요" VerticalAlignment="Center" Margin="5,6,5,5" />
+                    <TextBlock Height="16" HorizontalAlignment="Left"  Foreground="{StaticResource textTitleColor}" FontWeight="Bold" FontSize="12" Text=" , 로 입력하세요" VerticalAlignment="Center" Margin="5,6,5,5" />
 
                 </StackPanel>
 
@@ -98,7 +100,7 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <TabControl x:Name="TabMain" Grid.Row="0"  Margin="0,0,0,0" Background="Transparent"  
+                <TabControl x:Name="TabMain" Grid.Row="0"  Margin="0,0,0,0" Background="{StaticResource TStabControllerBackground}"  
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
                                  BorderThickness="0" Padding="0" >
                         <TabControl.Resources>
@@ -112,23 +114,23 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TabItem}">
-                        <Border Name="border" BorderBrush="#B7B7B7" BorderThickness="0" Margin="1,0,1,0" >
+                        <Border Name="border" BorderBrush="{StaticResource TStabLine}" BorderThickness="0" Margin="1,0,1,0" >
                             <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="6,0" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#4A4A6C" />
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource TStabSelectBackground}" />
                                 <Setter TargetName="border" Property="BorderThickness" Value="2,0,0,0" />
-                                <Setter TargetName="border" Property="BorderBrush" Value="Violet" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TStabSelectLine}" />
                                 <Setter TargetName="border" Property="Height" Value="23"/>
-                                <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="White"/>
+                                <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="{StaticResource TSTabSelectTextTitleColor}"/>
                                 <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Bold" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="False">
-                                <Setter TargetName="border" Property="Background" Value="#272537" />
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource TStabUnSelectBackground}" />
                                 <Setter TargetName="border" Property="BorderThickness" Value="0,0,0,0" />
                                 <Setter TargetName="border" Property="Height" Value="22"/>
-                                <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="#888888" />
+                                <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="{StaticResource TSTabUnSelectTextTitleColor}" />
                                 <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Normal" />
                             </Trigger>
                             <!-- 선택되지않은 창에 마우스가 올라갈경우 발생-->
@@ -137,7 +139,7 @@
                                     <Condition Property="Border.IsMouseOver" Value="True"/>
                                     <Condition Property="IsSelected" Value="False"/>
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="border" Property="Background" Value="#3B393F" />
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource TStabUnSelectMouseOverBackground}" />
                                 <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Normal" />
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
@@ -166,7 +168,7 @@
                                       VirtualizingPanel.VirtualizationMode="Standard"
                                       VirtualizingPanel.ScrollUnit="Pixel"
                                      MaxHeight="1500"
-                                     HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5"  >
+                                     HorizontalGridLinesBrush="{StaticResource TS_ObjList_GridLine}" VerticalGridLinesBrush="{StaticResource TS_ObjList_GridLine}"  >
                     <DataGrid.ContextMenu>
                         <ContextMenu >
                             <MenuItem Click="Fav_Add_Click">
@@ -180,23 +182,23 @@
                     </DataGrid.ContextMenu>
                     <DataGrid.Resources>
                         <Style x:Key="Owner" TargetType="{x:Type TextBlock}">
-                            <Setter Property="Foreground" Value="Wheat"/>
+                            <Setter Property="Foreground" Value="{StaticResource TS_ObjList_BasicOwner}"/>
                             <Setter Property="FontWeight" Value="Bold" />
                             <Setter Property="FontSize"   Value="12"   />
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Style.Triggers>
                                 <!-- 데이터를 해당기능도 사용자가 설정할 수 있게 변경예정-->
                                 <DataTrigger Binding="{Binding OWNER}" Value="HBIL" >
-                                    <Setter Property="Foreground" Value="LightGreen" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_ObjList_HBILOwner}" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding OWNER}" Value="HBOH" >
-                                    <Setter Property="Foreground" Value="Gold" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_ObjList_HBOHOwner}" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding OWNER}" Value="HSUP" >
-                                    <Setter Property="Foreground" Value="#FF70C8E4" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_ObjList_HSUPOwner}" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding OWNER}" Value="HORD" >
-                                    <Setter Property="Foreground" Value="#FFFFA5C2" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_ObjList_HORDOwner}" />
                                 </DataTrigger>
 
                             </Style.Triggers>
@@ -205,8 +207,8 @@
                             <Setter Property="FontSize"   Value="12"   />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding TABLE_COMMENTS}" Value="등록필요" >
-                                    <Setter Property="Background" Value="DeepPink" />
-                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Background" Value="{StaticResource TS_ObjList_NullBackComment}" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_ObjList_NullForeComment}" />
                                     <Setter Property="FontWeight" Value="Bold" />
                                     <Setter Property="FontSize"   Value="13"   />
                                 </DataTrigger>
@@ -225,11 +227,11 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Style="{StaticResource DefaultButtonStyle1}"  Click="BtnSelectQuery_Click" HorizontalAlignment="Left"  Margin="0" Height="auto" Width="auto"
-                                                        Background="Transparent" BorderBrush="Transparent" BorderThickness="0" ToolTip="데이터를 조회합니다." >
+                                                        Background="{StaticResource TS_ObjList_SearchBackBTN}" BorderBrush="{StaticResource TS_ObjList_SearchBorderBTN}" BorderThickness="0" ToolTip="데이터를 조회합니다." >
 
 
                                         <StackPanel Orientation="Horizontal">
-                                            <Border Background="LightGreen" Width="5" Height="auto" BorderThickness="1" BorderBrush="LightSeaGreen" VerticalAlignment="Stretch" Margin="0,0,0,0" />
+                                            <Border Background="{StaticResource TS_ObjList_SearchBackLine}" Width="5" Height="auto" BorderThickness="1" BorderBrush="{StaticResource TS_ObjList_SearchBorderLine}" VerticalAlignment="Stretch" Margin="0,0,0,0" />
                                             <TextBlock Text="조회" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" Margin="2, 0, 5, 0" />
                                         </StackPanel>
                                     </Button>
@@ -263,7 +265,7 @@
                                   VirtualizingPanel.VirtualizationMode="Standard"
                                   VirtualizingPanel.ScrollUnit="Pixel"
                                   MaxHeight="1500"
-                                  HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5"  >
+                                  HorizontalGridLinesBrush="{StaticResource TS_ObjList_GridLine}" VerticalGridLinesBrush="{StaticResource TS_ObjList_GridLine}"  >
                     <DataGrid.ContextMenu>
                         <ContextMenu >
                             <MenuItem Click="Fav_Del_Click">
@@ -279,22 +281,22 @@
                     <DataGrid.Resources>
 
                         <Style x:Key="Owner" TargetType="{x:Type TextBlock}">
-                            <Setter Property="Foreground" Value="Wheat"/>
+                            <Setter Property="Foreground" Value="{StaticResource TS_ObjList_BasicOwner}"/>
                             <Setter Property="FontWeight" Value="Bold" />
                             <Setter Property="FontSize"   Value="12"   />
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding OWNER}" Value="HBIL" >
-                                    <Setter Property="Foreground" Value="LightGreen" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_ObjList_HBILOwner}" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding OWNER}" Value="HBOH" >
-                                    <Setter Property="Foreground" Value="Gold" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_ObjList_HBOHOwner}" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding OWNER}" Value="HSUP" >
-                                    <Setter Property="Foreground" Value="#FF70C8E4" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_ObjList_HSUPOwner}" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding OWNER}" Value="HORD" >
-                                    <Setter Property="Foreground" Value="#FFFFA5C2" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_ObjList_HORDOwner}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -302,8 +304,8 @@
                             <Setter Property="FontSize"   Value="12"   />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding TABLE_COMMENTS}" Value="등록필요" >
-                                    <Setter Property="Background" Value="DeepPink" />
-                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Background" Value="{StaticResource TS_ObjList_NullBackComment}" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_ObjList_NullForeComment}" />
                                     <Setter Property="FontWeight" Value="Bold" />
                                     <Setter Property="FontSize"   Value="13"   />
                                 </DataTrigger>
@@ -319,11 +321,11 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Style="{StaticResource DefaultButtonStyle1}"  Click="BtnSelectQuery_Click" HorizontalAlignment="Left"  Margin="0" Height="auto" Width="auto"
-                                                        Background="Transparent" BorderBrush="Transparent" BorderThickness="0" ToolTip="데이터를 조회합니다." >
+                                                        Background="{StaticResource TS_ObjList_SearchBackBTN}" BorderBrush="{StaticResource TS_ObjList_SearchBorderBTN}" BorderThickness="0" ToolTip="데이터를 조회합니다." >
 
 
                                         <StackPanel Orientation="Horizontal">
-                                            <Border Background="LightGreen" Width="5" Height="auto" BorderThickness="1" BorderBrush="LightSeaGreen" VerticalAlignment="Stretch" Margin="0,0,0,0" />
+                                            <Border Background="{StaticResource TS_ObjList_SearchBackLine}" Width="5" Height="auto" BorderThickness="1" BorderBrush="{StaticResource TS_ObjList_SearchBorderLine}" VerticalAlignment="Stretch" Margin="0,0,0,0" />
                                             <TextBlock Text="조회" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" Margin="2, 0, 5, 0" />
                                         </StackPanel>
                                     </Button>
@@ -338,7 +340,7 @@
                 </DataGrid>
             </TabItem>
             </TabControl>
-            <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Wheat" />
+            <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{StaticResource TSGridSplitter}" />
             <DataGrid  Grid.Row="1"  AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                   ItemsSource="{Binding Indexes}" Margin="3"
                   x:Name="dgdIndexInfo" 
@@ -349,7 +351,7 @@
                         <Style.Triggers>
                             <!-- 데이터의 특정 조건에 따라 스타일을 변경합니다 -->
                             <DataTrigger Binding="{Binding Uniqueness}" Value="UNIQUE">
-                                <Setter Property="Foreground" Value="OrangeRed" />
+                                <Setter Property="Foreground" Value="{StaticResource TS_dgdIndex_SpecialCondition}" />
                                 <Setter Property="FontWeight" Value="Bold" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -364,11 +366,12 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Wheat" />
+            <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{StaticResource TSGridSplitter}" />
+
             <DataGrid  AutoGenerateColumns="False" HorizontalAlignment="Stretch" x:Name="dgdTableAddInfo" VerticalAlignment="Stretch" 
                            AllowDrop="True" CanUserAddRows="False" Margin="0,0,5,0"  Grid.Row="2" 
                            LoadingRow="Dgd_Info_Load" 
-                           HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5" FontSize="12" >
+                           HorizontalGridLinesBrush="{StaticResource TS_dgdTableAddInfo_GridLine}" VerticalGridLinesBrush="{StaticResource TS_dgdTableAddInfo_GridLine}" FontSize="12" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding COL_NAME}" Header="STATUS" Width="120" FontSize="12" />
                     <DataGridTextColumn Binding="{Binding COL_VALUE}" Header="VALUE" Width="*"  FontSize="12" />
@@ -376,7 +379,7 @@
             </DataGrid>
         </Grid>
         <!---->
- <GridSplitter Grid.Column="0" Margin="0,25,0,0"  Width ="3" Background="Wheat" />
+ <GridSplitter Grid.Column="0" Margin="0,25,0,0"  Width ="3" Background="{StaticResource TSGridSplitter}" />
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="7*"/>
@@ -387,7 +390,7 @@
                       AllowDrop="True" CanUserAddRows="False" Margin="0,25,5,0" 
                          ItemsSource="{Binding Source={StaticResource TableColInfoViewSource}}"
                       SelectionChanged="DgdColInfo_SelectionChanged"
-                      HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5" 
+                      HorizontalGridLinesBrush="{StaticResource TS_DgdCol_GridLine}" VerticalGridLinesBrush="{StaticResource TS_DgdCol_GridLine}" 
                           HeadersVisibility="Column" RowHeight="22"  Grid.Row="0" >
                  <DataGrid.ContextMenu>
                         <ContextMenu >
@@ -483,8 +486,8 @@
                             <Setter Property="FontSize"   Value="12"   />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding COMMENTS}" Value="등록필요" >
-                                    <Setter Property="Background" Value="DeepPink" />
-                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Background" Value="{StaticResource TS_DgdCol_NullBackComment}" />
+                                    <Setter Property="Foreground" Value="{StaticResource TS_DgdCol_NullForeComment}" />
                                     <Setter Property="FontWeight" Value="Bold" />
                                     <Setter Property="FontSize"   Value="13"   />
                                 </DataTrigger>
@@ -524,10 +527,11 @@
             </DataGrid>
 
 
-            <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Wheat" />
-                            <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" x:Name="dgdCommonCodeInfo" VerticalAlignment="Stretch" 
+            <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{StaticResource TSGridSplitter}" />
+            
+                <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" x:Name="dgdCommonCodeInfo" VerticalAlignment="Stretch" 
                     AllowDrop="True" CanUserAddRows="False" Margin="0,5,5,0" Grid.Row="1"
-                     HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5" >
+                     HorizontalGridLinesBrush="{StaticResource TS_dgdCommonCodeInfo_GridLine}" VerticalGridLinesBrush="{StaticResource TS_dgdCommonCodeInfo_GridLine}" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding COMN_GRP_CD}"  FontSize="12" Header="COMN_GRP_CD" Width="90"/>
                         <DataGridTextColumn Binding="{Binding COMN_CD}"      FontSize="12" Header="COMN_CD" Width="80" />
@@ -547,13 +551,14 @@
                 </DataGrid>
             </Grid>
             <!---->
-        <GridSplitter Grid.Column="1" Margin="0,25,0,0"  Width ="3" Background="Wheat" />
+        <GridSplitter Grid.Column="1" Margin="0,25,0,0"  Width ="3" Background="{StaticResource TSGridSplitter}" />
         <Grid Grid.Column="2">
             <Button Style="{StaticResource DefaultButtonStyle1}" ToolTip="DB재설정후 작동이 안될 경우에 눌러주세요." Content="DB재실행"  Click="BtRESET_Click" Margin="0,0,2,0" Width="64" />
+
             <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" x:Name="DgdRefObjList" VerticalAlignment="Stretch" 
                     
                       AllowDrop="True" CanUserAddRows="False" Margin="0,25,0,0"  Grid.Column="2" Grid.RowSpan="3"
-                      HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5" >
+                      HorizontalGridLinesBrush="{StaticResource TS_DgdRefObjList_GridLine}" VerticalGridLinesBrush="{StaticResource TS_DgdRefObjList_GridLine}" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding OWNER}" Header="OWNER" Width="50" FontSize="12" />
                     <DataGridTextColumn Binding="{Binding OBJ_NAME}" Header="OBJ NAME" Width="*" FontSize="12" />

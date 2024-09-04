@@ -12,7 +12,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <DockPanel>
-            <TextBlock Height="16" HorizontalAlignment="Left" Text="기본설정" VerticalAlignment="Center" Margin="0,4,5,5" Foreground="White" Grid.Column="0" FontWeight="Bold" FontSize="13"  />
+            <TextBlock Height="16" HorizontalAlignment="Left" Text="기본설정" VerticalAlignment="Center" Margin="0,4,5,5" Foreground="{StaticResource textTitleColor}" Grid.Column="0" FontWeight="Bold" FontSize="13"  />
             <DockPanel HorizontalAlignment="Right">
                 <Button Style="{StaticResource DefaultButtonStyle1}" ToolTip="저장" Content="저장" Click="BtnSave_Click" />
             </DockPanel>

@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:DevSup.MVVM.View"
         xmlns:w="clr-namespace:DevSup.WindowResizer"
         mc:Ignorable="d" 
-        Background="Transparent" WindowStyle="None" AllowsTransparency="True"
+        Background="{StaticResource windowbackground}" WindowStyle="None" AllowsTransparency="True"
         Height="768" Width="1400" Loaded="Window_Loaded">
-    <Border Background="#272537"
+    <Border Background="{StaticResource MainBackgroundBrush}"
             CornerRadius="20">
         <!-- 필수 영역 설정 -->
         <Grid>
@@ -29,7 +29,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Grid.Column="0"  
-                        CornerRadius="20" Background="#272537" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
+                        CornerRadius="20" Background="{StaticResource MainBackgroundBrush}" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -42,7 +42,7 @@
                         </Grid.ColumnDefinitions>
                         <!-- 드래그하는 곳에 더블 클릭시 최대화면 로직 -->
                         <TextBlock Text="Code" Margin="0,5,0,0" x:Name="titlecode"
-                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="White"
+                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="{StaticResource textTitleColor}"
                                     Grid.Column="0" Grid.ColumnSpan="6" Height="35" VerticalAlignment="Center" HorizontalAlignment="Stretch"  MouseDown="TextBlock_MouseDown"/>
 
                         <!-- 최소화 버튼 -->
@@ -56,16 +56,16 @@
                                 Grid.Column="5"
                                 Click="CloseButton_Click"
                                 Panel.ZIndex="1"/>
-                       </Grid>
+                    </Grid>
                 </Border>
 
-                <Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="SkyBlue" Grid.Row="1"/>
+                <Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="{StaticResource WindowLine}" Grid.Row="1"/>
                 <Grid Grid.Row="2">
-                    <TextBox x:Name="TxtCode"  Foreground="Wheat" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" GotFocus="TxtCode_GotFocus" FontFamily="Consolas" FontSize="14" VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="5"/>
+                    <TextBox x:Name="TxtCode"  Foreground="{StaticResource textmainColor}" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" GotFocus="TxtCode_GotFocus" FontFamily="Consolas" FontSize="14" VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="5"/>
                 </Grid>
             </Grid>
-         
+
         </Grid>
-        
+
     </Border>
 </Window>
