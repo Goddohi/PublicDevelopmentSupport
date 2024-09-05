@@ -279,7 +279,6 @@
                     </DataGrid.ContextMenu>
 
                     <DataGrid.Resources>
-
                         <Style x:Key="Owner" TargetType="{x:Type TextBlock}">
                             <Setter Property="Foreground" Value="{StaticResource TS_ObjList_BasicOwner}"/>
                             <Setter Property="FontWeight" Value="Bold" />
@@ -301,22 +300,26 @@
                             </Style.Triggers>
                         </Style>
                         <Style  x:Key="TabComments" TargetType="{x:Type TextBlock}">
-                            <Setter Property="FontSize"   Value="12"   />
+                            <Setter Property="FontSize"  Value="12"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding TABLE_COMMENTS}" Value="등록필요" >
                                     <Setter Property="Background" Value="{StaticResource TS_ObjList_NullBackComment}" />
                                     <Setter Property="Foreground" Value="{StaticResource TS_ObjList_NullForeComment}" />
-                                    <Setter Property="FontWeight" Value="Bold" />
-                                    <Setter Property="FontSize"   Value="13"   />
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize"   Value="13"/>
                                 </DataTrigger>
                             </Style.Triggers>
+                        </Style>
+                        <Style x:Key="TabName" TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="FontSize"   Value="12"   />
                         </Style>
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding OWNER}" Header="OWNER" Width="50" />
-                        <DataGridTextColumn Binding="{Binding TABLE_NAME}" Header="TABLE" Width="80" FontWeight="Bold" />
-                        <DataGridTextColumn Binding="{Binding TABLE_COMMENTS}" Header="TABLE COMMENTS" Width="*" FontSize="12" />
+                        <DataGridTextColumn Binding="{Binding OWNER}" Header="OWNER" Width="50"  ElementStyle="{StaticResource Owner}" />
+                        <DataGridTextColumn Binding="{Binding TABLE_NAME}" Header="TABLE" Width="80" FontWeight="Bold"  ElementStyle="{StaticResource TabName}"  />
+                        <DataGridTextColumn Binding="{Binding TABLE_COMMENTS}" Header="TABLE COMMENTS" Width="*" FontSize="12" ElementStyle="{StaticResource TabComments}" />
                         <DataGridTemplateColumn  Header="조회" Width="40">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
