@@ -11,7 +11,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/ColersDark.xaml"/>
+                <ResourceDictionary Source="Theme/ColorsDark.xaml"/>
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/TextboxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/TextfreeboxTheme.xaml"/>
@@ -28,7 +28,7 @@
             <DataTemplate DataType="{x:Type viewModel:HomeVIewModel}">
                 <view:HomeView/>
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type viewModel:TableSearchViewModel}">
                 <view:TableSearchView/>
             </DataTemplate>

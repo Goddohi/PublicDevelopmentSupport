@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:DevSup.Theme">
     <Style x:Key="DefaultButtonStyle1" TargetType="Button">
-        <Setter Property="Background" Value="#60272537"/>
+        <Setter Property="Background" Value="{StaticResource BasicButtonBackground}"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="10"/>
@@ -27,7 +27,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#FF6576A0"/>
+                <Setter Property="Background" Value="{StaticResource BasicButtonMouseOverBackground}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

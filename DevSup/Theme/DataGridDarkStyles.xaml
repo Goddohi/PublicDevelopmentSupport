@@ -9,21 +9,21 @@
 
     <!-- 스타일 정의 -->
     <Style x:Key="DataGridBox" TargetType="DataGrid">
-        <Setter Property="Background"  Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Background"  Value="{StaticResource GridBox_BackAndBorder}" />
+        <Setter Property="BorderBrush" Value="{StaticResource GridBox_BackAndBorder}" />
     </Style>
-    
+
     <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{StaticResource GridBackgroundColor}" />
         <Setter Property="Foreground" Value="{StaticResource GridForegroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource GridBorderBrush}" />
         <Setter Property="BorderThickness" Value="0,1,1,0" />
         <Setter Property="Padding" Value="2,0,0,2"/>
-        
+
     </Style>
 
     <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{StaticResource GridBackgroundColor}" />
         <Setter Property="Foreground" Value="{StaticResource GridForegroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource GridBorderBrush}" />
         <Setter Property="BorderThickness" Value="1,1,1,0" />

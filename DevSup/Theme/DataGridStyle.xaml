@@ -3,9 +3,9 @@
 
     <!-- Column Header Style -->
     <Style TargetType="DataGridColumnHeader">
-        <Setter Property="Background" Value="#272537"/>
-        <Setter Property="Foreground" Value="Wheat"/>
-        <Setter Property="BorderBrush" Value="Wheat"/>
+        <Setter Property="Background" Value="{StaticResource DataGridColumnHeaderBackground}"/>
+        <Setter Property="Foreground" Value="{StaticResource DataGridColumnHeaderForeground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DataGridColumnHeaderBorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -19,7 +19,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=Content}" Margin="0,0,5,0"/>
                                 <!--  위 화살표 백터값으로 그림 -->
-                                <Path VerticalAlignment="Center" Data="M 0 6 L 4 0 L 8 6 Z" Fill="Wheat" Width="8" Height="8"/>
+                                <Path VerticalAlignment="Center" Data="M 0 6 L 4 0 L 8 6 Z" Fill="{StaticResource DataGridColumnHeaderForeground}" Width="8" Height="8"/>
                             </StackPanel>
                         </DataTemplate>
                     </Setter.Value>
@@ -32,7 +32,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}, Path=Content}" Margin="0,0,5,0"/>
                                 <!-- 아래화살표 백터값으로 그림 -->
-                                <Path VerticalAlignment="Center" Data="M 0 0 L 4 6 L 8 0 Z" Fill="Wheat" Width="8" Height="8"/>
+                                <Path VerticalAlignment="Center" Data="M 0 0 L 4 6 L 8 0 Z" Fill="{StaticResource DataGridColumnHeaderForeground}" Width="8" Height="8"/>
                             </StackPanel>
                         </DataTemplate>
                     </Setter.Value>
@@ -50,13 +50,13 @@
 
     <!-- DataGrid Style -->
     <Style TargetType="DataGrid">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Background" Value="{StaticResource DataGridBackgroundColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource DataGridBorderBrushColor}" />
     </Style>
 
     <!-- DataGridCell Style -->
     <Style TargetType="DataGridCell">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{StaticResource DataGridBackgroundColor}" />
         <Setter Property="Foreground" Value="{StaticResource GridForegroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource GridBorderBrush}" />
         <Setter Property="BorderThickness" Value="0,1,1,0" />

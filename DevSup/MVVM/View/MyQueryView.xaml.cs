@@ -145,14 +145,66 @@ namespace DevSup.MVVM.View
                 //MessageBox.Show($"오류 발생: {ex.Message}");
             }
         }
+        /// <summary>
+        /// 폴더로딩
+        /// </summary>
+        private void LoadFolder()
+        {
+            try
+            {
+                // 데이터 로드
 
+                var GetFavQuery = xmlLoad.GetFavQuery();
+                SELECTED_FOLDER = cboFolder.SelectedValue.ToString();
+                resetcheck = true;
+
+                ocFolder.Clear();
+                ocFolder.Add(new FavQueryDTO() { QUERY_FOLDER = "ALL" });
+
+                // 폴더 목록을 정렬하여 ocFolder에 추가
+                var distinctFolders = GetFavQuery
+                    .OrderBy(o => o.QUERY_FOLDER)
+                    .Select(d => d.QUERY_FOLDER)
+                    .Distinct();
+                int count = 0;
+                int index = 0;
+                foreach (var folder in distinctFolders)
+                {
+                    if (!folder.Equals("ALL"))
+                    {
+                        ocFolder.Add(new FavQueryDTO() { QUERY_FOLDER = folder });
+
+                    }
+                    if (folder.Equals(SELECTED_FOLDER)) { index = count; }
+                    count++;
+                }
+                resetcheck = false;
+
+                // 콤보박스
+                if (ocFolder.Count > 0)
+                {
+                    cboFolder.SelectedIndex = index;
+                }
+
+                SELECTED_FOLDER = cboFolder.SelectedValue.ToString(); //코드 개편도중에 이코드에 대한 내용이 없어져서 폴더 선택기능 필터가 작동하지 않음.
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageWindow.Instance.ShowMessage($"오류 발생: {ex.Message}");
+                //MessageBox.Show($"오류 발생: {ex.Message}");
+            }
+        }
         /// <summary>
         /// 필터 리셋 
         /// </summary>
         private void FilterReset()
         {
-            isChecked = false;
+
             StarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/EmptyStar.png"));
+            isChecked = false;
             cboFolder.SelectedIndex = 0;
             TxtKeyword.Text = "";
             ApplyFilter(isChecked);
@@ -442,6 +494,7 @@ namespace DevSup.MVVM.View
                 wr.Close();
             }
             MessageWindow.Instance.ShowMessage("저장완료");
+            LoadFolder();
             //MessageBox.Show("저장완료");
         }
 

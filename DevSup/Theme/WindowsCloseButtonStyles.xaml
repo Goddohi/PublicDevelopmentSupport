@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:DevSup.Theme">
     <Style x:Key="WindowsCloseButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="#60FF0000"/>
+        <Setter Property="Background" Value="{StaticResource windowCloseButtonBackground}"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Foreground" Value="{StaticResource windowCloseButtonFore}"/>
+        <Setter Property="Foreground" Value="{StaticResource windowCloseButtonForeground}"/>
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -29,7 +29,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#FFAE3F55"/>
+                <Setter Property="Background" Value="{StaticResource windowCloseButtoMouseOverBackground}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
