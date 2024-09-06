@@ -31,12 +31,12 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Height="16" HorizontalAlignment="Right" Foreground="{StaticResource textmainColor}" Text="검색어" VerticalAlignment="Center" Margin="0,4,5,5" Grid.Column="0" />
+                <TextBlock Height="16" HorizontalAlignment="Right" Foreground="{DynamicResource textmainColor}" Text="검색어" VerticalAlignment="Center" Margin="0,4,5,5" Grid.Column="0" />
                 <ComboBox x:Name="cboFolder" HorizontalAlignment="Left" Width="100" SelectionChanged="CboFolder_SelectionChanged" Margin="0,2,0,1"  Grid.Column="1"
                           DisplayMemberPath="QUERY_FOLDER" SelectedValuePath="QUERY_FOLDER" Loaded="CboFolder_Loaded" IsSynchronizedWithCurrentItem="True" />
 
 
-                <TextBox x:Name="TxtKeyword" Grid.Column="2"  Style="{StaticResource ModernTextfreebox}" TextChanged="TxtKeyword_TextChanged" Margin="2,2,0,1" />
+                <TextBox x:Name="TxtKeyword" Grid.Column="2"  Style="{DynamicResource ModernTextfreebox}" TextChanged="TxtKeyword_TextChanged" Margin="2,2,0,1" />
 
                 <Grid Grid.Column="3">
                     <Image  x:Name="StarImage" Source="/Images/EmptyStar.png" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,2,0,0" MouseLeftButtonDown="StarImage_MouseLeftButtonDown" Height="30" Width="25"/>
@@ -44,7 +44,7 @@
 
 
                 <StackPanel VerticalAlignment="Center" Grid.Column="4" Margin="20,0,0,0">
-                    <TextBlock Foreground="{StaticResource textmainColor}" Text="자주 사용하는 Query를 등록하고 편리하게 이용할 수 있습니다." VerticalAlignment="Center" Margin="2,0,-2,0" />
+                    <TextBlock Foreground="{DynamicResource textmainColor}" Text="자주 사용하는 Query를 등록하고 편리하게 이용할 수 있습니다." VerticalAlignment="Center" Margin="2,0,-2,0" />
                 </StackPanel>
 
 
@@ -66,11 +66,11 @@
                     </Grid.RowDefinitions>
 
                     <DockPanel Grid.Row="0" HorizontalAlignment="Left">
-                        <Button x:Name="BtnAdd" Content="추가" Style="{StaticResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" Height="21" Width="22" Click="BtnAdd_Click" />
-                        <Button x:Name="BtnDelete" Content="삭제" Style="{StaticResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="22" Click="BtnDelete_Click" />
-                        <Button x:Name="BtnSave" Content="저장" Style="{StaticResource DefaultButtonStyle1}" ToolTip="전체리스트를 저장합니다." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="20" Click="BtnSave_Click" />
-                        <Button x:Name="BtnFilterReload"  Style="{StaticResource DefaultButtonStyle1}" ToolTip="필터를 새로고침합니다" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="22" Click="BtnFilterReload_Click" >
-                            <Image  x:Name="FilterReload" Source="{StaticResource MyQueryFilterReset}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"  Height="30" Width="25"/>
+                        <Button x:Name="BtnAdd" Content="추가" Style="{DynamicResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" Height="21" Width="22" Click="BtnAdd_Click" />
+                        <Button x:Name="BtnDelete" Content="삭제" Style="{DynamicResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="22" Click="BtnDelete_Click" />
+                        <Button x:Name="BtnSave" Content="저장" Style="{DynamicResource DefaultButtonStyle1}" ToolTip="전체리스트를 저장합니다." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="20" Click="BtnSave_Click" />
+                        <Button x:Name="BtnFilterReload"  Style="{DynamicResource DefaultButtonStyle1}" ToolTip="필터를 새로고침합니다" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="22" Click="BtnFilterReload_Click" >
+                            <Image  x:Name="FilterReload" Source="{DynamicResource MyQueryFilterReset}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"  Height="30" Width="25"/>
 
                         </Button>
 
@@ -78,18 +78,18 @@
                     </DockPanel>
 
                     <DockPanel Grid.Row="0" HorizontalAlignment="Right">
-                        <Button x:Name="BtnAllReload" Style="{StaticResource DefaultButtonStyle1}" ToolTip="저장하기 전으로 모든내역을 되돌립니다." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="22" Click="BtnAllReload_Click" >
-                            <Image  x:Name="AllReload" Source="{StaticResource MyQueryAllReset}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Height="30" Width="25"/>
+                        <Button x:Name="BtnAllReload" Style="{DynamicResource DefaultButtonStyle1}" ToolTip="저장하기 전으로 모든내역을 되돌립니다." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Height="21" Width="22" Click="BtnAllReload_Click" >
+                            <Image  x:Name="AllReload" Source="{DynamicResource MyQueryAllReset}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Height="30" Width="25"/>
                         </Button>
                         <!-- 심각한 오류발견으로 잠정중단
-                        <Button x:Name="BtnUp" Content="∧" Style="{StaticResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="20" Margin="2,0,0,0" Click="BtnUp_Click"/>
-                        <Button x:Name="BtnDown" Content="∨" Style="{StaticResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="20" Margin="2,0,0,0" Click="BtnDown_Click"/>
+                        <Button x:Name="BtnUp" Content="∧" Style="{DynamicResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="20" Margin="2,0,0,0" Click="BtnUp_Click"/>
+                        <Button x:Name="BtnDown" Content="∨" Style="{DynamicResource DefaultButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="20" Margin="2,0,0,0" Click="BtnDown_Click"/>
                    -->
                     </DockPanel>
 
                     <Button x:Name="helper"  Margin="0,2,0,0" Click="Helper_Click"
-                            Style="{StaticResource DefaultButtonStyle1}" Grid.Row="1" Width="260" Height="250" Visibility="Collapsed"  >
-                        <TextBlock TextWrapping="Wrap"  TextAlignment="Center"   Foreground="{StaticResource textmainColor}" FontSize="14">
+                            Style="{DynamicResource DefaultButtonStyle1}" Grid.Row="1" Width="260" Height="250" Visibility="Collapsed"  >
+                        <TextBlock TextWrapping="Wrap"  TextAlignment="Center"   Foreground="{DynamicResource textmainColor}" FontSize="14">
                             데이터가 조회되지 않습니다<LineBreak/> 다시 시도해 주세요.
                             <LineBreak/> 해당 버튼은 필터새로고침 버튼입니다.
                         </TextBlock>
@@ -99,7 +99,7 @@
                     <DataGrid Grid.Row="1" AutoGenerateColumns="False" HorizontalAlignment="Stretch" x:Name="dgdFavQuery"
                                ItemsSource="{Binding Source={StaticResource FavQueryViewSource}}" 
                               VerticalAlignment="Stretch"  AllowDrop="True" CanUserAddRows="False" SelectionChanged="DgdFav_SelectionChanged"
-                              HorizontalGridLinesBrush="#FFD5D5D5" VerticalGridLinesBrush="#FFD5D5D5" EnableColumnVirtualization="True" Margin="0,0,0,0" >
+                              HorizontalGridLinesBrush="{DynamicResource TS_DgdCol_GridLine}" VerticalGridLinesBrush="{DynamicResource TS_DgdCol_GridLine}" EnableColumnVirtualization="True" Margin="0,0,0,0" >
                         <DataGrid.Resources>
                             <Style TargetType="DataGridCellsPresenter">
                                 <Setter Property="Height" Value="22" />
@@ -110,7 +110,7 @@
                             <DataGridTemplateColumn Header="Fav">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--Converter={StaticResource BooleanToImageConverter}: BooleanToImageConverter 변환기를 사용하여 IsChecked 값을 이미지 경로로 변환-->
+                                        <!--Converter={DynamicResource BooleanToImageConverter}: BooleanToImageConverter 변환기를 사용하여 IsChecked 값을 이미지 경로로 변환-->
                                         <!--Tag 속성에 바인딩된 값은 Image_MouseLeftButtonUp 이벤트에서 사용할 수 있습니다.-->
                                         <Image Width="16" Height="16" 
                                    Source="{Binding IsChecked,  Converter={StaticResource BooleanToImageConverter}}"
@@ -160,7 +160,7 @@
                     <DockPanel Grid.ColumnSpan="2">
                         <!--<TextBlock Height="16" HorizontalAlignment="Left" Text="" VerticalAlignment="Center" Margin="0,4,5,5" Grid.Column="0" FontWeight="Bold" FontSize="13"  />-->
                         <DockPanel HorizontalAlignment="Left">
-                            <Button  Style="{StaticResource DefaultButtonStyle1}" Click="BtnGolden_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Height="21" Width="60"
+                            <Button  Style="{DynamicResource DefaultButtonStyle1}" Click="BtnGolden_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Height="21" Width="60"
                                 BorderThickness="1" Tag="Golden"
                                 ToolTip="Golden을 엽니다(작동X)" >
                                 <StackPanel Orientation="Horizontal">
@@ -172,13 +172,13 @@
                         </DockPanel>
                         <DockPanel HorizontalAlignment="Right">
 
-                            <Button  Style="{StaticResource DefaultButtonStyle1}"  x:Name="BtnBackupXml" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Height="20" Margin="5,2,0,2" Click="BtnBackupXml_Click" Width="66">
+                            <Button  Style="{DynamicResource DefaultButtonStyle1}"  x:Name="BtnBackupXml" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Height="20" Margin="5,2,0,2" Click="BtnBackupXml_Click" Width="66">
                                 <StackPanel Orientation="Horizontal">
 
                                     <TextBlock Text="Download" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" TextWrapping="WrapWithOverflow" Margin="5, 0, 5, 0" />
                                 </StackPanel>
                             </Button>
-                            <Button x:Name="BtnRestoreXml"  Style="{StaticResource DefaultButtonStyle1}"  HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Height="20" Margin="5,2,0,2" Click="BtnRestoreXml_Click" Width="54">
+                            <Button x:Name="BtnRestoreXml"  Style="{DynamicResource DefaultButtonStyle1}"  HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Height="20" Margin="5,2,0,2" Click="BtnRestoreXml_Click" Width="54">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Restore" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" TextWrapping="WrapWithOverflow" Margin="5, 0, 5, 0" />
                                 </StackPanel>
@@ -187,7 +187,7 @@
 
                     </DockPanel>
 
-                    <TextBox x:Name="txtQueryText"  Foreground="{StaticResource textmainColor}" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto" 
+                    <TextBox x:Name="txtQueryText"  Foreground="{DynamicResource textmainColor}" Style="{DynamicResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto" 
                              Text="{Binding ElementName=dgdFavQuery, Path=SelectedItem.QUERY_TEXT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="13" 
          PreviewKeyDown="txtQueryText_PreviewKeyDown"  Grid.Row="1" Grid.ColumnSpan="2"/>
 

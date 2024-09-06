@@ -20,12 +20,12 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Background"       Value="{StaticResource MenuButtonThemeBackground}"/>
+            <Setter Property="Background"       Value="{DynamicResource MenuButtonThemeBackground}"/>
             <Setter Property="BorderThickness"  Value="0"/>
         </Style.Setters>
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="{StaticResource MenuButtonThemeForeground}"/>
+                <Setter Property="Background" Value="{DynamicResource MenuButtonThemeCheckBackground}"/>
             </Trigger>
         </Style.Triggers>
 

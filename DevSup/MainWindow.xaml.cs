@@ -45,7 +45,7 @@ namespace DevSup
         private ObservableCollection<DBUserEntity> ocDB2User = new ObservableCollection<DBUserEntity>();
         private ObservableCollection<BasicSettingEntity> ocBasicSetting = new ObservableCollection<BasicSettingEntity>();
         // 속성 정의
-        public ObservableCollection<TabSettingEntity> OcTabSetting{ get { return ocTabSetting; } set { ocTabSetting = value; } }
+        public ObservableCollection<TabSettingEntity> OcTabSetting { get { return ocTabSetting; } set { ocTabSetting = value; } }
         public ObservableCollection<BasicSettingEntity> OcBasicSetting { get { return ocBasicSetting; } set { ocBasicSetting = value; } }
 
         public ObservableCollection<DBUserEntity> OcDB1User { get => ocDB1User; set => ocDB1User = value; }
@@ -72,9 +72,9 @@ namespace DevSup
         }
 
 
-               /*
-          설정 로직 
-         */ 
+        /*
+   설정 로직 
+  */
 
         /// <summary>
         /// 기본로딩
@@ -110,7 +110,7 @@ namespace DevSup
                 {
                     if (view.VALUE.Equals("true"))
                     {
-                        xmlLoad.AddTab(TabMain,view.TABNAME, view.UCNAME);
+                        xmlLoad.AddTab(TabMain, view.TABNAME, view.UCNAME);
 
                     }
                 }
@@ -125,7 +125,7 @@ namespace DevSup
         {
             GetDB1User();
             GetDB2User();
-        
+
             //DBUser 설정값에서 읽어오기
             CboDB1.ItemsSource = this.ocDB1User;
             CboDB1.DisplayMemberPath = "USER";
@@ -134,23 +134,23 @@ namespace DevSup
             CboDB2.ItemsSource = this.ocDB2User;
             CboDB2.DisplayMemberPath = "USER";
             CboDB2.SelectedValuePath = "USER";
-           
+
         }
         //기본설정 불러오기
         public void BasicSetting()
         {
             OcBasicSetting = xmlLoad.GetBasicSetting();
 
-        }     
+        }
 
- 
+
         public ConfigDBData LoadConfigData()
         {
             string filePath = xmlLoad.GetConfigXmlFilePath("DBSetting.xml");
 
             if (!File.Exists(filePath))
             {
-                return new ConfigDBData(); 
+                return new ConfigDBData();
             }
 
             XmlSerializer serializer = new XmlSerializer(typeof(ConfigDBData));
@@ -202,7 +202,7 @@ namespace DevSup
             if (OcDB2User.Count == 0)
             {
                 MessageWindow.Instance.ShowMessage("설정에서 DB2 Connection 정보를 설정하세요.");
-              //  MessageBox.Show("설정에서 DB2 Connection 정보를 설정하세요.");
+                //  MessageBox.Show("설정에서 DB2 Connection 정보를 설정하세요.");
             }
             else
             {
@@ -276,7 +276,7 @@ namespace DevSup
         }
         public void ChangedWconnectionString(string connectionStr)
         {
-           
+
             WconnectionString = connectionStr;
 
 
@@ -290,7 +290,7 @@ namespace DevSup
         /// 기본적인 환경 제작
         /// </summary>
 
-            //최소화
+        //최소화
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
@@ -351,7 +351,7 @@ namespace DevSup
         /// <summary>
         /// 설정창 관련
         /// </summary>
-  
+
 
         private void BtSetting_Click(object sender, RoutedEventArgs e)
         {
@@ -399,7 +399,8 @@ namespace DevSup
                         }
 
                     }
-                    if (count) {
+                    if (count)
+                    {
                         xmlLoad.AddTab(TabMain, view.TABNAME, view.UCNAME);
                     }
                 }
@@ -428,8 +429,8 @@ namespace DevSup
         //
         public void GetTabSetting()
         {
-  
-            this.OcTabSetting= this.GetTabSettingFromSettingFile();
+
+            this.OcTabSetting = this.GetTabSettingFromSettingFile();
 
             if (this.OcTabSetting == null || this.OcTabSetting.Count == 0)
             {
@@ -444,8 +445,9 @@ namespace DevSup
         public ObservableCollection<TabSettingEntity> GetTabSettingFromSettingFile()
         {
             string file_path = xmlLoad.GetConfigXmlFilePath("TabSetting.xml");
-            Console.WriteLine("여기까진왔습니다.+"+ file_path);
-            if (!File.Exists(file_path)) {
+            Console.WriteLine("여기까진왔습니다.+" + file_path);
+            if (!File.Exists(file_path))
+            {
                 return null;
             }
 
@@ -476,7 +478,7 @@ namespace DevSup
 
             if (this.OcTabSetting == null || this.OcTabSetting.Count == 0)
             {
-                
+
             }
 
 
@@ -487,7 +489,7 @@ namespace DevSup
         {
             this.OcTabSetting = this.UpdateTabSettingFile();
             if (this.OcTabSetting == null || this.OcTabSetting.Count == 0)
-            {  
+            {
             }
         }
 
@@ -592,7 +594,7 @@ namespace DevSup
                 }
             }
         }
-       
+
         public void Egg()
         {   // 이미 있는지 체크
             //LINQ사용해보기
@@ -601,7 +603,7 @@ namespace DevSup
 
             if (tabItem != null)
             {
-                
+
                 return;
             }
             xmlLoad.AddTab(TabMain, "이스터에그", "HomeView");

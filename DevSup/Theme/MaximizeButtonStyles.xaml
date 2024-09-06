@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    >
     <Style x:Key="MaximizeButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource BasicButtonBackground}"/>
+        <Setter Property="Background" Value="{DynamicResource BasicButtonBackground}"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Foreground" Value="{StaticResource BasicButtonForeground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource BasicButtonForeground}"/>
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -29,7 +29,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource BasicButtonMouseOverBackground}"/>
+                <Setter Property="Background" Value="{DynamicResource BasicButtonMouseOverBackground}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

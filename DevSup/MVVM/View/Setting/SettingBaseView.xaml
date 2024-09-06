@@ -12,9 +12,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <DockPanel>
-            <TextBlock Height="16" HorizontalAlignment="Left" Text="기본설정" VerticalAlignment="Center" Margin="0,4,5,5" Foreground="{StaticResource textTitleColor}" Grid.Column="0" FontWeight="Bold" FontSize="13"  />
+            <TextBlock Height="16" HorizontalAlignment="Left" Text="기본설정" VerticalAlignment="Center" Margin="0,4,5,5" Foreground="{DynamicResource textTitleColor}" Grid.Column="0" FontWeight="Bold" FontSize="13"  />
             <DockPanel HorizontalAlignment="Right">
-                <Button Style="{StaticResource DefaultButtonStyle1}" ToolTip="저장" Content="저장" Click="BtnSave_Click" />
+                <Button Style="{DynamicResource DefaultButtonStyle1}" ToolTip="저장" Content="저장" Click="BtnSave_Click" />
             </DockPanel>
         </DockPanel>
         <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
@@ -22,8 +22,8 @@
                   ItemsSource="{Binding OcBasicSetting}"  
                   x:Name="BasicSetting"
                   AllowDrop="True" CanUserAddRows="False" Background="Transparent" BorderBrush="Transparent"
-                  EnableColumnVirtualization="True" HorizontalGridLinesBrush="{StaticResource GridBorderBrush}" 
-                  VerticalGridLinesBrush="{StaticResource GridBorderBrush}" Margin="0,0,0,3" FontSize="14">
+                  EnableColumnVirtualization="True" HorizontalGridLinesBrush="{DynamicResource GridBorderBrush}" 
+                  VerticalGridLinesBrush="{DynamicResource GridBorderBrush}" Margin="0,0,0,3" FontSize="14">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding PROPERTY}" Header="Property" Width="120" FontSize="11" IsReadOnly="True" />

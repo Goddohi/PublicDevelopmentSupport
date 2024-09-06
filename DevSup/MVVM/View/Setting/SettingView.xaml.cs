@@ -55,7 +55,7 @@ namespace DevSup.MVVM.View.Setting
 
 
 
-  
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -111,15 +111,16 @@ namespace DevSup.MVVM.View.Setting
         {
             MainLogo();
             //탭 로드하기
-            xmlLoad.AddTab(SettingControl,"0", "SettingBaseView","Setting");
+            xmlLoad.AddTab(SettingControl, "0", "SettingBaseView", "Setting");
             xmlLoad.AddTab(SettingControl, "1", "DB1SettingView", "Setting");
             xmlLoad.AddTab(SettingControl, "2", "DB2SettingView", "Setting");
-            xmlLoad.AddTab(SettingControl, "3", "TabUsedSettingView","Setting"); 
+            xmlLoad.AddTab(SettingControl, "3", "TabUsedSettingView", "Setting");
+            xmlLoad.AddTab(SettingControl, "4", "ThemeSettingView", "Setting");
             SettingControl.SelectedIndex = 0;
 
         }
 
-        
+
 
         private void Tab0_Click(object sender, RoutedEventArgs e)
         {
@@ -177,6 +178,9 @@ namespace DevSup.MVVM.View.Setting
                 }
             }
         }
-
+        private void Tab4_Click(object sender, RoutedEventArgs e)
+        {
+            SettingControl.SelectedIndex = 4;
+        }
     }
 }

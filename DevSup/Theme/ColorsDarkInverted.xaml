@@ -9,10 +9,12 @@
     <SolidColorBrush x:Key="textTitleColor" Color="Black"/>
     <SolidColorBrush x:Key="textmainColor" Color="DarkGoldenRod"/>
 
+    <SolidColorBrush x:Key="Windowmaintabbroder" Color="Orange"/>
+
     <!-- 이미지 사진 -->
     <!-- MYQUERY -->
-    <BitmapImage x:Key="MyQueryAllReset" UriSource="pack://application:,,,/Images/AllReset.png" />
-    <BitmapImage x:Key="MyQueryFilterReset" UriSource="pack://application:,,,/Images/FilterReset.png" />
+    <BitmapImage x:Key="MyQueryAllReset" UriSource="pack://application:,,,/Images/AllResetVerWhite.png"/>
+    <BitmapImage x:Key="MyQueryFilterReset" UriSource="pack://application:,,,/Images/FilterResetVerWhite.png"/>
 
     <!-- 배경색 (투명) -->
     <SolidColorBrush x:Key="windowbackground" Color="Transparent"/>
@@ -94,6 +96,13 @@
     <Color x:Key="GridForegroundColor">#000000</Color>
     <Color x:Key="GridBorderColor">#77FFFFFF</Color>
     <Color x:Key="GridBox_BackAndBorder">Transparent</Color>
+    <!-- 열이 선택되었을 때 -->
+    <Color x:Key="SelectedRowBackgroundColor">#B0B0B0</Color>
+
+    <SolidColorBrush x:Key="GridBackgroundBrush" Color="{DynamicResource GridBackgroundColor}" />
+    <SolidColorBrush x:Key="GridForegroundBrush" Color="{DynamicResource GridForegroundColor}" />
+    <SolidColorBrush x:Key="GridBorderBrush" Color="{DynamicResource GridBorderColor}" />
+    <SolidColorBrush x:Key="SelectedRowBackgroundBrush" Color="{DynamicResource SelectedRowBackgroundColor}" />
     <!-- DataGrid 정의 -->
     <SolidColorBrush x:Key="DataGridBackgroundColor" Color="Transparent"/>
     <SolidColorBrush x:Key="DataGridBorderBrushColor" Color="Transparent"/>
@@ -101,8 +110,7 @@
     <SolidColorBrush x:Key="DataGridColumnHeaderBackground" Color="#D8D8C8"/>
     <SolidColorBrush x:Key="DataGridColumnHeaderForeground" Color="DarkGoldenRod"/>
     <SolidColorBrush x:Key="DataGridColumnHeaderBorderBrush" Color="DarkGoldenRod"/>
-    <!-- 열이 선택되었을 때 -->
-    <Color x:Key="SelectedRowBackgroundColor">#B0B0B0</Color>
+
     <Color x:Key="textmainColor2">DarkGoldenRod</Color>
     <!-- Button Basic STTTTTTTTTTYLE~ -->
     <SolidColorBrush x:Key="BasicButtonBackground" Color="#9D8B68"/>

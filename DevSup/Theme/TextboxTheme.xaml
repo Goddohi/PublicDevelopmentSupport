@@ -6,17 +6,17 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="10"
-                        Background="{StaticResource TextBoxStyleBasicBackground}"
+                        Background="{DynamicResource TextBoxStyleBasicBackground}"
                         Width="180" Height="35">
                         <Grid>
                             <Rectangle StrokeThickness="1"/>
                             <TextBox Margin="1"
                                  Text="{TemplateBinding Text}"
                                  BorderThickness="0"
-                                 Background="{StaticResource TextBoxStyleBasicTextBackground}"
+                                 Background="Transparent"
                                  VerticalContentAlignment="Center"
                                  Padding="5"
-                                 Foreground="{StaticResource TextBoxStyleBasicTextForeground}"
+                                 Foreground="{DynamicResource TextBoxStyleBasicTextForeground}"
                                  x:Name="SerchBox"/>
                             <TextBlock IsHitTestVisible="False"
                                    Text="Search"
@@ -24,7 +24,7 @@
                                    HorizontalAlignment="Left"
                                    Margin="10,0,0,0"
                                    FontSize="11"
-                                   Foreground="{StaticResource TextBoxStyleBasicUnUsedTextForeground}">
+                                   Foreground="{DynamicResource TextBoxStyleBasicUnUsedTextForeground}">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Style.Triggers>

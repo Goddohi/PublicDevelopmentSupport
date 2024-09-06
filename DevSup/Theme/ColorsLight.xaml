@@ -1,0 +1,145 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- 메인 색상 -->
+    <SolidColorBrush x:Key="MainBackgroundBrush" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="WindowLine" Color="LightSkyBlue"/>
+
+    <SolidColorBrush x:Key="textTitleColor" Color="Black"/>
+    <SolidColorBrush x:Key="textmainColor" Color="Black"/>
+
+    <SolidColorBrush x:Key="Windowmaintabbroder" Color="LightSkyBlue"/>
+
+    <!-- 이미지 사진 -->
+    <!-- MYQUERY -->
+    <BitmapImage x:Key="MyQueryAllReset" UriSource="pack://application:,,,/Images/AllResetVerGray.png"/>
+    <BitmapImage x:Key="MyQueryFilterReset" UriSource="pack://application:,,,/Images/FilterResetVerGray.png"/>
+
+    <!-- 배경색 (투명) -->
+    <SolidColorBrush x:Key="windowbackground" Color="Transparent"/>
+
+    <!-- 테이블 배경색 (투명) -->
+    <SolidColorBrush x:Key="DataGridbackground" Color="Transparent"/>
+
+    <!-- 메인도 공통사용 -->
+    <!-- 테이블 서치(TS) 탭 배경색 (투명) -->
+    <SolidColorBrush x:Key="TStabControllerBackground" Color="Transparent"/>
+    <SolidColorBrush x:Key="TStabLine" Color="#D3D3D3"/>
+
+    <!-- 테이블 서치(TS) 탭 선택 시 선택 색 -->
+    <SolidColorBrush x:Key="TStabSelectBackground" Color="#E0E0E0"/>
+    <SolidColorBrush x:Key="TSTabSelectTextTitleColor" Color="Black"/>
+    <SolidColorBrush x:Key="TStabSelectLine" Color="LightCoral"/>
+
+    <!-- TS의 GridSplitter 색 -->
+    <SolidColorBrush x:Key="TSGridSplitter" Color="DarkGray"/>
+
+    <!-- TS 선택안했을 시 -->
+    <SolidColorBrush x:Key="TStabUnSelectBackground" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="TSTabUnSelectTextTitleColor" Color="#333333"/>
+    <!-- TS 선택하지 않은 창에 마우스 올라갈 시 -->
+    <SolidColorBrush x:Key="TStabUnSelectMouseOverBackground" Color="#E5E5E5"/>
+
+    <!-- TS _ObjList -->
+    <!-- Fav도 통합 -->
+    <SolidColorBrush x:Key="TS_ObjList_GridLine" Color="#FFC0C0C0"/>
+    <!-- TS_ObjList의 Owner 설정 -->
+    <SolidColorBrush x:Key="TS_ObjList_BasicOwner" Color="DarkOrange"/>
+    <SolidColorBrush x:Key="TS_ObjList_HBILOwner" Color="LightGreen"/>
+    <SolidColorBrush x:Key="TS_ObjList_HBOHOwner" Color="Gold"/>
+    <SolidColorBrush x:Key="TS_ObjList_HSUPOwner" Color="#87CEEB"/>
+    <SolidColorBrush x:Key="TS_ObjList_HORDOwner" Color="#FFA07A"/>
+    <!-- 오너 -->
+    <Color x:Key="DefaultOwner">DarkOrange</Color>
+    <Color x:Key="HBILOwner">LightGreen</Color>
+    <Color x:Key="HBOHOwner">Gold</Color>
+    <Color x:Key="HSUPOwner">#87CEEB</Color>
+    <Color x:Key="HORDOwner">#FFA07A</Color>
+    <!-- TS_ObjList의 comments 설정 -->
+    <SolidColorBrush x:Key="TS_ObjList_NullBackComment" Color="DeepPink"/>
+    <SolidColorBrush x:Key="TS_ObjList_NullForeComment" Color="Black"/>
+
+    <!-- TS_ObjList-FAV통합 조회 설정 -->
+    <SolidColorBrush x:Key="TS_ObjList_SearchBackBTN" Color="Transparent"/>
+    <SolidColorBrush x:Key="TS_ObjList_SearchBorderBTN" Color="Transparent"/>
+
+    <!-- 조회라인 -->
+    <SolidColorBrush x:Key="TS_ObjList_SearchBackLine" Color="LimeGreen"/>
+    <SolidColorBrush x:Key="TS_ObjList_SearchBorderLine" Color="MediumSeaGreen"/>
+    <!-- TS_dgdIndex -->
+    <!-- 특정조건 - 특정인덱스 -->
+    <SolidColorBrush x:Key="TS_dgdIndex_SpecialCondition" Color="Tomato"/>
+
+    <!-- TS dgdTableAddInfo -->
+    <SolidColorBrush x:Key="TS_dgdTableAddInfo_GridLine" Color="#FFC0C0C0"/>
+
+    <!-- TS_DgdCol -->
+    <SolidColorBrush x:Key="TS_DgdCol_GridLine" Color="#FFC0C0C0"/>
+    <!-- TS_DgdCol의 comments 설정 (ObjList 동일) -->
+    <SolidColorBrush x:Key="TS_DgdCol_NullBackComment" Color="DeepPink"/>
+    <SolidColorBrush x:Key="TS_DgdCol_NullForeComment" Color="Black"/>
+
+    <!-- TS _dgdCommonCodeInfo -->
+    <SolidColorBrush x:Key="TS_dgdCommonCodeInfo_GridLine" Color="#FFC0C0C0"/>
+
+    <!-- TS_DgdRefObjList -->
+    <SolidColorBrush x:Key="TS_DgdRefObjList_GridLine" Color="#FFC0C0C0"/>
+
+    <!-- 리소스파일용 -->
+    <Color x:Key="MainBackgroundColor">#F0F0F0</Color>
+    <Color x:Key="ComboBoxBackgroundColor">#FFB3E5FC</Color>
+    <!-- DataGridStyle & Dark 공통 스타일색 -->
+    <!-- Brush 정의 -->
+    <Color x:Key="GridBackgroundColor">Transparent</Color>
+    <Color x:Key="GridForegroundColor">Black</Color>
+    <Color x:Key="GridBorderColor">#88FFFFFF</Color>
+    <Color x:Key="GridBox_BackAndBorder">Transparent</Color>
+
+
+
+    <SolidColorBrush x:Key="GridBackgroundBrush" Color="{DynamicResource GridBackgroundColor}" />
+    <SolidColorBrush x:Key="GridForegroundBrush" Color="{DynamicResource GridForegroundColor}" />
+    <SolidColorBrush x:Key="GridBorderBrush" Color="{DynamicResource GridBorderColor}" />
+    <SolidColorBrush x:Key="SelectedRowBackgroundBrush" Color="{DynamicResource SelectedRowBackgroundColor}" />
+
+    <!-- DataGrid 정의 -->
+    <SolidColorBrush x:Key="DataGridBackgroundColor" Color="Transparent"/>
+    <SolidColorBrush x:Key="DataGridBorderBrushColor" Color="Transparent"/>
+    <!-- DataGridStyle -->
+    <SolidColorBrush x:Key="DataGridColumnHeaderBackground" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="DataGridColumnHeaderForeground" Color="DarkSlateGray"/>
+    <SolidColorBrush x:Key="DataGridColumnHeaderBorderBrush" Color="DarkSlateGray"/>
+    <!-- 열이 선택되었을 때 -->
+    <Color x:Key="SelectedRowBackgroundColor">#D3D3D3</Color>
+    <Color x:Key="textmainColor2">DarkSlateGray</Color>
+    <!-- Button Basic STYLE -->
+    <SolidColorBrush x:Key="BasicButtonBackground" Color="#E0E0E0"/>
+    <SolidColorBrush x:Key="BasicButtonForeground" Color="Black"/>
+    <SolidColorBrush x:Key="BasicButtonMouseOverBackground" Color="Gray"/>
+    <!-- 닫기 버튼 -->
+    <SolidColorBrush x:Key="windowCloseButtonBackground" Color="#DC143C"/>
+    <SolidColorBrush x:Key="windowCloseButtonForeground" Color="Black"/>
+    <SolidColorBrush x:Key="windowCloseButtoMouseOverBackground" Color="#FF2F27"/>
+
+    <!-- MenuButtonTheme -->
+    <SolidColorBrush x:Key="MenuButtonThemeBackground" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="MenuButtonThemeCheckBackground" Color="#B0B0B0"/>
+    <!-- TabStyle -->
+    <SolidColorBrush x:Key="TabStyleBasicBorder" Color="#D3D3D3"/>
+    <SolidColorBrush x:Key="TabStyleSelectBorderBackground" Color="#E0E0E0"/>
+    <SolidColorBrush x:Key="TabStyleSelectBorderBrush" Color="LightSkyBlue"/>
+    <SolidColorBrush x:Key="TabStyleSelectText" Color="Black"/>
+
+    <SolidColorBrush x:Key="TabStyleUnSelectBorderBackground" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="TabStyleUnSelectText" Color="#333333"/>
+
+    <SolidColorBrush x:Key="TabStyleUnSelectMouseOverBorderBackground" Color="#E5E5E5"/>
+
+    <!-- 텍스트박스 -->
+    <SolidColorBrush x:Key="TextBoxStyleBasicBackground" Color="#E0E0E0"/>
+    <!--해당은 그냥 투명으로 해당 리소스에 고정-->
+    <SolidColorBrush x:Key="TextBoxStyleBasicTextBackground" Color="Transparent"/>
+    <SolidColorBrush x:Key="TextBoxStyleBasicTextForeground" Color="#000000"/>
+    <SolidColorBrush x:Key="TextBoxStyleBasicUnUsedTextForeground" Color="Gray"/>
+
+</ResourceDictionary>

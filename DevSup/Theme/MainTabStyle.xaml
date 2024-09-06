@@ -7,23 +7,23 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
-                    <Border Name="border" BorderBrush="{StaticResource TabStyleBasicBorder}" BorderThickness="0" Margin="1,0,1,0" >
+                    <Border Name="border" BorderBrush="{DynamicResource TabStyleBasicBorder}" BorderThickness="0" Margin="1,0,1,0" >
                         <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="6,0" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource TabStyleSelectBorderBackground}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource TabStyleSelectBorderBackground}" />
                             <Setter TargetName="border" Property="BorderThickness" Value="2,0,0,0" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TabStyleSelectBorderBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource TabStyleSelectBorderBrush}" />
                             <Setter TargetName="border" Property="Height" Value="23"/>
-                            <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="{StaticResource TabStyleSelectText}"/>
+                            <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="{DynamicResource TabStyleSelectText}"/>
                             <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Bold" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource TabStyleUnSelectBorderBackground}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource TabStyleUnSelectBorderBackground}" />
                             <Setter TargetName="border" Property="BorderThickness" Value="0,0,0,0" />
                             <Setter TargetName="border" Property="Height" Value="22"/>
-                            <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="{StaticResource TabStyleUnSelectText}" />
+                            <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="{DynamicResource TabStyleUnSelectText}" />
                             <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Normal" />
                         </Trigger>
                         <!-- 선택되지않은 창에 마우스가 올라갈경우 발생-->
@@ -32,7 +32,7 @@
                                 <Condition Property="Border.IsMouseOver" Value="True"/>
                                 <Condition Property="IsSelected" Value="False"/>
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="border" Property="Background" Value="{StaticResource TabStyleUnSelectMouseOverBorderBackground}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource TabStyleUnSelectMouseOverBorderBackground}" />
                             <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Normal" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>

@@ -15,13 +15,13 @@
         Height="600"    Width="920"
         MinHeight="200" MinWidth="430"
         Title="SW Development Support"
-        Background="Transparent" WindowStyle="None" AllowsTransparency="True"
+        Background="{DynamicResource windowbackground}" WindowStyle="None" AllowsTransparency="True"
          Loaded="Window_Loaded" >
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Background="#272537"
+    <Border Background="{DynamicResource MainBackgroundBrush}"
             CornerRadius="20">
         <!-- 필수 영역 설정 -->
         <Grid>
@@ -44,7 +44,7 @@
 
                 <!-- 잡아서 이동하는 영역  + 색상 테스트를 위해 잠시 보이게 변경-->
                 <Border Grid.Column="0"  
-                        CornerRadius="20" Background="#272537" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
+                        CornerRadius="20" Background="{DynamicResource MainBackgroundBrush}" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -60,95 +60,95 @@
                         </Grid.ColumnDefinitions>
                         <!-- 드래그하는 곳에 더블 클릭시 최대화면 로직 -->
                         <TextBlock Text="Development Support" Margin="0,5,0,0"
-                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="White"
+                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="{DynamicResource textTitleColor}"
                                     Grid.Column="0" Grid.ColumnSpan="6" Height="35" VerticalAlignment="Center" HorizontalAlignment="Stretch"  MouseDown="TextBlock_MouseDown"/>
                         <!-- 필수영역 예외 부분 -->
                         <StackPanel x:Name="spDB" Grid.Column="0" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Left" Height="25" Margin="0,0,0,0" Background="Transparent" Width="275" 
                                     Panel.ZIndex="0">
-                 
-                            <RadioButton x:Name="RdoDev" Content="DB1 (DEV)" HorizontalAlignment="Right" Foreground="White" Margin="0,6,0,0"/>
-                            <RadioButton x:Name="RdoApp" Content="DB2 (STG)" HorizontalAlignment="Right" Foreground="White" Margin="10,6,0,0"/>
-                            
+
+                            <RadioButton x:Name="RdoDev" Content="DB1 (DEV)" HorizontalAlignment="Right" Foreground="{DynamicResource textTitleColor}" Margin="0,6,0,0"/>
+                            <RadioButton x:Name="RdoApp" Content="DB2 (STG)" HorizontalAlignment="Right" Foreground="{DynamicResource textTitleColor}" Margin="10,6,0,0"/>
+
                             <!--꾸미기 왜색적용이 안될까?-->
                             <ComboBox x:Name="CboDB1" HorizontalAlignment="Left" Width="100" Margin="10,2,0,1" Height="20" Visibility="Collapsed"
                                       IsSynchronizedWithCurrentItem="True" Loaded="CboDB1_Loaded"/>
                             <ComboBox x:Name="CboDB2" HorizontalAlignment="Left" Width="100" Margin="10,2,0,1" Height="20" 
                                        IsSynchronizedWithCurrentItem="True" Loaded="CboDB2_Loaded"/>
                         </StackPanel>
-                        <Button Style="{StaticResource DefaultButtonStyle1}"
+                        <Button Style="{DynamicResource DefaultButtonStyle1}"
                                 Grid.Column="2" ToolTip="환경설정" Content="설정"  Click="BtSetting_Click" />
-                            <!-- 최소화 버튼 -->
-                        <Button Style="{StaticResource MinimizeButtonStyle}"
+                        <!-- 최소화 버튼 -->
+                        <Button Style="{DynamicResource MinimizeButtonStyle}"
                              Grid.Column="3" Click="MinimizeButton_Click"/>
 
                         <!-- 최대화 버튼-->
-                        <Button Style="{StaticResource MaximizeButtonStyle}"
+                        <Button Style="{DynamicResource MaximizeButtonStyle}"
                                 Grid.Column="4" Click="MaximizeButton_Click"/>
                         <!-- 프로그램 종료 -->
-                        <Button Style="{StaticResource WindowsCloseButtonStyle}"
+                        <Button Style="{DynamicResource WindowsCloseButtonStyle}"
                                 Grid.Column="5"
                                 Click="CloseButton_Click"
                                 Panel.ZIndex="1"/>
-                      
+
                     </Grid>
                 </Border>
 
-                <Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="SkyBlue" Grid.Row="1"/>
+                <Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="{DynamicResource WindowLine}" Grid.Row="1"/>
                 <!-- 필수영역 종료-->
 
                 <!-- 메인영역-->
                 <Grid Grid.Row="2"  RenderOptions.BitmapScalingMode="HighQuality">
 
 
-                <Grid Margin="6,4,9,9">
-                    <TabControl  x:Name="TabMain" Margin="0,0,0,0" Background="Transparent"
+                    <Grid Margin="6,4,9,9">
+                        <TabControl  x:Name="TabMain" Margin="0,0,0,0" Background="{DynamicResource windowbackground}"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
                                  BorderThickness="0" Padding="0" >
-                        <TabControl.Resources>
-                            <Style TargetType="{x:Type TabItem}">
-                                <Setter Property="AllowDrop" Value="True"/>
-                                <Setter Property="VerticalAlignment" Value="Bottom"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type TabItem}">
-                                            <Border Name="border" BorderBrush="#B7B7B7" BorderThickness="0" Margin="1,0,1,0" >
-                                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="6,0" />
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsSelected" Value="True">
-                                                        <Setter TargetName="border" Property="Background" Value="#4A4A6C" />
-                                                    <Setter TargetName="border" Property="BorderThickness" Value="2,0,0,0" />
-                                                        <Setter TargetName="border" Property="BorderBrush" Value="SkyBlue" />
-                                                    <Setter TargetName="border" Property="Height" Value="23"/>
-                                                    <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="White"/>
-                                                    <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Bold" />
-                                                </Trigger>
-                                                <Trigger Property="IsSelected" Value="False">
-                                                        <Setter TargetName="border" Property="Background" Value="#272537" />
+                            <TabControl.Resources>
+                                <Style TargetType="{x:Type TabItem}">
+                                    <Setter Property="AllowDrop" Value="True"/>
+                                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type TabItem}">
+                                                <Border Name="border" BorderBrush="{DynamicResource TStabLine}" BorderThickness="0" Margin="1,0,1,0" >
+                                                    <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="6,0" />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter TargetName="border" Property="Background" Value="{DynamicResource TStabSelectBackground}" />
+                                                        <Setter TargetName="border" Property="BorderThickness" Value="2,0,0,0" />
+                                                        <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Windowmaintabbroder}" />
+                                                        <Setter TargetName="border" Property="Height" Value="23"/>
+                                                        <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="White"/>
+                                                        <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Bold" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsSelected" Value="False">
+                                                        <Setter TargetName="border" Property="Background" Value="{DynamicResource TStabUnSelectBackground}" />
                                                         <Setter TargetName="border" Property="BorderThickness" Value="0,0,0,0" />
                                                         <Setter TargetName="border" Property="Height" Value="22"/>
-                                                        <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="#888888" />
-                                                    <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Normal" />
-                                                </Trigger>
-                                                <!-- 선택되지않은 창에 마우스가 올라갈경우 발생-->
-                                                <MultiTrigger>
-                                                    <MultiTrigger.Conditions>
-                                                        <Condition Property="Border.IsMouseOver" Value="True"/>
-                                                        <Condition Property="IsSelected" Value="False"/>
-                                                    </MultiTrigger.Conditions>
-                                                        <Setter TargetName="border" Property="Background" Value="#3B393F" />
-                                                    <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Normal" />
-                                                </MultiTrigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                            
-                        </TabControl.Resources>
-                       </TabControl>
-                  </Grid>
-              </Grid>
+                                                        <Setter TargetName="ContentSite" Property="TextElement.Foreground" Value="{DynamicResource TSTabUnSelectTextTitleColor}" />
+                                                        <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Normal" />
+                                                    </Trigger>
+                                                    <!-- 선택되지않은 창에 마우스가 올라갈경우 발생-->
+                                                    <MultiTrigger>
+                                                        <MultiTrigger.Conditions>
+                                                            <Condition Property="Border.IsMouseOver" Value="True"/>
+                                                            <Condition Property="IsSelected" Value="False"/>
+                                                        </MultiTrigger.Conditions>
+                                                        <Setter TargetName="border" Property="Background" Value="{DynamicResource TStabUnSelectMouseOverBackground}" />
+                                                        <Setter TargetName="ContentSite" Property="TextElement.FontWeight" Value="Normal" />
+                                                    </MultiTrigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+
+                            </TabControl.Resources>
+                        </TabControl>
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     </Border>

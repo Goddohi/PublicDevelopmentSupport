@@ -443,10 +443,14 @@ namespace DevSup.MVVM.Model
         ///
         public string XmlChageCshap(string xmlString)
         {
-            XElement rootElement = XElement.Parse(xmlString);
-            string className = rootElement.Name.LocalName;
-            string classCode = GenerateClassCode(rootElement, className);
-            return classCode;
+            try
+            {
+                XElement rootElement = XElement.Parse(xmlString);
+                string className = rootElement.Name.LocalName;
+                string classCode = GenerateClassCode(rootElement, className);
+                return classCode;
+            }
+            catch { return "올바르지 않은 값입니다."; }
         }
         public string XmlChageCshap()
         {

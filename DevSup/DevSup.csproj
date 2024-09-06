@@ -103,6 +103,9 @@
     <Compile Include="MVVM\View\QuerySupportWindow.xaml.cs">
       <DependentUpon>QuerySupportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\Setting\ThemeSettingView.xaml.cs">
+      <DependentUpon>ThemeSettingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Service\SelectDataService.cs" />
     <Compile Include="Service\TableDataService.cs" />
     <Compile Include="Entity\ConfigDBData.cs" />
@@ -211,6 +214,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Setting\ThemeSettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\TableSearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -219,7 +226,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Theme\ColorsLigth.xaml">
+    <Page Include="Theme\ColorsDarkInverted.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\ColorsLight.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -351,6 +362,13 @@
   <ItemGroup>
     <Resource Include="Images\AllResetVerWhite.png" />
     <Resource Include="Images\FilterResetVerWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Config\ThemeSetting.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AllResetVerGray.png" />
+    <Resource Include="Images\FilterResetVerGray.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

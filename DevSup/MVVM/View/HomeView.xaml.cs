@@ -41,8 +41,10 @@ namespace DevSup.MVVM.View
 
         private void TEST_Click(object sender, RoutedEventArgs e)
         {
-            QuerySupportLogic qs = new QuerySupportLogic();
-            qs.jsonChageXml();
+
         }
+
+
+
     }
 }

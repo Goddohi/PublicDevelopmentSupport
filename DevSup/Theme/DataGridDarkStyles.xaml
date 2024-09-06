@@ -2,42 +2,42 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Brush 정의 -->
-    <SolidColorBrush x:Key="GridBackgroundBrush" Color="{StaticResource GridBackgroundColor}" />
-    <SolidColorBrush x:Key="GridForegroundBrush" Color="{StaticResource GridForegroundColor}" />
-    <SolidColorBrush x:Key="GridBorderBrush" Color="{StaticResource GridBorderColor}" />
-    <SolidColorBrush x:Key="SelectedRowBackgroundBrush" Color="{StaticResource SelectedRowBackgroundColor}" />
+    <SolidColorBrush x:Key="GridBackgroundBrush" Color="{DynamicResource GridBackgroundColor}" />
+    <SolidColorBrush x:Key="GridForegroundBrush" Color="{DynamicResource GridForegroundColor}" />
+    <SolidColorBrush x:Key="GridBorderBrush" Color="{DynamicResource GridBorderColor}" />
+    <SolidColorBrush x:Key="SelectedRowBackgroundBrush" Color="{DynamicResource SelectedRowBackgroundColor}" />
 
     <!-- 스타일 정의 -->
     <Style x:Key="DataGridBox" TargetType="DataGrid">
-        <Setter Property="Background"  Value="{StaticResource GridBox_BackAndBorder}" />
-        <Setter Property="BorderBrush" Value="{StaticResource GridBox_BackAndBorder}" />
+        <Setter Property="Background"  Value="{DynamicResource GridBox_BackAndBorder}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GridBox_BackAndBorder}" />
     </Style>
 
     <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
-        <Setter Property="Background" Value="{StaticResource GridBackgroundColor}" />
-        <Setter Property="Foreground" Value="{StaticResource GridForegroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource GridBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource GridBackgroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource GridForegroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GridBorderBrush}" />
         <Setter Property="BorderThickness" Value="0,1,1,0" />
         <Setter Property="Padding" Value="2,0,0,2"/>
 
     </Style>
 
     <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
-        <Setter Property="Background" Value="{StaticResource GridBackgroundColor}" />
-        <Setter Property="Foreground" Value="{StaticResource GridForegroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource GridBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource GridBackgroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource GridForegroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GridBorderBrush}" />
         <Setter Property="BorderThickness" Value="1,1,1,0" />
         <Setter Property="Padding" Value="2,0,0,2"/>
     </Style>
 
 
     <Style  x:Key="DataGridRowStyle"  TargetType="DataGridRow">
-        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource GridForegroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource GridBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource GridForegroundBrush}" />
         <Style.Triggers>
             <!-- Trigger for Selected Row -->
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{StaticResource SelectedRowBackgroundBrush}" />
+                <Setter Property="Background" Value="{DynamicResource SelectedRowBackgroundBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>

@@ -10,6 +10,8 @@
     <SolidColorBrush x:Key="textmainColor" Color="Wheat"/>
 
 
+    <SolidColorBrush x:Key="Windowmaintabbroder" Color="SkyBlue"/>
+
     <!--이미지 사진-->
     <!--MYQUERY-->
     <BitmapImage x:Key="MyQueryAllReset" UriSource="pack://application:,,,/Images/AllResetVerWhite.png" />
@@ -21,6 +23,7 @@
     <!-- 테이블 배경색 (투명)-->
     <SolidColorBrush x:Key="DataGridbackground" Color="Transparent"/>
 
+    <!-- 메인도 공통사용-->
     <!-- 테이블 서치(TS) 탭 배경색 (투명)-->
     <SolidColorBrush x:Key="TStabControllerBackground" Color="Transparent"/>
     <SolidColorBrush x:Key="TStabLine" Color="#B7B7B7"/>
@@ -44,6 +47,7 @@
     <SolidColorBrush x:Key="TS_ObjList_GridLine" Color="#FFD5D5D5"/>
     <!--TS_ObjList의 Owner 설정-->
     <!--Fav도 통합-->
+    <!--기본색상-->
     <SolidColorBrush x:Key="TS_ObjList_BasicOwner" Color="Wheat"/>
     <SolidColorBrush x:Key="TS_ObjList_HBILOwner" Color="LightGreen"/>
     <SolidColorBrush x:Key="TS_ObjList_HBOHOwner" Color="Gold"/>
@@ -75,9 +79,8 @@
     <!--TS dgdTableAddInfo -->
     <SolidColorBrush x:Key="TS_dgdTableAddInfo_GridLine" Color="#FFD5D5D5"/>
 
-
-
     <!--TS_DgdCol-->
+    <!-- myquery도 동일-->
     <SolidColorBrush x:Key="TS_DgdCol_GridLine" Color="#FFD5D5D5"/>
     <!--TS_DgdCol의 comments 설정(ObjList동일)-->
 
@@ -102,12 +105,30 @@
 
 
     <Color x:Key="ComboBoxBackgroundColor">#FFB3E5FC</Color>
+
+
+
+
     <!-- DataGridStyle & Dark 공통 스타일색-->
+
     <!--Brush정의 -->
     <Color x:Key="GridBackgroundColor">Transparent</Color>
+    <!-- row 내부 글자색-->
     <Color x:Key="GridForegroundColor">#FFFFFF</Color>
+
     <Color x:Key="GridBorderColor">#88FFFFFF</Color>
     <Color x:Key="GridBox_BackAndBorder">Transparent</Color>
+    <!-- 열이 선택되었을 때 -->
+    <Color x:Key="SelectedRowBackgroundColor">#4F4F4F</Color>
+    <!--진한회색-->
+
+    <SolidColorBrush x:Key="GridBackgroundBrush" Color="{DynamicResource GridBackgroundColor}" />
+    <SolidColorBrush x:Key="GridForegroundBrush" Color="{DynamicResource GridForegroundColor}" />
+    <SolidColorBrush x:Key="GridBorderBrush" Color="{DynamicResource GridBorderColor}" />
+    <SolidColorBrush x:Key="SelectedRowBackgroundBrush" Color="{DynamicResource SelectedRowBackgroundColor}" />
+
+
+
     <!--DataGrid 정의-->
     <SolidColorBrush x:Key="DataGridBackgroundColor" Color="Transparent"/>
     <SolidColorBrush x:Key="DataGridBorderBrushColor" Color="Transparent"/>
@@ -116,9 +137,14 @@
     <SolidColorBrush x:Key="DataGridColumnHeaderBackground" Color="#272537"/>
     <SolidColorBrush x:Key="DataGridColumnHeaderForeground" Color="Wheat"/>
     <SolidColorBrush x:Key="DataGridColumnHeaderBorderBrush" Color="Wheat"/>
-    <!-- 열이 선택되었을 때 -->
-    <Color x:Key="SelectedRowBackgroundColor">#4F4F4F</Color>
+
+
+    <!--어디다쓰더라..-->
     <Color x:Key="textmainColor2">Wheat</Color>
+
+
+
+
     <!--Button Basic STTTTTTTTTTYLE~-->
     <SolidColorBrush x:Key="BasicButtonBackground" Color="#60272537"/>
     <SolidColorBrush x:Key="BasicButtonForeground" Color="White"/>
@@ -146,6 +172,7 @@
 
     <!-- 텍스트박스-->
     <SolidColorBrush x:Key="TextBoxStyleBasicBackground" Color="#353340"/>
+    <!--해당은 그냥 투명으로 해당 리소스에 고정-->
     <SolidColorBrush x:Key="TextBoxStyleBasicTextBackground" Color="Transparent"/>
     <SolidColorBrush x:Key="TextBoxStyleBasicTextForeground" Color="#CFCFCF"/>
     <SolidColorBrush x:Key="TextBoxStyleBasicUnUsedTextForeground" Color="DarkGray"/>

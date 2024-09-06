@@ -6,7 +6,7 @@
               xmlns:core="clr-namespace:DevSup.Core"
               xmlns:local="clr-namespace:DevSup.MVVM.View"
               mc:Ignorable="d"
-              Background="{StaticResource windowbackground}"
+              Background="{DynamicResource windowbackground}"
               WindowStyle="None"
               AllowsTransparency="True"
               Title="시스템메세지"
@@ -16,8 +16,8 @@
 
     <Grid>
         <!-- Border에 테두리와 둥근 모서리를 설정합니다. -->
-        <Border Background="{StaticResource MainBackgroundBrush}"
-                BorderBrush="{StaticResource textmainColor}"
+        <Border Background="{DynamicResource MainBackgroundBrush}"
+                BorderBrush="{DynamicResource textmainColor}"
                 BorderThickness="2"
                 CornerRadius="10"
                 Padding="20">
@@ -26,7 +26,7 @@
                            HorizontalAlignment="Center"
     
                            Background="Transparent"
-                           Foreground="{StaticResource textmainColor}"
+                           Foreground="{DynamicResource textmainColor}"
                            Text="서비스 메세지"
                            FontSize="15" Margin="0,-20,0,0" />
                 <!-- TextBlock 설정 -->
@@ -35,16 +35,16 @@
                            HorizontalAlignment="Center"
                            TextWrapping="Wrap"
                            Background="Transparent"
-                           Foreground="{StaticResource textmainColor}"
+                           Foreground="{DynamicResource textmainColor}"
                            Text="This is a custom message box."
                            FontSize="15"
                            Margin="0,0,0,20" />
 
                 <!-- Button 설정 -->
                 <Button Click="OkButton_Click"
-                        Foreground="{StaticResource textmainColor}"
+                        Foreground="{DynamicResource textmainColor}"
                         FontSize="20"
-                        Style="{StaticResource DefaultButtonStyle1}"
+                        Style="{DynamicResource DefaultButtonStyle1}"
                         Content="OK"
                         Width="80"
                         Height="30"

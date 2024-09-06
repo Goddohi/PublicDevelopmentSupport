@@ -14,10 +14,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <DockPanel>
-            <TextBlock Height="16" HorizontalAlignment="Left" Text="Tab 사용설정" VerticalAlignment="Center" Margin="0,4,5,5" Foreground="{StaticResource textTitleColor}" Grid.Column="0" FontWeight="Bold" FontSize="13"  />
+            <TextBlock Height="16" HorizontalAlignment="Left" Text="Tab 사용설정" VerticalAlignment="Center" Margin="0,4,5,5" Foreground="{DynamicResource textTitleColor}" Grid.Column="0" FontWeight="Bold" FontSize="13"  />
 
             <DockPanel HorizontalAlignment="Right">
-                <Button Style="{StaticResource DefaultButtonStyle1}" ToolTip="저장" Content="저장"  Click="BtnSave_Click" />
+                <Button Style="{DynamicResource DefaultButtonStyle1}" ToolTip="저장" Content="저장"  Click="BtnSave_Click" />
 
             </DockPanel>
         </DockPanel>
@@ -25,7 +25,7 @@
         <DataGrid CanUserResizeRows="False" AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                   Grid.Row="1" ItemsSource="{Binding OcTabSetting}"
                   AllowDrop="False" CanUserAddRows="False" BorderBrush="Transparent"  Background="Transparent"
-                  HorizontalGridLinesBrush="{StaticResource GridBorderBrush}" VerticalGridLinesBrush="{StaticResource GridBorderBrush}"
+                  HorizontalGridLinesBrush="{DynamicResource GridBorderBrush}" VerticalGridLinesBrush="{DynamicResource GridBorderBrush}"
                   EnableColumnVirtualization="True" Margin="0,0,0,3" FontSize="14">
 
             <DataGrid.Columns>

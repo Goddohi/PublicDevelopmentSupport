@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:DevSup.MVVM.View"
         xmlns:w="clr-namespace:DevSup.WindowResizer"
         mc:Ignorable="d" 
-        Background="{StaticResource windowbackground}" WindowStyle="None" AllowsTransparency="True"
+        Background="{DynamicResource windowbackground}" WindowStyle="None" AllowsTransparency="True"
         Height="768" Width="1400" Loaded="Window_Loaded">
-    <Border Background="{StaticResource MainBackgroundBrush}"
+    <Border Background="{DynamicResource MainBackgroundBrush}"
             CornerRadius="20">
         <!-- 필수 영역 설정 -->
         <Grid>
@@ -29,7 +29,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Grid.Column="0"  
-                        CornerRadius="20" Background="{StaticResource MainBackgroundBrush}" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
+                        CornerRadius="20" Background="{DynamicResource MainBackgroundBrush}" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -42,26 +42,26 @@
                         </Grid.ColumnDefinitions>
                         <!-- 드래그하는 곳에 더블 클릭시 최대화면 로직 -->
                         <TextBlock Text="Code" Margin="0,5,0,0" x:Name="titlecode"
-                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="{StaticResource textTitleColor}"
+                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="{DynamicResource textTitleColor}"
                                     Grid.Column="0" Grid.ColumnSpan="6" Height="35" VerticalAlignment="Center" HorizontalAlignment="Stretch"  MouseDown="TextBlock_MouseDown"/>
 
                         <!-- 최소화 버튼 -->
-                        <Button Style="{StaticResource MinimizeButtonStyle}"
+                        <Button Style="{DynamicResource MinimizeButtonStyle}"
                              Grid.Column="3" Click="MinimizeButton_Click"/>
                         <!-- 최대화 버튼-->
-                        <Button Style="{StaticResource MaximizeButtonStyle}"
+                        <Button Style="{DynamicResource MaximizeButtonStyle}"
                                 Grid.Column="4" Click="MaximizeButton_Click"/>
                         <!-- 프로그램 종료 -->
-                        <Button Style="{StaticResource WindowsCloseButtonStyle}"
+                        <Button Style="{DynamicResource WindowsCloseButtonStyle}"
                                 Grid.Column="5"
                                 Click="CloseButton_Click"
                                 Panel.ZIndex="1"/>
                     </Grid>
                 </Border>
 
-                <Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="{StaticResource WindowLine}" Grid.Row="1"/>
+                <Border BorderThickness="0" Margin="10,0,10,0" CornerRadius="9800" Background="{DynamicResource WindowLine}" Grid.Row="1"/>
                 <Grid Grid.Row="2">
-                    <TextBox x:Name="TxtCode"  Foreground="{StaticResource textmainColor}" Style="{StaticResource ModernTextfreebox}" TextWrapping="Wrap" GotFocus="TxtCode_GotFocus" FontFamily="Consolas" FontSize="14" VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="5"/>
+                    <TextBox x:Name="TxtCode"  Foreground="{DynamicResource textmainColor}" Style="{DynamicResource ModernTextfreebox}" TextWrapping="Wrap" GotFocus="TxtCode_GotFocus" FontFamily="Consolas" FontSize="14" VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="5"/>
                 </Grid>
             </Grid>
 

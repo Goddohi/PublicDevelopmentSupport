@@ -12,7 +12,7 @@
         MinHeight="300"
         MinWidth="350"
         Title="Setting"
-        Background="{StaticResource windowbackground}"
+        Background="{DynamicResource windowbackground}"
         WindowStyle="None"
         AllowsTransparency="True"
         Loaded="Setting_Loaded">
@@ -25,7 +25,7 @@
                                   SaveClicked="TabUsedSetting_SaveClicked"/>
 
 
-        <Border Background="{StaticResource MainBackgroundBrush}"
+        <Border Background="{DynamicResource MainBackgroundBrush}"
             CornerRadius="20">
             <!-- 필수 영역 설정 -->
 
@@ -50,7 +50,7 @@
 
                     <!-- 잡아서 이동하는 영역  + 색상 테스트를 위해 잠시 보이게 변경-->
                     <Border Grid.Column="0"  
-                        CornerRadius="20" Background="{StaticResource MainBackgroundBrush}" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
+                        CornerRadius="20" Background="{DynamicResource MainBackgroundBrush}" VerticalAlignment="Top" Margin="5,5,5,0" Height="30" w:WindowResizer.Direction="Drag">
 
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -62,18 +62,18 @@
                             </Grid.ColumnDefinitions>
                             <!-- 드래그하는 곳에 더블 클릭시 최대화면 로직 -->
                             <TextBlock Text="환경 설정" Margin="0,5,0,0"
-                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="{StaticResource textTitleColor}"
+                                    TextAlignment="Center" FontSize="13" FontStyle="Oblique"  Foreground="{DynamicResource textTitleColor}"
                                     Grid.Column="0" Grid.ColumnSpan="4" Height="35" VerticalAlignment="Center" HorizontalAlignment="Stretch"  MouseDown="TextBlock_MouseDown"/>
                             <!-- 최소화 버튼 -->
-                            <Button Style="{StaticResource MinimizeButtonStyle}"
+                            <Button Style="{DynamicResource MinimizeButtonStyle}"
                              Grid.Column="1" Click="MinimizeButton_Click"/>
 
                             <!-- 최대화 버튼-->
-                            <Button Style="{StaticResource MaximizeButtonStyle}"
+                            <Button Style="{DynamicResource MaximizeButtonStyle}"
                 Grid.Column="2"
                 Click="MaximizeButton_Click"/>
                             <!-- 프로그램 종료 -->
-                            <Button Style="{StaticResource WindowsCloseButtonStyle}"
+                            <Button Style="{DynamicResource WindowsCloseButtonStyle}"
                                 Grid.Column="3"
                                 Click="CloseButton_Click"/>
 
@@ -93,29 +93,35 @@
                                 <StackPanel>
                                     <RadioButton Content="기본설정"
                                      Height="50"
-                                     Foreground="{StaticResource textTitleColor}"
+                                     Foreground="{DynamicResource textTitleColor}"
                                      FontSize="14"
-                                     Style="{StaticResource MenuButtonTheme}"
+                                     Style="{DynamicResource MenuButtonTheme}"
                                      IsChecked="True"
                                      Click="Tab0_Click"/>
                                     <RadioButton Content="DB1 설정"
                                      Height="50"
-                                      Foreground="{StaticResource textTitleColor}"
+                                      Foreground="{DynamicResource textTitleColor}"
                                      FontSize="14"
-                                     Style="{StaticResource MenuButtonTheme}"
+                                     Style="{DynamicResource MenuButtonTheme}"
                                      Click="Tab1_Click"/>
                                     <RadioButton Content="DB2 설정"
                                      Height="50"
-                                      Foreground="{StaticResource textTitleColor}"
+                                      Foreground="{DynamicResource textTitleColor}"
                                      FontSize="14"
-                                     Style="{StaticResource MenuButtonTheme}"
+                                     Style="{DynamicResource MenuButtonTheme}"
                                      Click="Tab2_Click"/>
                                     <RadioButton Content="Tab 사용설정"
                                      Height="50"
-                                      Foreground="{StaticResource textTitleColor}"
+                                      Foreground="{DynamicResource textTitleColor}"
                                      FontSize="14"
-                                     Style="{StaticResource MenuButtonTheme}"
+                                     Style="{DynamicResource MenuButtonTheme}"
                                      Click="Tab3_Click"/>
+                                    <RadioButton Content="테마 설정"
+                                     Height="50"
+                                      Foreground="{DynamicResource textTitleColor}"
+                                     FontSize="14"
+                                     Style="{DynamicResource MenuButtonTheme}"
+                                     Click="Tab4_Click"/>
                                 </StackPanel>
                             </Grid>
 

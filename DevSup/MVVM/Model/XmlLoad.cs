@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace DevSup.MVVM.Model
@@ -21,16 +22,16 @@ namespace DevSup.MVVM.Model
     {
 
 
-        private static XmlLoad _inst = null; 
+        private static XmlLoad _inst = null;
         /*
            탭관련 설정 하는 로직
            탭 컨트롤러를 받아서 
            추가를 해준다.
           
-         */ 
+         */
         public XmlLoad()
         {
-    
+
         }
 
         public static XmlLoad make()
@@ -45,12 +46,12 @@ namespace DevSup.MVVM.Model
         TabControl maincontrol;
         public void AddTab(TabControl tabControl, string tab_header, string view_name)
         {
-            this.AddTab(tabControl, tab_header, view_name, -1,"");
+            this.AddTab(tabControl, tab_header, view_name, -1, "");
             maincontrol = tabControl;
         }
         public void AddTab(TabControl tabControl, string tab_header, string view_name, string type)
         {
-            this.AddTab(tabControl, tab_header, view_name, -1,type);
+            this.AddTab(tabControl, tab_header, view_name, -1, type);
         }
         private void AddTab(TabControl tabControl, string tab_header, string view_name, int tab_index, string type)
         {
@@ -72,8 +73,9 @@ namespace DevSup.MVVM.Model
             string type_name;
             if (!type.Equals(""))
             {
-                type_name = "DevSup.MVVM.View."+type+"." + view_name;
-            } else
+                type_name = "DevSup.MVVM.View." + type + "." + view_name;
+            }
+            else
             {
                 type_name = "DevSup.MVVM.View." + view_name;
             }
@@ -97,7 +99,7 @@ namespace DevSup.MVVM.Model
                 // 유효하지 않은 경우, TabItem을 마지막에 추가
                 tabControl.Items.Add(ti);
             }
-            
+
         }
 
 
@@ -124,7 +126,7 @@ namespace DevSup.MVVM.Model
                 // 해당 문제점은 빌드 장소에 파일이 있어야한다는 점인데 이걸로 일시 해결
                 //post-build
                 //xcopy /s /y "$(ProjectDir)Config\*" "$(TargetDir)Config\"
-                file_path = string.Format(@".\Config\"+ file_name);
+                file_path = string.Format(@".\Config\" + file_name);
 
             }
 
@@ -180,7 +182,7 @@ namespace DevSup.MVVM.Model
 
         public void SaveTabSetting(ObservableCollection<TabSettingEntity> tabSettings)
         {
-            
+
             string filePath = this.GetConfigXmlFilePath("TabSetting.xml");
             Console.WriteLine(filePath);
             foreach (var item in tabSettings)
@@ -196,13 +198,13 @@ namespace DevSup.MVVM.Model
                 wr.Close();
             }
 
-           
+
         }
 
 
 
-       
-         private ObservableCollection<BasicSettingEntity> ocBasicSetting = new ObservableCollection<BasicSettingEntity>();
+
+        private ObservableCollection<BasicSettingEntity> ocBasicSetting = new ObservableCollection<BasicSettingEntity>();
 
         public ObservableCollection<BasicSettingEntity> GetBasicSetting()
         {
@@ -255,7 +257,7 @@ namespace DevSup.MVVM.Model
 
         public string GetGolden()
         {
-           
+
             ObservableCollection<BasicSettingEntity> settings = GetBasicSetting();
 
             // "GoldenPath" 코드에 해당하는 객체를 찾습니다.
@@ -270,7 +272,7 @@ namespace DevSup.MVVM.Model
             ObservableCollection<BasicSettingEntity> settings = GetBasicSetting();
             BasicSettingEntity PLEditSetting = settings
                 .FirstOrDefault(entity => entity.CODE == "PLEditPath");
-            return PLEditSetting?.VALUE; 
+            return PLEditSetting?.VALUE;
         }
 
 
@@ -345,7 +347,7 @@ namespace DevSup.MVVM.Model
             return ocFavTableInfo;
 
         }
-                
+
         public ObservableCollection<TableSearchInfo> GetFavTableFile()
         {
             string file_path = this.GetConfigXmlFilePath("FavTable.xml");
@@ -363,7 +365,7 @@ namespace DevSup.MVVM.Model
             {
                 xdata = xs.Deserialize(rd) as ObservableCollection<FavTableInfo>;
             }
-            
+
             var FavTable = new ObservableCollection<TableSearchInfo>();
 
             foreach (var item in xdata)
@@ -371,7 +373,7 @@ namespace DevSup.MVVM.Model
 
                 FavTable.Add(new TableSearchInfo(item));
             }
-            
+
             //return ;
             return FavTable;
         }
@@ -446,8 +448,6 @@ namespace DevSup.MVVM.Model
 
 
 
-
-
         public string GetSqlXmlFilePath(string file_name)
         {
             string file_path = "";
@@ -468,7 +468,7 @@ namespace DevSup.MVVM.Model
         public string GetSQL(string filename, string sqlname)
         {
             string filePath = GetSqlXmlFilePath(filename);
-           // Console.WriteLine("여기까진왔습니다.+" + filePath);
+            // Console.WriteLine("여기까진왔습니다.+" + filePath);
 
             if (!File.Exists(filePath))
             {
@@ -491,7 +491,57 @@ namespace DevSup.MVVM.Model
             return queryDTO?.QUERY; // 쿼리 문자열 반환
         }
 
+        public string GetTheme()
+        {
+            string file_path = this.GetConfigXmlFilePath("ThemeSetting.xml");
+            if (!File.Exists(file_path))
+            {
+                return null;
+            }
+            try
+            {
+                XDocument doc = XDocument.Load(file_path);
+                XElement themeElement = doc.Root.Element("Themename");
+                return themeElement?.Value;
+            }
+            catch (Exception ex)
+            {
+                // 예외 처리 (예: 파일 형식 오류, XML 읽기 오류 등)
+                Console.WriteLine($"Error reading XML: {ex.Message}");
+                return null;
+            }
+        }
+        public void SaveTheme(string themeName)
+        {
+            string filePath = GetConfigXmlFilePath("ThemeSetting.xml");
 
-        
+            try
+            {
+                XDocument doc;
+                if (File.Exists(filePath))
+                {
+                    doc = XDocument.Load(filePath);
+                }
+                else
+                {
+                    doc = new XDocument(new XElement("Theme"));
+                }
+
+                XElement themeElement = doc.Root.Element("Themename");
+                if (themeElement == null)
+                {
+                    themeElement = new XElement("Themename");
+                    doc.Root.Add(themeElement);
+                }
+
+                themeElement.Value = themeName;
+                doc.Save(filePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving XML: {ex.Message}");
+            }
+        }
+
     }
 }

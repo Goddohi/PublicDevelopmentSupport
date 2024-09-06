@@ -6,12 +6,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="10"
-                        Background="{StaticResource TextBoxStyleBasicBackground}">
+                        Background="{DynamicResource TextBoxStyleBasicBackground}">
                         <Grid>
-                            <Rectangle StrokeThickness="1" Fill="{StaticResource TextBoxStyleBasicTextBackground}"/>
+                            <Rectangle StrokeThickness="1" Fill="{DynamicResource TextBoxStyleBasicTextBackground}"/>
                             <ScrollViewer x:Name="PART_ContentHost"
                                       Margin="1"
-                                      Background="{StaticResource TextBoxStyleBasicTextBackground}"
+                                      Background="{DynamicResource TextBoxStyleBasicTextBackground}"
                                       VerticalScrollBarVisibility="Auto"
                                       HorizontalScrollBarVisibility="Auto"
                                       Padding="5"/>
