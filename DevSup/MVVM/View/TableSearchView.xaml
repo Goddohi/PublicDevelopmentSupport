@@ -372,8 +372,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{DynamicResource TSGridSplitter}" />
-
+            <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,-2,0,0" Background="{StaticResource TSGridSplitter}" />
             <DataGrid  AutoGenerateColumns="False" HorizontalAlignment="Stretch" x:Name="dgdTableAddInfo" VerticalAlignment="Stretch" 
                            AllowDrop="True" CanUserAddRows="False" Margin="0,0,5,0"  Grid.Row="2" 
                            LoadingRow="Dgd_Info_Load" 

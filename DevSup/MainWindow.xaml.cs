@@ -71,10 +71,9 @@ namespace DevSup
             Application.Current.Shutdown();
         }
 
-
         /*
-   설정 로직 
-  */
+         설정 로직 
+        */
 
         /// <summary>
         /// 기본로딩
