@@ -65,7 +65,7 @@ namespace DevSup.MVVM.Model
             {
                 int commentIndex = code.IndexOf(commentStart);
                 int lastIndex = code.IndexOf(Environment.NewLine, commentIndex);
-                Console.WriteLine(lastIndex);
+                // Console.WriteLine(lastIndex);
                 if (lastIndex == -1)
                     lastIndex = code.Length;
 
@@ -271,8 +271,8 @@ namespace DevSup.MVVM.Model
             string jsonString = ConvertXmlToJson(xmlString);
 
             // 결과 출력
-            Console.WriteLine("JSON:");
-            Console.WriteLine(jsonString);
+            // Console.WriteLine("JSON:");
+            // Console.WriteLine(jsonString);
             return jsonString;
         }
         static string ConvertXmlToJson(string xml)
@@ -382,7 +382,7 @@ namespace DevSup.MVVM.Model
 
             // JSON 문자열을 XML로 변환
             string xml = ConvertJsonToXml(json);
-            Console.WriteLine(xml);
+            //  Console.WriteLine(xml);
             return xml;
         }
         static string ConvertJsonToXml(string json)
@@ -468,7 +468,7 @@ namespace DevSup.MVVM.Model
             string className = rootElement.Name.LocalName;
             string classCode = GenerateClassCode(rootElement, className);
 
-            Console.WriteLine(classCode);
+            //  Console.WriteLine(classCode);
             return classCode;
         }
 

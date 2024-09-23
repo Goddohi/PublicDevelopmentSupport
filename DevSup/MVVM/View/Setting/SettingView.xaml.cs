@@ -43,7 +43,7 @@ namespace DevSup.MVVM.View.Setting
 
         private void TabUsedSetting_SaveClicked(object sender, EventArgs e)
         {
-            Console.WriteLine("눌리는지 테스트 ");
+            //Console.WriteLine("눌리는지 테스트 ");
             this.DialogResult = true;
         }
 

@@ -80,7 +80,7 @@ namespace DevSup.MVVM.Model
                 type_name = "DevSup.MVVM.View." + view_name;
             }
             Type t = Type.GetType(type_name);
-            Console.WriteLine(t);
+            //Console.WriteLine(t);
             if (t == null) return; // 타입이 존재하지 않으면 메서드 종료
             // Type 객체를 사용하여 UserControl의 인스턴스 생성
             UserControl uc = (UserControl)Activator.CreateInstance(t);
@@ -154,13 +154,13 @@ namespace DevSup.MVVM.Model
         public ObservableCollection<TabSettingEntity> GetTabSettingFromSettingFile()
         {
             string file_path = this.GetConfigXmlFilePath("TabSetting.xml");
-            Console.WriteLine("여기까진왔습니다.+" + file_path);
+            // Console.WriteLine("여기까진왔습니다.+" + file_path);
             if (!File.Exists(file_path))
             {
                 return null;
             }
 
-            Console.WriteLine("여기까진왔습니다.2");
+            // Console.WriteLine("여기까진왔습니다.2");
             XmlSerializer xs = new XmlSerializer(typeof(ObservableCollection<TabSettingEntity>));
 
             ObservableCollection<TabSettingEntity> xdata = null;
@@ -184,7 +184,7 @@ namespace DevSup.MVVM.Model
         {
 
             string filePath = this.GetConfigXmlFilePath("TabSetting.xml");
-            Console.WriteLine(filePath);
+            // Console.WriteLine(filePath);
             foreach (var item in tabSettings)
             {
                 Debug.WriteLine($"TABNAME: {item.TABNAME}, VALUE: {item.VALUE}, DETAIL: {item.DETAIL}");
@@ -243,7 +243,7 @@ namespace DevSup.MVVM.Model
         {
 
             string filePath = this.GetConfigXmlFilePath("BasicSetting.xml");
-            Console.WriteLine(filePath);
+            //Console.WriteLine(filePath);
 
             XmlSerializer xs = new XmlSerializer(typeof(ObservableCollection<BasicSettingEntity>));
             using (StreamWriter wr = new StreamWriter(filePath))
@@ -290,7 +290,7 @@ namespace DevSup.MVVM.Model
         public void SaveDBSetting(ObservableCollection<DBUserEntity> dbSettings, int dbnum)
         {
             string filePath = this.GetConfigXmlFilePath("DBSetting.xml");
-            Console.WriteLine(filePath);
+            // Console.WriteLine(filePath);
 
             XmlSerializer serializer = new XmlSerializer(typeof(ConfigDBData));
             ConfigDBData configData;
@@ -351,13 +351,13 @@ namespace DevSup.MVVM.Model
         public ObservableCollection<TableSearchInfo> GetFavTableFile()
         {
             string file_path = this.GetConfigXmlFilePath("FavTable.xml");
-            Console.WriteLine("여기까진왔습니다.+" + file_path);
+            //Console.WriteLine("여기까진왔습니다.+" + file_path);
             if (!File.Exists(file_path))
             {
                 return null;
             }
 
-            Console.WriteLine("여기까진왔습니다.2");
+            //Console.WriteLine("여기까진왔습니다.2");
             XmlSerializer xs = new XmlSerializer(typeof(ObservableCollection<FavTableInfo>));
 
             ObservableCollection<FavTableInfo> xdata = null;
@@ -383,7 +383,7 @@ namespace DevSup.MVVM.Model
         {
 
             string filePath = this.GetConfigXmlFilePath("FavTable.xml");
-            Console.WriteLine(filePath);
+            // Console.WriteLine(filePath);
             foreach (var item in favTableInfos)
             {
                 Debug.WriteLine($"TABNAME: {item.OWNER}, VALUE: {item.TABLE_NAME}, DETAIL: {item.TABLE_COMMENTS}");
@@ -417,13 +417,13 @@ namespace DevSup.MVVM.Model
         public ObservableCollection<FavQueryDTO> GetFavQueryFile()
         {
             string file_path = this.GetConfigXmlFilePath("FavQuery.xml");
-            Console.WriteLine("여기까진왔습니다.+" + file_path);
+            // Console.WriteLine("여기까진왔습니다.+" + file_path);
             if (!File.Exists(file_path))
             {
                 return null;
             }
 
-            Console.WriteLine("여기까진왔습니다.2");
+            //  Console.WriteLine("여기까진왔습니다.2");
             XmlSerializer xs = new XmlSerializer(typeof(ObservableCollection<FavQueryDTO>));
 
             ObservableCollection<FavQueryDTO> xdata = null;

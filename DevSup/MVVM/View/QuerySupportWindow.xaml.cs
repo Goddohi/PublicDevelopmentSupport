@@ -411,7 +411,7 @@ namespace DevSup.MVVM.View
             {
                 int commentIndex = code.IndexOf(commentStart);
                 int lastIndex = code.IndexOf(Environment.NewLine, commentIndex);
-                Console.WriteLine(lastIndex);
+                // Console.WriteLine(lastIndex);
                 if (lastIndex == -1)
                     lastIndex = code.Length;
 

@@ -62,29 +62,30 @@ namespace DevSup.MVVM.View
         {
             this.TxtSelect.Text = query;
             ExcuteSelectQuery();
-            
-          }
+
+        }
 
         // 쿼리 실행
         public void ExcuteSelectQuery()
         {
             string query = this.TxtSelect.Text.Replace(";", "").Trim();
-            if (query.ToUpper().StartsWith("SELECT")) { 
-            
-            try
+            if (query.ToUpper().StartsWith("SELECT"))
             {
-                var results = DataService.GetTableColumns<object>(query);
-                dgdResult.ItemsSource = results;
-            }
-    
-            catch (Exception ex)
-            {
-                MessageWindow.Instance.ShowMessage(ex.Message);
-                // MessageBox.Show(ex.Message);
-                query = string.Format(query);
-                this.TxtSelect.Text = query;
- 
-            }
+
+                try
+                {
+                    var results = DataService.GetTableColumns<object>(query);
+                    dgdResult.ItemsSource = results;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageWindow.Instance.ShowMessage(ex.Message);
+                    // MessageBox.Show(ex.Message);
+                    query = string.Format(query);
+                    this.TxtSelect.Text = query;
+
+                }
             }
             else
             {
@@ -102,6 +103,11 @@ namespace DevSup.MVVM.View
             {
                 ExcuteSelectQuery();
             }
+        }
+
+        private void BtSelectQuery_Click(object sender, RoutedEventArgs e)
+        {
+            ExcuteSelectQuery();
         }
     }
 }

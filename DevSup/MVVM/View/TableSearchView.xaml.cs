@@ -139,7 +139,7 @@ namespace DevSup.MVVM.View
                     var keywords = filterText.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     var selectedItem = (ComboBoxItem)CboAndOr.SelectedItem;
                     var isOrCondition = selectedItem.Content.Equals("OR");
-                    Console.WriteLine(isOrCondition ? "ㅅㄱ" : "ㅅㅍ");
+                    //  Console.WriteLine(isOrCondition ? "ㅅㄱ" : "ㅅㅍ");
                     if (ChkOwnerFilter.IsChecked == true)
                     {
                         view.Filter = item =>
@@ -265,7 +265,7 @@ namespace DevSup.MVVM.View
                     var keywords = filterText.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     var selectedItem = (ComboBoxItem)CboAndOrCol.SelectedItem; //여기 메소드마다 다름 
                     var isOrCondition = selectedItem.Content.Equals("OR");
-                    Console.WriteLine(isOrCondition ? "ㅅㄱ" : "ㅅㅍ");
+                    // Console.WriteLine(isOrCondition ? "ㅅㄱ" : "ㅅㅍ");
                     view.Filter = item =>
                     {
                         if (item is TableColumnInfo tableColInfo)
@@ -317,7 +317,7 @@ namespace DevSup.MVVM.View
                     var keywords = filterText.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     var selectedItem = (ComboBoxItem)CboAndOrObj.SelectedItem; //여기 메소드마다 다름 
                     var isOrCondition = selectedItem.Content.Equals("OR");
-                    Console.WriteLine(isOrCondition ? "ㅅㄱ" : "ㅅㅍ");
+                    // Console.WriteLine(isOrCondition ? "ㅅㄱ" : "ㅅㅍ");
                     view.Filter = item =>
                     {
                         if (item is TableSearchRefInfo tableRefInfo)
@@ -1490,8 +1490,8 @@ namespace DevSup.MVVM.View
         private void BtnSelectQuery_Click(object sender, RoutedEventArgs e)
         {
             string query = MakeQueryBasic();
-            Console.WriteLine(query);
-            Console.WriteLine("실행되나");
+            // Console.WriteLine(query);
+            // Console.WriteLine("실행되나");
             QuerySelectRunTab qsr = this.OwnerWindow.GetTabItem("tiQuerySelectRunTab") as QuerySelectRunTab;
             if (qsr == null)
             {

@@ -389,7 +389,7 @@ namespace DevSup.MVVM.View
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(dgdFavQuery.ToString());
+            // Console.WriteLine(dgdFavQuery.ToString());
             if (!(dgdFavQuery.SelectedItem is FavQueryDTO item))
             {
                 var new_it = new FavQueryDTO();

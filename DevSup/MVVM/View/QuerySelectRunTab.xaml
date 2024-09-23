@@ -10,18 +10,21 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="9.5" />
+            <RowDefinition Height="10.5"/>
             <RowDefinition Height="*" />
 
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
-        <TextBlock Foreground="{DynamicResource textmainColor}"> Select 문 만 가능하고 입력창에서 Ctrl+ Endter누를 경우 실행이 됩니다.</TextBlock>
-        <TextBox Grid.Row="1" x:Name="TxtSelect" Foreground="{DynamicResource textmainColor}" Style="{DynamicResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" 
+        <TextBlock Foreground="{DynamicResource textmainColor}" Grid.RowSpan="2"> Select 문 만 가능하고 입력창에서 Ctrl+ Endter누를 경우 실행이 됩니다.</TextBlock>
+        <Button Style="{StaticResource DefaultButtonStyle1}" ToolTip="입력된 Select문을 실행합니다." Content="Select실행"  Click="BtSelectQuery_Click" Margin="0,2,2,0" Height="20" Width="60" Grid.RowSpan="3" />
+
+        <TextBox Grid.Row="2" x:Name="TxtSelect" Foreground="{DynamicResource textmainColor}" Style="{DynamicResource ModernTextfreebox}" TextWrapping="Wrap" AcceptsReturn="True" 
                      FontFamily="Consolas"  VerticalScrollBarVisibility="Auto" Grid.Column ="0" FontSize="14" TextChanged="TxtSelect_TextChanged"
                      Margin="0,0,5,0" GotFocus="TxtSelect_GotFocus"  PreviewKeyDown="TxtSelect_KeyDown" />
 
-        <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Transparent" />
-        <DataGrid Margin="0,2,0,0" Grid.Row="2" AutoGenerateColumns="True" HorizontalAlignment="Stretch" x:Name="dgdResult" VerticalAlignment="Stretch" VirtualizingStackPanel.IsVirtualizing="True"
+        <GridSplitter Grid.Row="3" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Transparent" />
+        <DataGrid Margin="0,2,0,0" Grid.Row="3" AutoGenerateColumns="True" HorizontalAlignment="Stretch" x:Name="dgdResult" VerticalAlignment="Stretch" VirtualizingStackPanel.IsVirtualizing="True"
                        AllowDrop="False" CanUserAddRows="False" EnableRowVirtualization="True"   EnableColumnVirtualization="True"/>
     </Grid>
 </core:UCBase>
