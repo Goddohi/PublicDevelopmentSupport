@@ -148,16 +148,21 @@ namespace DevSup.MVVM.Model
                         newLine = true;
                         str = "  " + str;
                     }
-                    if (i < arrLine.Length)
+                    if (i < arrLine.Length - 1)
                     {
-                        str = LenSizeIUp(str + " " + arrLine[++i], totalLength);
-
+                        if (arrLine[i].Equals("UNION") && !arrLine[i + 1].Equals("ALL")) //UNION ALL이 아닐때 
+                        {
+                        }
+                        else
+                        {
+                            str = LenSizeIUp(str + " " + arrLine[++i], totalLength);
+                        }
                         indentLevel = indentLevel - 1 <= 0 ? 0 : indentLevel - 1;
                         sb.Append(newLine ? "" : Environment.NewLine);
                         sb.Append(AddIndentation(indentLevel++) + str + " ");
                         newLine = false;
                     }
-                    else { }
+                    else { sb.Append(str); } // 뒤의 글자가 없는 경우 (입력) 꺼지는 현상 수정
                 }
                 else if (str.Equals(","))
                 {
